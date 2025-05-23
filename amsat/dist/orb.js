@@ -711,26 +711,28 @@ var Orb = {
       (0 == segs || 15 == segs || 30 == segs || 45 == segs) &&
       navigator.onLine
     ) {
-      if (
-        (xmlHttp.open("GET", "chat/luser.php"),
-        xmlHttp.send(null),
-        xmlHttp.open("GET", "chat/users.html?rnd=" + Math.random(1e3)),
-        xmlHttp.send(null),
-        nasabare.length > 3)
-      ) {
-        var toolt = "At Chat\n";
-        // (nasabare = nasabare.replace(/<br>/g, "")).substring(
-        //   0,
-        //   nasabare.length - 2,
-        // );
-        "t.gif" == (urlright = document.getElementById("chat").src.slice(-5)) &&
-          !0 == bip &&
-          jBeep("Beep.wav"),
-          (document.getElementById("chat").alt = toolt),
-          (document.getElementById("chat").title = toolt),
-          (document.getElementById("chat").src =
-            "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/chati.gif"),
-          (nasabare = "");
+      // if (
+      //   (xmlHttp.open("GET", "chat/luser.php"),
+      //   xmlHttp.send(null),
+      //   xmlHttp.open("GET", "chat/users.html?rnd=" + Math.random(1e3)),
+      //   xmlHttp.send(null),
+      //   nasabare.length > 3)
+      // ) {
+      //   var toolt = "At Chat\n";
+      //   // (nasabare = nasabare.replace(/<br>/g, "")).substring(
+      //   //   0,
+      //   //   nasabare.length - 2,
+      //   // );
+      //   "t.gif" == (urlright = document.getElementById("chat").src.slice(-5)) &&
+      //     !0 == bip &&
+      //     jBeep("Beep.wav"),
+      //     (document.getElementById("chat").alt = toolt),
+      //     (document.getElementById("chat").title = toolt),
+      //     (document.getElementById("chat").src =
+      //       "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/chati.gif"),
+      //     (nasabare = "");
+      // }
+      if (false) {
       } else
         "i.gif" == (urlright = document.getElementById("chat").src.slice(-5)) &&
           !0 == bip &&
