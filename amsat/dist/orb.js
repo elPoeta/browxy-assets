@@ -729,7 +729,8 @@ var Orb = {
           jBeep("Beep.wav"),
           (document.getElementById("chat").alt = toolt),
           (document.getElementById("chat").title = toolt),
-          (document.getElementById("chat").src = "chati.gif"),
+          (document.getElementById("chat").src =
+            "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/chati.gif"),
           (nasabare = "");
       } else
         "i.gif" == (urlright = document.getElementById("chat").src.slice(-5)) &&
@@ -737,7 +738,8 @@ var Orb = {
           jBeep("bell1.wav"),
           (document.getElementById("chat").alt = "Chat"),
           (document.getElementById("chat").title = "Chat"),
-          (document.getElementById("chat").src = "chat.gif");
+          (document.getElementById("chat").src =
+            "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/chat.gif");
     }
     if (localtime) var zulu = "&nbsp;";
     else var zulu = "z";
@@ -3743,7 +3745,9 @@ function sh(e, a) {
         (l.style.backgroundRepeat = "no-repeat"),
           firstclick || "noclick" != a || savesatid != e
             ? PLib.tleData.length > 2 &&
-              ((l.style.backgroundImage = "url(box.gif)"), (savebox = satname))
+              ((l.style.backgroundImage =
+                "url(https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/box.gif)"),
+              (savebox = satname))
             : (l.style.backgroundImage = "");
       }
     }
