@@ -1612,7 +1612,9 @@ function setzoom(e) {
     (document.getElementById("z" + e).style.color = "red"),
     (satactivity = satactivity + "ZOOM" + zoom + "/"),
     (document.getElementById("map").style.backgroundImage =
-      "url(world" + zoom + ".jpg)"),
+      "url(https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/world" +
+      zoom +
+      ".jpg)"),
     Orb.setHomeCoordinates(localat, localon),
     1 == zoom
       ? (document.getElementById("Div1").style.color = "#000000")
