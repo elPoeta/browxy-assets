@@ -452,7 +452,7 @@ var Orb = {
     (u.id = "home"),
       Orb.crossBrowserSetStyle(
         u,
-        "position:relative; cursor:pointer; width: 24px; height: 24px; background-image: url(home.gif); z-index: 2;",
+        "position:relative; cursor:pointer; width: 24px; height: 24px; background-image: url(https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/home.gif); z-index: 2;",
         !1,
       ),
       (u.alt =
@@ -600,7 +600,7 @@ var Orb = {
       }
     Orb.crossBrowserSetStyle(
       u,
-      "position:absolute; cursor:pointer; width: 36px; height: 24px; z-index: 2; background-image: url(" +
+      "position:absolute; cursor:pointer; width: 36px; height: 24px; z-index: 2; background-image: url(https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/" +
         seticon +
         ");",
       !1,
@@ -4057,7 +4057,7 @@ function comment() {
     (codata += "</table></form></center>"),
     (codata =
       codata +
-      '<div id=mapac style="position:absolute;top:0px;left:0px;width: 24px; height: 24px; background-image: url(' +
+      '<div id=mapac style="position:absolute;top:0px;left:0px;width: 24px; height: 24px; background-image: url(https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/' +
       Image4.src +
       '); z-index: -1; top:0; left:0;"></div>'),
     (codata +=
