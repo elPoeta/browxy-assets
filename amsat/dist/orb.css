@@ -1,0 +1,163 @@
+th.orb-header { border: 1px solid #C4DCB3; padding: 0px; background: #7C9F61; font-family:Tahoma, Arial; font-size:17px;line-height:20px; font-weight:bold;}
+th.orb-header1 { border: 1px solid #C4DCB3; padding: 0px; background: #7C9F61; font-family:Tahoma, Arial; font-size:14px;line-height:14px; font-weight:bold;}
+
+td.orb-detailred { border: 1px solid #DFEBD5; padding: 0px; background: #C4DCB3; font-family:Tahoma,Arial; color: #ff0000; font-size:18px;line-height:18px;}
+
+td.orb-detail { border: 1px solid #DFEBD5; padding: 0px; background: #C4DCB3; font-family:Tahoma,Arial; font-size:18px;line-height:18px;}
+td.orb-detail-underline { border: 1px solid #DFEBD5; padding: 0px; background: #C4DCB3; font-family:Tahoma,Arial; font-size:18px;line-height:18px; text-decoration:underline;}
+
+td.orb-detailright { border: 1px solid #DFEBD5; padding: 0px; background: #C4DCB3; font-family:Tahoma,Arial; font-size:18px;line-height:18px; text-align:right;}
+td.orb-detailcenter { border: 1px solid #DFEBD5; padding: 0px; background: #C4DCB3; font-family:Tahoma,Arial; font-size:18px;line-height:18px; text-align:center;}
+
+td.orb-detailVisible { border: 1px solid #DFEBD5; padding: 0px; background: #ffd699; font-family:Tahoma,Arial; font-size:18px;line-height:18px;}
+td.orb-detailVisible-underline { border: 1px solid #DFEBD5; padding: 0px; background: #ffd699; font-family:Tahoma,Arial; font-size:18px;line-height:18px; text-decoration:underline;}
+td.orb-detailVisibleright { border: 1px solid #DFEBD5; padding: 0px; background: #ffd699; font-family:Tahoma,Arial; font-size:18px;line-height:18px;text-align:right;}
+td.orb-detailVisiblecenter { border: 1px solid #DFEBD5; padding: 0px; background: #ffd699; font-family:Tahoma,Arial; font-size:18px;line-height:18px;text-align:center;}
+
+.classhora { border: 1px solid #DFEBD5; padding: 1px; background: #C4DCB3; font-family:Tahoma,Arial; font-size:18px;line-height:18px; text-align:center;}
+.tit {font-family:tahoma,arial,trebuchet;font-size:13px;font-weight:bold;line-height:15px;background:#172447;color:#ffffff;}
+.det1 {font-family:tahoma,arial,trebuchet;font-size:12px;font-weight:normal;line-height:12px;color:#000000;}
+.det2 {font-family:tahoma,arial,trebuchet;font-size:12px;font-weight:normal;line-height:12px;}
+a:link{text-decoration:none;}
+.transparent_class {
+  /* IE 8 */
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=17)";
+
+  /* IE 5-7 */
+  filter: alpha(opacity=17);
+
+  /* Netscape */
+  -moz-opacity: 0.17;
+
+  /* Safari 1.x */
+  -khtml-opacity: 0.17;
+
+  /* Good browsers */
+  opacity: 0.17;
+}
+.xz 
+{
+z-index: 6;
+color: cyan;
+} 
+a.xz:link {
+  color: cyan ;
+  background-color: transparent ;
+}
+a.xz:hover {
+  color: red ;
+  background-color: yellow ;
+}
+a.xz:active {
+  color: cyan; 
+  background-color: red ;
+}
+a.xz:focus {
+  color: red ;
+  background-color: yellow ;
+}
+.arrow 
+{
+    color: #00ffff ;
+    font-size: 12px ;
+    font-weight: bold;
+    text-align: center ;
+}
+hr {
+  clear:      both;
+  margin:     -7px -7px;
+  display:    block;
+  color:    #777777;
+}
+input {text-align: center ;}
+p {padding-left: 66px;margin: 0px 0;}
+a:active {
+  color: #ffffff; 
+  background-color: red ;
+}
+a:link {
+  color: #ffffff ;
+  background-color: transparent ;
+}
+a:visited {
+  color: #ffffff ;
+  background-color: transparent ;
+}
+a:hover {
+  color: #ffffff ;
+  background-color: red ;
+}
+IMG.disp {
+    display: block;
+    margin-left: auto;
+    margin-right: auto }
+.box {
+    position: relative;
+    display: inline-block;}
+.box .text {
+        position: absolute;
+        z-index: 999;
+        margin: 0 auto;
+        left: 0;
+        right: 2%;
+        top: -2%; /* Adjust this value to move the positioned div up and down */
+        text-align: center;
+        width: 100%; /* Set the width of the positioned div */
+        color: #000000;
+        font-size:12px;
+        font-weight:bold;
+        cursor:pointer;
+    }
+
+@media print 
+{
+    table {page-break-after: avoid; page-break-before: avoid; page-break-inside: avoid; }
+    thead th {height: 7mm;}
+    table th:first-child {display:none}    
+    table td:first-child {display:none}
+    p {padding-left: 54px;margin: 0px 0;}
+    .tableprint 
+    {
+        display: block !important;
+    }
+   .noprint {
+       display: none ;
+    }
+    .transparent_class 
+    {
+        -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+        filter: alpha(opacity=0);
+        -moz-opacity: 0;
+        -khtml-opacity: 0;
+        opacity: 0;   
+    }
+    html
+    {
+        width: 210mm;
+        height: 297mm;
+        margin: 1mm 1mm 28mm 5mm;  /* this affects the margin on the html before sending to printer */
+        page-break-after: avoid; page-break-before: avoid; page-break-inside: avoid; 
+    }
+    body
+    {
+ 	width: 210mm;
+	width: 85%;
+        height: 297mm;
+        background-color: #FFFFFF !important; 
+        margin: 1mm 1mm 28mm 5mm;  /* this affects the margin on the html before sending to printer */
+        color:#000000;
+        text-align:left;
+        page-break-after: avoid; page-break-before: avoid; page-break-inside: avoid;
+	overflow: hidden;
+    }
+    th.orb-header {background: #FFFFFF;font-family:Arial;font-size:14pt;line-height:14pt;padding:0px 5px 0px 5px;white-space:nowrap;}
+    th.orb-header1 {background: #FFFFFF;font-family:Arial;font-size:14pt;line-height:14pt;padding:0px 5px 0px 5px;white-space:nowrap}
+    td.orb-detail {background: #FFFFFF;font-family:Arial;font-size:14pt;line-height:14pt;padding:0px 5px 0px 5px;white-space:nowrap;}
+    td.orb-detail-underline {background: #FFFFFF;font-family:Arial;font-size:14pt;line-height:14pt;padding:0px 5px 0px 5px;white-space:nowrap;text-decoration:none;}
+    td.orb-detailright {background: #FFFFFF;font-family:Arial;font-size:14pt;line-height:14pt;padding:0px 5px 0px 5px;white-space:nowrap}
+    td.orb-detailcenter {background: #FFFFFF;font-family:Arial;font-size:14pt;line-height:14pt;padding:0px 5px 0px 5px;white-space:nowrap}
+    td.orb-detailVisible {background: #FFFFFF;font-family:Arial;font-size:14pt;line-height:14pt;padding:0px 5px 0px 5px;white-space:nowrap}
+    td.orb-detailVisible-underline {background: #FFFFFF;font-family:Arial;font-size:14pt;line-height:14pt;padding:0px 5px 0px 5px;white-space:nowrap;text-decoration:none;}
+    td.orb-detailVisibleright {background: #FFFFFF;font-family:Arial;font-size:14pt;line-height:14pt;padding:0px 5px 0px 5px;white-space:nowrap}
+    td.orb-detailVisiblecenter {background: #FFFFFF;font-family:Arial;font-size:14pt;line-height:14pt;padding:0px 5px 0px 5px;white-space:nowrap}
+}  
