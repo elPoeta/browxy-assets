@@ -408,41 +408,69 @@ function printpr() {
       10 > ahora.getMinutes() ? "0" + ahora.getMinutes() : ahora.getMinutes())),
   "-" != (huso = (-1 * husohoras).toString()).substring(0, 1) &&
     (huso = "%2B" + huso),
-  ((Image0 = new Image(20, 18)).src = "printicon.gif"),
-  ((Image1 = new Image(540, 270)).src = "world1.jpg"),
-  ((Image2 = new Image(22, 22)).src = "speakeron.gif"),
-  ((Image3 = new Image(22, 22)).src = "speakeroff.gif"),
-  ((Image4 = new Image(24, 24)).src = "home.gif"),
-  ((Image5 = new Image(36, 24)).src = "mon.gif"),
-  ((Image6 = new Image(19, 11)).src = "sun1.gif"),
-  ((Image7 = new Image(36, 24)).src = "satnoa.gif"),
-  ((Image8 = new Image(36, 24)).src = "saticon2.gif"),
-  ((Image9 = new Image(36, 24)).src = "saticon3.gif"),
-  ((Image10 = new Image(36, 24)).src = "iss.gif"),
-  ((Image11 = new Image(36, 24)).src = "saticon4.gif"),
-  ((Image12 = new Image(36, 24)).src = "saticony.gif"),
-  ((Image13 = new Image(36, 24)).src = "unknown.gif"),
-  ((Image14 = new Image(118, 19)).src = "box.gif"),
-  ((Image15 = new Image(16, 16)).src = "favicon.gif"),
-  ((Image16 = new Image(128, 128)).src = "cal.gif"),
-  ((Image17 = new Image(22, 22)).src = "birdon.gif"),
-  ((Image18 = new Image(22, 22)).src = "birdoff.gif"),
-  ((Image19 = new Image(200, 186)).src = "ft.gif"),
-  ((Image20 = new Image(180, 180)).src = "arrow.jpg"),
-  ((Image21 = new Image(170, 60)).src = "bubble.gif"),
-  ((Image22 = new Image(24, 18)).src = "mail.gif"),
-  ((Image23 = new Image(810, 405)).src = "world1.5.jpg"),
-  ((Image24 = new Image(22, 22)).src = "chat.gif"),
-  ((Image26 = new Image(54, 16)).src = "donate.gif"),
-  ((Image27 = new Image(16, 16)).src = "chati.gif"),
-  ((Image28 = new Image(190, 88)).src = "et.gif");
+  ((Image0 = new Image(20, 18)).src =
+    "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/printicon.gif"),
+  ((Image1 = new Image(540, 270)).src =
+    "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/world1.jpg"),
+  ((Image2 = new Image(22, 22)).src =
+    "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/speakeron.gif"),
+  ((Image3 = new Image(22, 22)).src =
+    "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/speakeroff.gif"),
+  ((Image4 = new Image(24, 24)).src =
+    "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/home.gif"),
+  ((Image5 = new Image(36, 24)).src =
+    "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/mon.gif"),
+  ((Image6 = new Image(19, 11)).src =
+    "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/sun1.gif"),
+  ((Image7 = new Image(36, 24)).src =
+    "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/satnoa.gif"),
+  ((Image8 = new Image(36, 24)).src =
+    "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/aticon2.gif"),
+  ((Image9 = new Image(36, 24)).src =
+    "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/saticon3.gif"),
+  ((Image10 = new Image(36, 24)).src =
+    "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/iss.gif"),
+  ((Image11 = new Image(36, 24)).src =
+    "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/saticon4.gif"),
+  ((Image12 = new Image(36, 24)).src =
+    "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/saticony.gif"),
+  ((Image13 = new Image(36, 24)).src =
+    "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/unknown.gif"),
+  ((Image14 = new Image(118, 19)).src =
+    "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/box.gif"),
+  ((Image15 = new Image(16, 16)).src =
+    "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/favicon.gif"),
+  ((Image16 = new Image(128, 128)).src =
+    "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/cal.gif"),
+  ((Image17 = new Image(22, 22)).src =
+    "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/birdon.gif"),
+  ((Image18 = new Image(22, 22)).src =
+    "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/birdoff.gif"),
+  ((Image19 = new Image(200, 186)).src =
+    "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/ft.gif"),
+  ((Image20 = new Image(180, 180)).src =
+    "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/arrow.jpg"),
+  ((Image21 = new Image(170, 60)).src =
+    "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/bubble.gif"),
+  ((Image22 = new Image(24, 18)).src =
+    "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/mail.gif"),
+  ((Image23 = new Image(810, 405)).src =
+    "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/world1.5.jpg"),
+  ((Image24 = new Image(22, 22)).src =
+    "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/chat.gif"),
+  ((Image26 = new Image(54, 16)).src =
+    "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/donate.gif"),
+  ((Image27 = new Image(16, 16)).src =
+    "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/chati.gif"),
+  ((Image28 = new Image(190, 88)).src =
+    "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/et.gif");
 var Orb = {
   satelliteMarkers: [],
   startTracking: function (e, a, l) {
     (Orb.map = e),
       Orb.crossBrowserSetStyle(
         e,
-        "background-image: url(world" +
+        "background-image: url(https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/world" +
           zoom +
           ".jpg); background-position: 0 0; overflow: hidden;",
         !0,
@@ -4057,7 +4085,7 @@ function comment() {
     (codata += "</table></form></center>"),
     (codata =
       codata +
-      '<div id=mapac style="position:absolute;top:0px;left:0px;width: 24px; height: 24px; background-image: url(https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/' +
+      '<div id=mapac style="position:absolute;top:0px;left:0px;width: 24px; height: 24px; background-image: url(' +
       Image4.src +
       '); z-index: -1; top:0; left:0;"></div>'),
     (codata +=
