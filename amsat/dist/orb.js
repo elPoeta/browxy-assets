@@ -148,15 +148,15 @@ var satfreqpointer = 0,
 var enchat = "",
   rando = ("00" + Math.floor(100 * Math.random())).slice(-2),
   iconos = [
-    "saticon5.gif",
-    "saticon4.gif",
-    "saticon2.gif",
-    "saticon3.gif",
-    "satnoa.gif",
-    "iss.gif",
-    "mon.gif",
-    "saticony.gif",
-    "unknown.gif",
+    "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/saticon5.gif",
+    "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/saticon4.gif",
+    "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/saticon2.gif",
+    "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/saticon3.gif",
+    "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/satnoa.gif",
+    "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/iss.gif",
+    "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/mon.gif",
+    "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/saticony.gif",
+    "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/unknown.gif",
   ];
 if (
   ((document.onkeydown = function (e) {
@@ -352,7 +352,7 @@ function show_calendar(e, a) {
   (_ +=
     '<script language=javascript type=text/javascript>ff=new Date();savetime=(\'0\'+ff.getHours()).slice(-2)+\':\'+(\'0\'+ff.getMinutes()).slice(-2)+\':00\';function checknumeric(valor){oldvalue=valor;valor=valor.replace(/:/g,\'\');if(!opener.isNumeric(valor)){alert(\'Invalid Time\\n\'+oldvalue+\'\\n..Reenter..\');document.getElementById(\'time\').value=savetime;};}<\/script><form name="cal" style="margin-bottom:0;margin-top:0;">\n<tr style="border-color:#ffffff;border-width:0px;"><td align="center" style="border-color:#ffffff;border-width:0px;" colspan="7" bgcolor="#87CEFA"><font color="White" face="tahoma, verdana" size="3">Time: <input type="text" id="time" name="time" value="' +
     dt2tmstr(g) +
-    '" size="6" onchange="checknumeric(this.value);" style="text-align:center;" maxlength="8"></font>&nbsp;<input type=button style="borde-style:outset;border-width:2px;border-color:#999999;" id="salir" name="salir" onclick="opener.MockDate.reset();opener.Orb.generateTable(opener.document.getElementById(\'passes\'));opener.tablelasttime = new(Date);opener.dateset=false;opener.document.getElementById(\'changedate\').style.left=\'211px\';opener.document.getElementById(\'cal\').style.width=\'16px\';opener.satactivity=opener.satactivity+\'CALERESET/\';self.close();" value=Reset></td></tr>\n</form>\n</table>\n</tr>\n</td>\n</table><font color="White" face="tahoma, verdana" size="3"><center>Set Time & Click Day</center></font></body>\n</html>\n'),
+    '" size="6" onchange="checknumeric(this.value);" style="text-align:center;" maxlength="8"><\/font>&nbsp;<input type=button style="borde-style:outset;border-width:2px;border-color:#999999;" id="salir" name="salir" onclick="opener.MockDate.reset();opener.Orb.generateTable(opener.document.getElementById(\'passes\'));opener.tablelasttime = new(Date);opener.dateset=false;opener.document.getElementById(\'changedate\').style.left=\'211px\';opener.document.getElementById(\'cal\').style.width=\'16px\';opener.satactivity=opener.satactivity+\'CALERESET/\';self.close();" value=Reset><\/td><\/tr>\n<\/form>\n<\/table>\n<\/tr>\n<\/td>\n<\/table><font color="White" face="tahoma, verdana" size="3"><center>Set Time & Click Day<\/center><\/font><\/body>\n<\/html>\n'),
     (altura = navigator.userAgent.match(/Opera|OPR\//) ? "328" : "236");
   var I = window.open(
     "",
@@ -501,7 +501,7 @@ var Orb = {
           (document.getElementById("graphics").innerHTML =
             '<img src="https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/arrow.jpg" border=2 style="border-color:#ffffff;width:180px;height:180px;border-radius: 6px 6px 6px 6px;" width=180 height=180 title="Tracking satellites" alt="Tracking satellites">'),
           (document.getElementById("trackingdata").innerHTML =
-            '<center>Click <img src=saticon2.gif border=0 width="25px" style="width:25px;"> Satellite<br>To see Az/El/Freq<br>Click <a href=#change><img src="https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/home.gif" title="Click to change Grid Locator" width=18px height="18px" border=0 style="width:18px;height:18px;"></a> to set QTH</center>'),
+            '<center>Click <img src="https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/saticon2.gif" border=0 width="25px" style="width:25px;"> Satellite<br>To see Az/El/Freq<br>Click <a href=#change><img src="https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/home.gif" title="Click to change Grid Locator" width=18px height="18px" border=0 style="width:18px;height:18px;"></a> to set QTH</center>'),
           (document.getElementById("azel").innerHTML = ""),
           (document.getElementById("uplinkdownlink").style.top = "268px");
       }),
@@ -707,41 +707,40 @@ var Orb = {
     (yellowcount = 0), (wispextra = "");
     var satInfo,
       segs = new Date().getSeconds();
+
     if (
       (0 == segs || 15 == segs || 30 == segs || 45 == segs) &&
       navigator.onLine
     ) {
-      // if (
-      //   (xmlHttp.open("GET", "chat/luser.php"),
-      //   xmlHttp.send(null),
-      //   xmlHttp.open("GET", "chat/users.html?rnd=" + Math.random(1e3)),
-      //   xmlHttp.send(null),
-      //   nasabare.length > 3)
-      // ) {
-      //   var toolt = "At Chat\n";
-      //   // (nasabare = nasabare.replace(/<br>/g, "")).substring(
-      //   //   0,
-      //   //   nasabare.length - 2,
-      //   // );
-      //   "t.gif" == (urlright = document.getElementById("chat").src.slice(-5)) &&
-      //     !0 == bip &&
-      //     jBeep("Beep.wav"),
-      //     (document.getElementById("chat").alt = toolt),
-      //     (document.getElementById("chat").title = toolt),
-      //     (document.getElementById("chat").src =
-      //       "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/chati.gif"),
-      //     (nasabare = "");
-      // }
-      if (false) {
+      if (
+        (xmlHttp.open("GET", "chat/luser.php"),
+        xmlHttp.send(null),
+        xmlHttp.open("GET", "chat/users.html?rnd=" + Math.random(1e3)),
+        xmlHttp.send(null),
+        nasabare.length > 3)
+      ) {
+        var toolt =
+          "At Chat\n" +
+          (nasabare = nasabare.replace(/<br>/g, "")).substring(
+            0,
+            nasabare.length - 2,
+          );
+        "t.gif" == (urlright = document.getElementById("chat").src.slice(-5)) &&
+          !0 == bip &&
+          jBeep("Beep.wav"),
+          (document.getElementById("chat").alt = toolt),
+          (document.getElementById("chat").title = toolt),
+          (document.getElementById("chat").src = "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/chati.gif"),
+          (nasabare = "");
       } else
         "i.gif" == (urlright = document.getElementById("chat").src.slice(-5)) &&
           !0 == bip &&
           jBeep("bell1.wav"),
           (document.getElementById("chat").alt = "Chat"),
           (document.getElementById("chat").title = "Chat"),
-          (document.getElementById("chat").src =
-            "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/chat.gif");
+          (document.getElementById("chat").src = "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/chat.gif");
     }
+
     if (localtime) var zulu = "&nbsp;";
     else var zulu = "z";
     var uptext =
@@ -1239,7 +1238,7 @@ var Orb = {
       ) {
         if (
           ((yellowcount += 1),
-          "url(saticony.gif)" !=
+          "url(https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/saticony.gif)" !=
             document.getElementById("satelliteMarker" + i).style
               .backgroundImage)
         ) {
@@ -1249,13 +1248,13 @@ var Orb = {
           )
             document.getElementById(
               "satelliteMarker" + i,
-            ).style.backgroundImage = "url(mon.gif)";
+            ).style.backgroundImage = "url(https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/mon.gif)";
           else {
             for (
               k = 2,
                 document.getElementById(
                   "satelliteMarker" + i,
-                ).style.backgroundImage = "url(saticony.gif)",
+                ).style.backgroundImage = "url(https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/saticony.gif)",
                 saten = PLib.tleData[i][0].toUpperCase();
               k < PLib.tleData.length + 1;
               k++
@@ -1425,7 +1424,7 @@ var Orb = {
             ((E.onmouseover = function () {
               birdsw &&
                 (document.getElementById("satimage").innerHTML =
-                  '<img class="disp" src="https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/sat"' +
+                  '<img class="disp" src=https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/sat' +
                   this.title.toLowerCase().replace(/ /, "") +
                   ".gif>");
             }),
@@ -1448,7 +1447,7 @@ var Orb = {
               (c = saveClassName)),
           savebox == E.title &&
             ((E.style.backgroundRepeat = "no-repeat"),
-            (E.style.backgroundImage = "url(box.gif)")),
+            (E.style.backgroundImage = "url(https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/box.gif)")),
           null == aostime[g[w].number - 1] &&
             (aostime[g[w].number - 1] = addMinutes(
               g[w].dateTimeStart,
@@ -2803,10 +2802,10 @@ function versats(e) {
   }
   9 != e
     ? ((a +=
-        '<tr style=\'font-size:bold;color:#ffffff;background-color:#000000;height:12px;\'><td align=center style="white-space:nowrap;cursor:pointer;" title="*=Selected&#13& Catalog #"><b>I CAT#</b></td><td align=center><b>NAME</b></td><td align=center style="cursor:pointer;" title="Center Frequency"><b>&nbsp;Uplink</b></td><td align=center style="cursor:pointer;" title="Center Frequency"><b>&nbsp;Dwlink</b></td><td align=center><b>&nbsp;Beacon</b></td><td align=center style="cursor:pointer;" title="Uplink Mode"><b>&nbsp;UM&nbsp;</b></td><td align=center style="cursor:pointer;" title="Downlink Mode"><b>&nbsp;&nbsp;DM&nbsp;&nbsp;</b></td><td align=center style="cursor:pointer;" title="Beacon Mode"><b>&nbsp;BM</b></td><td align=center><b>&nbsp;R/N</b></td><td align=center><b>&nbsp;T</b></td><td align=center style="cursor:pointer;" title="Subtone CTCSS"><b>&nbsp;ST</b></td><td align=center style=\'white-space:nowrap;\'><b>&nbsp;&nbsp;&nbsp;&nbsp;Emission Type&nbsp;&nbsp;&nbsp;&nbsp;</b></td><td align=center><b>&nbsp;Comments&nbsp;</b></td></tr>'),
-      (a += "</table></center>"))
-    : (a = a + ifff + fff + "</td></tr>" + encabe1 + "</table>"),
-    (a += "</body></html>"),
+        '<tr style=\'font-size:bold;color:#ffffff;background-color:#000000;height:12px;\'><td align=center style="white-space:nowrap;cursor:pointer;" title="*=Selected&#13& Catalog #"><b>I CAT#<\/b><\/td><td align=center><b>NAME<\/b><\/td><td align=center style="cursor:pointer;" title="Center Frequency"><b>&nbsp;Uplink<\/b><\/td><td align=center style="cursor:pointer;" title="Center Frequency"><b>&nbsp;Dwlink<\/b><\/td><td align=center><b>&nbsp;Beacon<\/b><\/td><td align=center style="cursor:pointer;" title="Uplink Mode"><b>&nbsp;UM&nbsp;<\/b><\/td><td align=center style="cursor:pointer;" title="Downlink Mode"><b>&nbsp;&nbsp;DM&nbsp;&nbsp;<\/b><\/td><td align=center style="cursor:pointer;" title="Beacon Mode"><b>&nbsp;BM<\/b><\/td><td align=center><b>&nbsp;R/N<\/b><\/td><td align=center><b>&nbsp;T<\/b><\/td><td align=center style="cursor:pointer;" title="Subtone CTCSS"><b>&nbsp;ST<\/b><\/td><td align=center style=\'white-space:nowrap;\'><b>&nbsp;&nbsp;&nbsp;&nbsp;Emission Type&nbsp;&nbsp;&nbsp;&nbsp;<\/b><\/td><td align=center><b>&nbsp;Comments&nbsp;<\/b><\/td><\/tr>'),
+      (a += "<\/table><\/center>"))
+    : (a = a + ifff + fff + "<\/td><\/tr>" + encabe1 + "<\/table>");
+    (a += "<\/body><\/html>"),
     (preferences =
       "toolbar=no,width=800px,height=540px,center,margintop=0,top=75,left=65,status=no,scrollbars=yes,resizable=no,dependent=yes,z-lock=yes"),
     (popupwin = window.open("", "win", preferences)).document.write(a),
@@ -2853,36 +2852,36 @@ function showhelp() {
       '<center><table border=0 cellpadding=0 cellspacing=0 style="font-family:Tahoma, Arial;font-size:14px;line-height:22px;color:#ffffff;font-weight:bold;">\n<tr><td style="font-family:Tahoma, Arial;font-size:14px;line-height:18px;font-weight:bold;width:700px;">\n'),
     (helpf =
       '<div id="lenguaje"><center><b>* This application predicts and tracks amateur satellites in real time (local or GMT)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b></center><ul><li>Should set your location automatically, if not, click on blue <u>\'Locator\'</u> label on top.</li><li>Click on any colored icon, you\'ll see a intuitive graph showing actual Azim/Elev.</li><li>Frequencies and modes of selected Satellite are shown with actual doppler.</li><li>When sat clicked, shows path+coverage. Yellow icon marks Sat is in range.</li><li>Table shows passes times/duration. Insure having correct time and timezone.</li><li>Click on SUN will show day/night line, same for MOON, with usual EME freqs.</li><li>By clicking on numbers at upper right, several zoomed maps are available.</li><li>If sound enabled (red X), beep alerts for any Satellite approaching or leaving.</li><li>Keps are updated daily (no need to update), most active Satellites are provided.</li><li>Additional satellites can be added or deleted by clicking on \'<u>+Sats</u>\' label on top.</li><li>Application could be used in the field, runs even without Internet on any device.</li><li>If <a href=\'pass.exe\' Title=\'Download or Execute pass.exe program\' target=_blank style=\'color:#facc2e;\'>PASS.EXE</a> runs concurrently with <a href=\'wispdde.exe\' Title=\'Download or Execute wispDDE Driver\' target=_blank style=\'color:#facc2e;\'>wispDDE</a> will control rotor and rig dopplers.</li><li>If need <a href=\'MSCOMM32.OCX\' Title=\'Download MSCOMM32.OCX\' target=_blank style=\'color:#facc2e;\'>MSCOMM32.OCX</a> or <a href=\'mscomctl.OCX\' Title=\'Download mscomctl.OCX\' target=_blank style=\'color:#facc2e;\'>mscomctl.OCX</a>. Use admin regsvr32 on syswow64.</li><li>If your locator not taken, start adding to url ?localat=xx.xxxx&localon=yy.yyyy .</li><li>If using iPad or IOS and locator not taken, start adding to url ?locator=XXXXXX .</li><li>To select a sat group add to url ?type= and any FM, SSB, SSBFM, NOAA, XMT, digital.</li><li>If you want to start Pass with a specific satellite add to url ?sat=XXXXX .</li><li>If you want to start Pass with only a satellite add to url ?satx=YYYYY .</li><li>Or double click on a satellite, to see all sats again double click again.</li></ul><center><i>Enjoy!! Best 73 from LU7ABF, Pedro Converso, lu7abf at amsat.org.ar</i></center><br></div><center><input type=button style="font-weight:bold;" value="Exit Help" onclick="self.close()">&nbsp;&nbsp;<input type=button style="font-weight:bold;" value="Users Locations" onclick="opener.satactivity=opener.satactivity+\'LOCUSER/\';document.location.href=\'http://lu7aa.org/passlog.asp\'">&nbsp;&nbsp;<input type="button" onclick="document.location.href=\'http://lu7aa.org/satloglist.asp\'" style="font-weight:bold;" value="Users Usage" target=\'_self\'>&nbsp;&nbsp;<input type="button" onclick="document.location.href=\'http://lu7aa.org/decay.asp\'" style="font-weight:bold;" value="Decay" target=\'_self\'>&nbsp;&nbsp;<input type=button style="font-weight:bold;" value="Graphic Help" onclick="opener.graphichelp();">&nbsp;&nbsp;<input type=button style="font-weight:bold;" value="Comment & Grid Map" onclick="opener.comment();">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</center>\n'),
-    (helpf += "</td></tr></table></center>\n"),
-    (helpf += "</body></html>"),
+    (helpf += "<\/td><\/tr><\/table><\/center>\n"),
+    (helpf += "<\/body><\/html>"),
     (helpt = helpi + help + helpf),
     popupwin.document.write(helpt),
     popupwin.setTimeout("self.close()", 12e4);
 }
 function birdimage() {
   birdsw
-    ? ((document.bimg.src = "birdoff.gif"),
+    ? ((document.bimg.src = "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/birdoff.gif"),
       (birdsw = !1),
       (satactivity += "BIRDON/"))
-    : ((document.bimg.src = "birdon.gif"),
+    : ((document.bimg.src = "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/birdon.gif"),
       (birdsw = !0),
       (satactivity += "BIRDOFF/"));
 }
 function rotorimage() {
   rotorsw
-    ? ((document.rimg.src = "rotoroff.gif"),
+    ? ((document.rimg.src = "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/rotoroff.gif"),
       (rotorsw = !1),
       (satactivity += "ROTORON/"))
-    : ((document.rimg.src = "rotoron.gif"),
+    : ((document.rimg.src = "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/rotoron.gif"),
       (rotorsw = !0),
       (satactivity += "ROTOROFF/"));
 }
 function speak() {
   bip
-    ? ((document.spk.src = "speakeroff.gif"),
+    ? ((document.spk.src = "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/speakeroff.gif"),
       (bip = !1),
       (satactivity += "BIPON/"))
-    : ((document.spk.src = "speakeron.gif"),
+    : ((document.spk.src = "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/speakeron.gif"),
       (bip = !0),
       (satactivity += "BIPOFF/"));
 }
@@ -3238,8 +3237,8 @@ function showkeps(e) {
       (g += "\n"),
       (g += PLib.tleData[u][2].replace(/ /g, "&nbsp;") + "<br>"),
       (g += "\n");
-  (g += "</font></div>"),
-    (g += "<br></body></html>"),
+  (g += "<\/font><\/div>"),
+    (g += "<br><\/body><\/html>"),
     (preferences =
       "toolbar=no,width=" +
       (screen.availWidth - 14) +
@@ -3335,11 +3334,11 @@ function load() {
       ? (document.wwl.lon.value = localon)
       : (document.wwl.lon.value = "0"),
     bipset
-      ? ((bip = !0), (document.spk.src = "speakeron.gif"))
-      : ((bip = !1), (document.spk.src = "speakeroff.gif")),
+      ? ((bip = !0), (document.spk.src = "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/speakeron.gif"))
+      : ((bip = !1), (document.spk.src = "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/speakeroff.gif")),
     birdsw
-      ? (document.bimg.src = "birdon.gif")
-      : (document.bimg.src = "birdoff.gif"),
+      ? (document.bimg.src = "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/birdon.gif")
+      : (document.bimg.src = "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/birdoff.gif"),
     1 == selsat.length && (selsat = selsatsave.slice());
   var rightNow = new Date(),
     jan1 = new Date(rightNow.getFullYear(), 0, 1, 0, 0, 0, 0),
@@ -4020,7 +4019,7 @@ function comment() {
     (codata +=
       '.box {font-family:Arial;background-color:transparent;font-size:14px;font-weight:bold;color:#ffffff;cursor:default;"\n'),
     (codata += "</style>\n"),
-    (codata += '<script language="javascript" type="text/javascript">\n'),
+    (codata += '<scrip language="javascript" type="text/javascript">\n'),
     (codata +=
       "var topy = ((-parseInt(opener.localat) + 90)* 1.5 * 1.5 - 34)+ 'px';\n"),
     (codata +=
@@ -4097,7 +4096,7 @@ function comment() {
       '); z-index: -1; top:0; left:0;"></div>'),
     (codata +=
       "<div id='mouseinfo' style='position:absolute;left:180;top:369;color:#000000;font-family:Arial;font-size:18px;font-weight:normal;'></div>"),
-    (codata += "</body></html>"),
+    (codata += "<\/body><\/html>"),
     (preferences =
       "toolbar=no,width=768px,height=408px,center,margintop=0,top=30,left=3,status=no,scrollbars=no,resizable=no,dependent=yes,z-lock=yes"),
     null != popupwin && popupwin.close(),
@@ -4241,7 +4240,8 @@ function donate() {
       }
     );
   });
-function jBeep(a) {
+
+async function jBeep(a) {
   if (!a) a = "jBeep/jBeep.wav";
   var b, c, d;
   d = true;
@@ -4255,10 +4255,18 @@ function jBeep(a) {
   b = document.getElementById("jBeep");
   if (b) c.removeChild(b);
   if (d) {
+
     b = document.createElement("audio");
     b.setAttribute("id", "jBeep");
     b.setAttribute("src", a);
-    b.play();
+    b.setAttribute("autoplay", "true");
+
+    document.body.appendChild(b);
+
+    await b.play().catch(err => {
+          console.error("Playback failed:", err);
+      });
+
   } else if (navigator.userAgent.toLowerCase().indexOf("msie") > -1) {
     b = document.createElement("bgsound");
     b.setAttribute("id", "jBeep");
