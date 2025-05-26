@@ -674,7 +674,7 @@ var Orb = {
             PLib.tleData[e - 1][0].toLowerCase() +
             "')\" onclick='sh(" +
             e +
-            ")'>" +
+            "); return false;'>" +
             PLib.tleData[e - 1][0] +
             "</a><br>"),
           (sortm[e] =
@@ -1506,7 +1506,7 @@ function changeorder(e) {
         PLib.tleData[a - 1][0].toLowerCase() +
         "')\" onclick='sh(" +
         a +
-        ")'>" +
+        "); return false;'>" +
         PLib.tleData[a - 1][0] +
         "</a><br>"),
       (sortm[a] =
