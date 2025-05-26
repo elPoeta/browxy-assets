@@ -4255,6 +4255,11 @@ async function jBeep(a) {
   if (!c) c = document.getElementsByTagName("html")[0];
   b = document.getElementById("jBeep");
   if (b) c.removeChild(b);
+
+//   var srcAudio = {
+//     "Beep.wav": "https://www.mediafire.com/file/p9xmdqqxnff7ig5/Beep.wav/file",
+//     "bell1.wav": "https://www.mediafire.com/file/bct7mzz1i7in4s6/bell1.wav/file",}
+    
   if (d) {
 
     b = document.createElement("audio");
