@@ -4242,7 +4242,8 @@ function donate() {
   });
 
 async function jBeep(a) {
-  if (!a) a = "jBeep/jBeep.wav";
+  if (!a) a = "Beep.wav"; 
+  //"jBeep/jBeep.wav";
   var b, c, d;
   d = true;
   try {
@@ -4258,7 +4259,7 @@ async function jBeep(a) {
 
     b = document.createElement("audio");
     b.setAttribute("id", "jBeep");
-    b.setAttribute("src", a);
+    b.setAttribute("src", "https://github.com/elPoeta/browxy-assets/raw/refs/heads/main/amsat/audio/" + a);
     b.setAttribute("autoplay", "true");
 
     document.body.appendChild(b);
@@ -4271,7 +4272,7 @@ async function jBeep(a) {
     b = document.createElement("bgsound");
     b.setAttribute("id", "jBeep");
     b.setAttribute("loop", 1);
-    b.setAttribute("src", a);
+    b.setAttribute("src", "https://github.com/elPoeta/browxy-assets/raw/refs/heads/main/amsat/audio/" + a);
     c.appendChild(b);
   } else {
     var f;
@@ -4279,7 +4280,7 @@ async function jBeep(a) {
     b.setAttribute("id", "jBeep");
     b.setAttribute("type", "audio/wav");
     b.setAttribute("style", "display:none;");
-    b.setAttribute("data", a);
+    b.setAttribute("data", "https://github.com/elPoeta/browxy-assets/raw/refs/heads/main/amsat/audio/" + a);
     f = document.createElement("param");
     f.setAttribute("name", "autostart");
     f.setAttribute("value", "false");
