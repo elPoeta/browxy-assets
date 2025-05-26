@@ -4255,16 +4255,14 @@ async function jBeep(a) {
   if (!c) c = document.getElementsByTagName("html")[0];
   b = document.getElementById("jBeep");
   if (b) c.removeChild(b);
+  
+  var srcAudio = "https://github.com/elPoeta/browxy-assets/raw/refs/heads/main/amsat/audio/" + a;
 
-//   var srcAudio = {
-//     "Beep.wav": "https://www.mediafire.com/file/p9xmdqqxnff7ig5/Beep.wav/file",
-//     "bell1.wav": "https://www.mediafire.com/file/bct7mzz1i7in4s6/bell1.wav/file",}
-    
   if (d) {
 
     b = document.createElement("audio");
     b.setAttribute("id", "jBeep");
-    b.setAttribute("src", "https://github.com/elPoeta/browxy-assets/raw/refs/heads/main/amsat/audio/" + a);
+    b.setAttribute("src", srcAudio);
     b.setAttribute("autoplay", "true");
 
     document.body.appendChild(b);
@@ -4277,7 +4275,7 @@ async function jBeep(a) {
     b = document.createElement("bgsound");
     b.setAttribute("id", "jBeep");
     b.setAttribute("loop", 1);
-    b.setAttribute("src", "https://github.com/elPoeta/browxy-assets/raw/refs/heads/main/amsat/audio/" + a);
+    b.setAttribute("src", srcAudio);
     c.appendChild(b);
   } else {
     var f;
@@ -4285,7 +4283,7 @@ async function jBeep(a) {
     b.setAttribute("id", "jBeep");
     b.setAttribute("type", "audio/wav");
     b.setAttribute("style", "display:none;");
-    b.setAttribute("data", "https://github.com/elPoeta/browxy-assets/raw/refs/heads/main/amsat/audio/" + a);
+    b.setAttribute("data", srcAudio);
     f = document.createElement("param");
     f.setAttribute("name", "autostart");
     f.setAttribute("value", "false");
