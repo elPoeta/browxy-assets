@@ -1032,11 +1032,11 @@ var Orb = {
           ((document.getElementById("azel").style.height = "100px"),
           satInfo.elevation < 0)
         ) {
-          document.getElementById("azel").style.color = "ff9966";
+          document.getElementById("azel").style.color = "#ff9966";
           var setredinitial = '<font style="color:#ff9966;">',
             setredfinal = "</font>";
         } else
-          (document.getElementById("azel").style.color = "ffffff"),
+          (document.getElementById("azel").style.color = "#ffffff"),
             (setredinitial = ""),
             (setredfinal = "");
         if (
