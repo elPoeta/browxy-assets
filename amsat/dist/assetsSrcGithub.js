@@ -92,3 +92,9 @@ var imageSrcUrl = {
   world1: "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/world1.jpg",
   "world1.5": "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/world1-5.jpg"
 }
+
+
+ var audioSrcUrl = {
+  "Beep": "https://github.com/elPoeta/browxy-assets/raw/refs/heads/main/amsat/audio/Beep.wav",
+  "bell1": "https://github.com/elPoeta/browxy-assets/raw/refs/heads/main/amsat/audio/bell1.wav",
+ }

@@ -92,3 +92,8 @@
   world1: "https://i.postimg.cc/6pcrTT1D/world1.jpg",
   "world1.5": "https://i.postimg.cc/htc8SVML/world1-5.jpg"
 }
+
+ var audioSrcUrl = {
+  "Beep": "https://github.com/elPoeta/browxy-assets/raw/refs/heads/main/amsat/audio/Beep.wav",
+  "bell1": "https://github.com/elPoeta/browxy-assets/raw/refs/heads/main/amsat/audio/bell1.wav",
+ }

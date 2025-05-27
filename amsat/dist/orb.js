@@ -4242,7 +4242,7 @@ async function jBeep(a) {
   b = document.getElementById("jBeep");
   if (b) c.removeChild(b);
   
-  var srcAudio = "https://github.com/elPoeta/browxy-assets/raw/refs/heads/main/amsat/audio/" + a;
+  var srcAudio = audioSrcUrl[`${a.slice(0, -4)}`];
 
   if (d) {
 
