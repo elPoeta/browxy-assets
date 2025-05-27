@@ -86,6 +86,7 @@ var imageSrcUrl = {
   satuvsq: "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/satuvsq.gif",
   "satxw-2c": "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/satxw-2c.gif",
   "satxw-2d": "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/satxw-2d.gif",
+  satxwtable: "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/satxwtable.gif",
   "satz-sat": "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/satz-sat.gif", 
   speakeroff: "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/speakeroff.gif",
   speakeron: "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/speakeron.gif",

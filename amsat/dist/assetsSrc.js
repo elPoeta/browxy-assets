@@ -86,6 +86,7 @@
   satuvsq: "https://i.postimg.cc/t4N5PB7v/satuvsq.gif",
   "satxw-2c": "https://i.postimg.cc/k5MyyWbJ/satxw-2c.gif",
   "satxw-2d": "https://i.postimg.cc/gJnqCds1/satxw-2d.gif",
+  satxwtable: "https://i.postimg.cc/wMqsJbzc/satxwtable.gif",
   "satz-sat": "https://i.postimg.cc/LXwBR705/satz-sat.gif", 
   speakeroff: "https://i.postimg.cc/909Pfpvp/speakeroff.gif",
   speakeron: "https://i.postimg.cc/RVcQ5g1C/speakeron.gif",
