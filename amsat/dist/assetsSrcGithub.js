@@ -16,6 +16,8 @@ var imageSrcUrl = {
   iss: "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/iss.gif",
   mail: "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/mail.gif",
   mon: "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/mon.gif",
+  next: "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/next.gif",
+  prev: "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/prev.gif",
   printicon: "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/printicon.gif",
   rotoron: "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/rotoron.gif",
   satalsat: "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/satalsat.gif",
