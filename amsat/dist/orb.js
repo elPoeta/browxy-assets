@@ -220,7 +220,7 @@ var ahora = new Date().addHours(husohoras),
 function poneimg(e) {
   "" != e && birdsw
     ? ((e = e.replace(/ /, "")),
-      (document.getElementById("satimage").innerHTML = `<img class=disp src='${imageSrcUrl[`sat${e}`]}'>`))
+      (document.getElementById("satimage").innerHTML = `<img class=disp src='${imageSrcUrl[`sat${e}`] || ""}'>`))
     : (document.getElementById("satimage").innerHTML = "");
 }
 function cambiofecha() {
