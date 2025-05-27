@@ -16,7 +16,7 @@
   iss: "https://i.postimg.cc/1tw1rx61/iss.gif",
   mail: "https://i.postimg.cc/nVKtsJpv/mail.gif",
   mon: "https://i.postimg.cc/6qKJHHL2/mon.gif",
-  netx: "https://i.postimg.cc/8PP4G7Ln/next.gif",
+  next: "https://i.postimg.cc/8PP4G7Ln/next.gif",
   prev: "https://i.postimg.cc/tCS5495R/prev.gif",
   printicon: "https://i.postimg.cc/rs967SQh/printicon.gif",
   rotoron: "https://i.postimg.cc/J41CZ2zS/rotoron.gif",
