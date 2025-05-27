@@ -93,7 +93,12 @@
   sun1: "https://i.postimg.cc/c1tBTxrn/sun1.gif",
   unknown: "https://i.postimg.cc/vHRLNJVS/unknown.gif",
   world1: "https://i.postimg.cc/6pcrTT1D/world1.jpg",
-  "world1.5": "https://i.postimg.cc/htc8SVML/world1-5.jpg"
+  "world1.5": "https://i.postimg.cc/htc8SVML/world1-5.jpg",
+  "world2.2": "https://i.postimg.cc/hGg5pHBk/world2-2.jpg",
+  "world3.5": "https://i.postimg.cc/DZxHW5Rt/world3-5.jpg",
+  "world5.3": "https://i.postimg.cc/brdM1khd/world5-3.jpg",
+  "world8": "https://i.postimg.cc/2SntdCPd/world8.jpg",
+  "world16": "https://i.postimg.cc/vBZSdfDX/world16.jpg"
 }
 
  var audioSrcUrl = {

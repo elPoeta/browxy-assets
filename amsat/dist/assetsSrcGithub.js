@@ -93,7 +93,12 @@ var imageSrcUrl = {
   sun1: "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/sun1.gif",
   unknown: "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/unknown.gif",
   world1: "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/world1.jpg",
-  "world1.5": "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/world1-5.jpg"
+  "world1.5": "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/world1.5.jpg",
+  "world2.2": "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/world2.5.jpg",
+  "world3.5": "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/world3.5.jpg",
+  "world5.3": "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/world5.3.jpg",
+  "world8": "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/world8.jpg",
+  "world16": "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/world16.jpg"
 }
 
 

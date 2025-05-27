@@ -1061,9 +1061,9 @@ var Orb = {
               dshow +
               "&nbsp;U&#x25B2;<a href='#' id='upsw' title='Uplink Doppler=" +
               DopplerchangeUplink +
-              "\n * Click to Change *' onclick=\"flipsw(this)\" style='cursor:pointer;color:inherit;text-decoration:none;'>" +
+              "\n * Click to Change *' onclick=\"flipsw(this); return false;\" style='cursor:pointer;color:inherit;text-decoration:none;'>" +
               showup +
-              '</a><a href=# onclick="enterfreq(\'UpLink\')" style="color:inherit;" title="Adjust UPLink Freq." alt="Adjust UPLink Freq.">' +
+              '</a><a href=# onclick="enterfreq(\'UpLink\');return false;" style="color:inherit;" title="Adjust UPLink Freq." alt="Adjust UPLink Freq.">' +
               setredinitial +
               ulink +
               setredfinal +
@@ -1091,9 +1091,9 @@ var Orb = {
               dshow +
               "&nbsp;<span id=dl onclick=\"changewisp('dl');\">D&#x25BC;</span><a href='#' id='dosw' title='Downlink Doppler=" +
               DopplerchangeDownlink +
-              "\n * Click to Change *' onclick=\"flipsw(this)\" style='cursor:pointer;color:inherit;text-decoration:none;'>" +
+              "\n * Click to Change *' onclick=\"flipsw(this); return false;\" style='cursor:pointer;color:inherit;text-decoration:none;'>" +
               showdo +
-              '</a><a href=# onclick="enterfreq(\'DownLink\')" style="color:inherit" title="Adjust DownLink Freq." alt="Adjust DownLink Freq.">' +
+              '</a><a href=# onclick="enterfreq(\'DownLink\');return false;" style="color:inherit" title="Adjust DownLink Freq." alt="Adjust DownLink Freq.">' +
               setredinitial +
               dlink +
               setredfinal +
@@ -1118,7 +1118,7 @@ var Orb = {
           beacon > 1 &&
             (dshow =
               dshow +
-              '&nbsp;<span style="white-space:nowrap;"><span id=bn onclick="changewisp(\'bn\');">B<span style="font-size:11px;font-weight:bold;vertical-align:20%;"> )))))</span></span>&nbsp;<a href=# onclick="enterfreq(\'Beacon\')" style="color:inherit;" title="Adjust Beacon Freq." alt="Adjust Beacon Freq.">' +
+              '&nbsp;<span style="white-space:nowrap;"><span id=bn onclick="changewisp(\'bn\');">B<span style="font-size:11px;font-weight:bold;vertical-align:20%;"> )))))</span></span>&nbsp;<a href=# onclick="enterfreq(\'Beacon\');return false;" style="color:inherit;" title="Adjust Beacon Freq." alt="Adjust Beacon Freq.">' +
               setredinitial +
               beacon +
               setredfinal +
@@ -1150,7 +1150,7 @@ var Orb = {
         maxsatfreq > 0 &&
           (dshow =
             dshow +
-            '<center><a href=# alt="See more options" title="See more options" onclick="gonext()"><font style="color:#00ffff;font-size:16px;font-family:Arial;font-weight:bold;line-height:16px;"><u> Next Option </u></font></a>' +
+            '<center><a href=# alt="See more options" title="See more options" onclick="gonext();return false;"><font style="color:#00ffff;font-size:16px;font-family:Arial;font-weight:bold;line-height:16px;"><u> Next Option </u></font></a>' +
             ene +
             "</center>"),
           refresh &&
@@ -1602,7 +1602,7 @@ function setzoom(e) {
     (document.getElementById("z" + e).style.color = "red"),
     (satactivity = satactivity + "ZOOM" + zoom + "/"),
     (document.getElementById("map").style.backgroundImage =
-      `url(${imageSrcUrl['`world${zoom}`']})`),
+      `url(${imageSrcUrl[`world${zoom}`]})`),
     Orb.setHomeCoordinates(localat, localon),
     1 == zoom
       ? (document.getElementById("Div1").style.color = "#000000")
