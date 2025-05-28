@@ -1,4 +1,4 @@
-var imageSrcUrls = {
+var imageSrcUrl = {
   "amsatbluetras": "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/amsatbluetras.gif",
   "arrow": "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/arrow.jpg",
   "birdoff": "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/birdoff.gif", 
@@ -453,21 +453,13 @@ var imageSrcUrls = {
   "sun1": "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/sun1.gif",
   "sun0": "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/sun0.gif",
   "unknown": "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/unknown.gif",
-  "world": "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/world.jpg",
+  "world1": "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/world.jpg",
   "world1.5": "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/world1.5.jpg",
-  "world16": "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/world16.jpg",
-  "world16o": "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/world16o.jpg",
-  "world2": "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/world2.jpg",
   "world2.2": "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/world2.2.jpg",
-  "world3": "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/world3.jpg",
   "world3.5": "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/world3.5.jpg",
-  "world4": "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/world4.jpg",
-  "world5": "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/world5.jpg",
   "world5.3": "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/world5.3.jpg",
-  "world6": "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/world6.jpg",
-  "world7": "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/world7.jpg",
   "world8": "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/world8.jpg",
-  "world8o": "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/world8o.jpg",
+  "world16": "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/world16.jpg",
   "worldfondo": "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/worldfondo.jpg"
 };
 
