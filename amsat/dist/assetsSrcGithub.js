@@ -55,7 +55,7 @@ var imageSrcUrls = {
   "satao_73_jpg": "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/satao-73.jpg",
   "satao-81": "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/satao-81.jpg",
   "satao-85": "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/satao-85.gif",
-  "satao109": "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/satao109.gif",
+  "satao-91": "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/satao-91.gif",
   "satao7": "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/satao7.gif",
   "satao73": "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/satao73.gif",
   "satao7o": "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/satao7o.gif",

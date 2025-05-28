@@ -55,7 +55,7 @@ var imageSrcUrls = {
   "satao_73_jpg": "https://i.postimg.cc/4xHXrB34/satao-73.jpg",
   "satao-81": "https://i.postimg.cc/PqGdhYLW/satao-81.jpg",
   "satao-85": "https://i.postimg.cc/xdKnd8HW/satao-85.gif",
-  "satao109": "https://i.postimg.cc/T1QP318R/satao109.gif",
+  "satao-91": "https://i.postimg.cc/T1QP318R/satao109.gif",
   "satao7": "https://i.postimg.cc/SRms48vT/satao7.gif",
   "satao73": "https://i.postimg.cc/nzbrdNYt/satao73.gif",
   "satao7o": "https://i.postimg.cc/9MdMs1Jw/satao7o.gif",
