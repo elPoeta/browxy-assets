@@ -479,6 +479,6 @@ var imageSrcUrl = {
 };
 
 var audioSrcUrl = {
-  "Beep": "https://github.com/elPoeta/browxy-assets/raw/refs/heads/main/amsat/audio/Beep.wav",
-  "bell1": "https://github.com/elPoeta/browxy-assets/raw/refs/heads/main/amsat/audio/bell1.wav",
+  "Beep": "https://res.cloudinary.com/drreuccbi/video/upload/v1748458173/Beep_drort0.wav",
+  "bell1": "https://res.cloudinary.com/drreuccbi/video/upload/v1748458173/bell1_fn5yy3.wav",
 }
