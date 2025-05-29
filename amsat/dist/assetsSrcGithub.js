@@ -460,7 +460,12 @@ var imageSrcUrl = {
   "world5.3": "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/world5.3.jpg",
   "world8": "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/world8.jpg",
   "world16": "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/world16.jpg",
-  "worldfondo": "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/worldfondo.jpg"
+  "worldfondo": "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/worldfondo.jpg",
+  "chin1": "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/chin1.gif",
+  "japan": "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/japan.gif",
+  "russian": "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/russian.gif",
+  "passhelp": "https://raw.githubusercontent.com/elPoeta/browxy-assets/refs/heads/main/amsat/images/passhelp.gif",
+  "undefined": ""
 };
 
 

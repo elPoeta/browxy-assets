@@ -453,7 +453,7 @@ var imageSrcUrl = {
   "sun1": "https://i.postimg.cc/5Ny6P5dp/sun1.gif",
   "sun0": "https://i.postimg.cc/wjGjM22Z/sun0.gif",
   "unknown": "https://i.postimg.cc/sDL1bB3z/unknown.gif",
-  // "world1": "https://i.postimg.cc/x1bqQ0dz/world.jpg",
+  // "world1": "https://i.postimg.cc/pLrNhJhb/world1.jpg",
   // "world1.5": "https://i.postimg.cc/bvcrNKGF/world1-5.jpg",
   // "world16": "https://i.postimg.cc/xCs9H7CQ/world16.jpg",
   // "world16o": "https://i.postimg.cc/d3Lw9Bky/world16o.jpg",
@@ -475,7 +475,13 @@ var imageSrcUrl = {
   "world5.3": "https://iili.io/3phiBj9.jpg",
   "world8": "https://iili.io/3phixEb.jpg",
   "world16": "https://iili.io/3phiz4j.jpg",
-  "worldfondo": "https://i.postimg.cc/PxftChdK/worldfondo.jpg"
+  "worldfondo": "https://i.postimg.cc/PxftChdK/worldfondo.jpg",
+
+  "chin1": "https://i.postimg.cc/4dQPncsH/chin1.gif",
+  "japan": "https://i.postimg.cc/sxfcW2g6/japan.gif",
+  "russian": "https://i.postimg.cc/D0CcPKW2/russian.gif",
+  "passhelp": "https://iili.io/3ynEL6x.gif",
+  "undefined": ""
 };
 
 var audioSrcUrl = {

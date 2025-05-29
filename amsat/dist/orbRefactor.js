@@ -1,11 +1,11 @@
-var tiposat,
-  lastdatetime,
+var lastdatetime,
+  //tiposat,
   defaults,
   maxsatfreq,
   saveaoslosid,
   sunlon,
   sunlat,
-  adjust,
+  //adjust,
   zx1,
   zy1,
   zl1,
@@ -19,8 +19,8 @@ var tiposat,
   zy4,
   zl4,
   satelitename,
-  satazimuth,
-  satelevation,
+  //satazimuth,
+  //satelevation,
   dlink,
   ulink,
   beacon,
@@ -30,9 +30,9 @@ var tiposat,
   doppler_factor,
   satselected,
   recoversat,
-  sattochange,
+  //sattochange,
   popup,
-  tt,
+  //tt,
   add,
   del,
   newcycle,
@@ -79,15 +79,15 @@ var satfreqpointer = 0,
   firstclick = !0,
   autoclick = !1,
   aumento = 1,
-  errorMsg = "",
-  lineNumber = "",
-  url = "",
+  //errorMsg = "",
+  //lineNumber = "",
+  //url = "",
   leyen = "",
   tablelasttime = new Date(),
   zoom = 1,
-  timespan = 864e5 / 2.3,
-  shorttimespan = 3456e4,
-  longtimespan = 3456e5,
+  //timespan = 864e5 / 2.3,
+  //shorttimespan = 3456e4,
+  //longtimespan = 3456e5,
   wispmode = "bn",
   wispazimuth = 0,
   wispelevation = 0,
@@ -100,8 +100,17 @@ var satfreqpointer = 0,
   DopplerchangeUplink = !0,
   DopplerchangeDownlink = !0,
   refresh = !0,
-  selectoptions =
-    "<option value=0>CW</option><option value=1>LSB</option><option value=2>USB</option><option value=3>FM</option><option value=4>FM-N</option><option value=5>FM-W</option><option value=6>AM</option><option value=7>CW-N</option><option value=7>CW-R</option><option value=7>DIG</option><option value=8>PKT</option>",
+  selectoptions = `<option value=0>CW</option>
+  <option value=1>LSB</option>
+  <option value=2>USB</option>
+  <option value=3>FM</option>
+  <option value=4>FM-N</option>
+  <option value=5>FM-W</option>
+  <option value=6>AM</option>
+  <option value=7>CW-N</option>
+  <option value=7>CW-R</option>
+  <option value=7>DIG</option>
+  <option value=8>PKT</option>`,
   vbasic = !1,
   dshow = "",
   birds = "",
@@ -115,38 +124,30 @@ var satfreqpointer = 0,
   warntoken = 0,
   vbasice = !1,
   elevationset = 0,
-  eleva = 0,
+  //eleva = 0,
   azisw = "&nbsp;N&nbsp;",
   progsw = "&nbsp;N&nbsp;",
   wispextra = "",
   dateset = !1,
   yellowcount = 0,
   losMeses = "EneFebMarAbrMayJunJulAgoSetOctNovDic",
-  birdhelp =
-    "<a href='#' title='Click for additional\nfrequency changes' onclick='if(vbasice){vbasice=false}else{vbasice=true}'>Zoom</a><br><a href=# onclick=\"changeorder();\" title=\"- Change Order -&#13 0: By AGE asc.&#13 1: By NAME asc.&#13 2: By NAME desc&#13 3: By AGE desc\" style=\"color:#00ffff;cursor:pointer;\">Sort";
-(help =
-  '<center><a href="#english" onclick="document.getElementById(\'lenguaje\').innerHTML=english">English</a>&nbsp;&nbsp;'),
-  (help +=
-    '<a href="#espanol" onclick="document.getElementById(\'lenguaje\').innerHTML=espanol">Espa&ntilde;ol</a>&nbsp;&nbsp;'),
-  (help +=
-    '<a href="#portugues" onclick="document.getElementById(\'lenguaje\').innerHTML=portugues">Portugu&eacute;s</a>&nbsp;&nbsp;'),
-  (help +=
-    '<a href="#deutsche" onclick="document.getElementById(\'lenguaje\').innerHTML=deutsche">Deutsch</a>&nbsp;&nbsp;'),
-  (help +=
-    '<a href="#italiano" onclick="document.getElementById(\'lenguaje\').innerHTML=italiano">Italiano</a>&nbsp;&nbsp;'),
-  (help +=
-    '<a href="#frances" onclick="document.getElementById(\'lenguaje\').innerHTML=frances">Fran&ccedil;ais</a>&nbsp;&nbsp;'),
-  (help +=
-    '<a href="#russian" onclick="document.getElementById(\'lenguaje\').innerHTML=russian">Russian</a>&nbsp;&nbsp;'),
-  (help +=
-    '<a href="#turkish" onclick="document.getElementById(\'lenguaje\').innerHTML=turkish">Turkish</a>&nbsp;&nbsp;'),
-  (help +=
-    '<a href="#chinesse" onclick="document.getElementById(\'lenguaje\').innerHTML=chinesse">Chinese</a>&nbsp;&nbsp;'),
-  (help +=
-    '<a href="#japanese" onclick="document.getElementById(\'lenguaje\').innerHTML=japanese">Japanese</a></center><br>\n'),
-  (window.name = "pass");
-var enchat = "",
-  rando = ("00" + Math.floor(100 * Math.random())).slice(-2),
+  birdhelp = `<a href='#' title='Click for additional\nfrequency changes' onclick='if(vbasice){vbasice=false}else{vbasice=true}'>Zoom</a><br>
+    <a href=# onclick="changeorder(); return false;" title="- Change Order -&#13 0: By AGE asc.&#13 1: By NAME asc.&#13 2: By NAME desc&#13 3: By AGE desc" style="color:#00ffff;cursor:pointer;">Sort`;
+  help = `<center>
+    <a href="#english" onclick="event.preventDefault(); document.getElementById('lenguaje').innerHTML=english; return false;">English</a>&nbsp;&nbsp;
+    <a href="#espanol" onclick="document.getElementById('lenguaje').innerHTML=espanol; return false;">Espa&ntilde;ol</a>&nbsp;&nbsp;
+    <a href="#portugues" onclick="document.getElementById('lenguaje').innerHTML=portugues; return false;">Portugu&eacute;s</a>&nbsp;&nbsp;
+    <a href="#deutsche" onclick="document.getElementById('lenguaje').innerHTML=deutsche; return false;">Deutsch</a>&nbsp;&nbsp;
+    <a href="#italiano" onclick="document.getElementById('lenguaje').innerHTML=italiano; return false;">Italiano</a>&nbsp;&nbsp;
+    <a href="#frances" onclick="document.getElementById('lenguaje').innerHTML=frances; return false;">Fran&ccedil;ais</a>&nbsp;&nbsp;
+    <a href="#russian" onclick="document.getElementById('lenguaje').innerHTML=russian; return false;">Russian</a>&nbsp;&nbsp;
+    <a href="#turkish" onclick="document.getElementById('lenguaje').innerHTML=turkish; return false;">Turkish</a>&nbsp;&nbsp;
+    <a href="#chinesse" onclick="document.getElementById('lenguaje').innerHTML=chinesse; return false;">Chinese</a>&nbsp;&nbsp;
+    <a href="#japanese" onclick="document.getElementById('lenguaje').innerHTML=japanese; return false;">Japanese</a>
+   </center><br>\n`,
+  window.name = "pass";
+//var enchat = "",
+var  rando = ("00" + Math.floor(100 * Math.random())).slice(-2),
   iconos = [
     imageSrcUrl['saticon5'],
     imageSrcUrl['saticon4'],
@@ -158,70 +159,95 @@ var enchat = "",
     imageSrcUrl['saticony'],
     imageSrcUrl['unknown'],
   ];
-if (
-  ((document.onkeydown = function (e) {
-    27 != (e = e || window.event).keyCode ||
-      firstclick ||
-      onlysat(PLib.sat[savesatid - 1].name);
-  }),
-  (window.onerror = function (e, a, l) {
-    alert("Error: " + e + " Script: " + a + " Line: " + l);
-  }),
-  -1 != window.navigator.userAgent.indexOf("Android 2.3.6"))
-)
-  var graficos = !1;
-else var graficos = !0;
--1 == window.navigator.userAgent.indexOf("iPhone") ||
-  gqs("locator") ||
+
+// === Event Handlers ===
+document.onkeydown = function (e) {
+  if (e.key === "Escape" && !firstclick) {
+    onlysat(PLib.sat[savesatid - 1].name);
+  }
+};
+
+window.onerror = function (message, source, lineno) {
+  alert(`Error: ${message} Script: ${source} Line: ${lineno}`);
+};
+
+// === User Agent Checks ===
+var isAndroid236 = navigator.userAgent.includes("Android 2.3.6");
+var isIphone = navigator.userAgent.includes("iPhone");
+var isIpad = navigator.userAgent.includes("iPad");
+//var isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
+var isOpera = navigator.userAgent.includes("OPR") || navigator.userAgent.includes("Opera");
+
+let graficos = !isAndroid236;
+
+if (isIphone && !gqs("locator")) {
   alert(
-    "  To use Pass with iPhone, start with:\r\nhttp://amsat.org.ar/pass?locator=xxxxxx\r\n  Using your own locator for xxxxxx",
-  ),
-  -1 == window.navigator.userAgent.indexOf("iPad") ||
-    gqs("locator") ||
+    "To use Pass with iPhone, start with:\nhttp://amsat.org.ar/pass?locator=xxxxxx\nUsing your own locator for xxxxxx"
+  );
+}
+
+if (isIpad && !gqs("locator")) {
+  alert(
+    "To use Pass with iPad, start with:\nhttp://amsat.org.ar/pass?locator=xxxxxx\nUsing your own locator for xxxxxx"
+  );
+}
+
+// === Navigation Adjustment ===
+// if (isChrome || isOpera) var NavAdj = 19;
+const NavAdj = 19; // Currently same for all, adjust if logic changes
+
+if (gqs("localat") && gqs("localon")) {
+  localat = isNumeric(gqs("localat")) ? gqs("localat") : 0;
+  localon = isNumeric(gqs("localon")) ? gqs("localon") : 0;
+} else {
+  loadMapState();
+  
+  if (!localat && navigator.appName !== "Microsoft Internet Explorer") {
+    getip();
+  }
+
+  if (!localat) {
+    localat = "-34.5696";
+    localon = "-58.4581";
+    satactivity += "LocBad/";
     alert(
-      "  To use Pass with iPad, start with:\r\nhttp://amsat.org.ar/pass?locator=xxxxxx\r\n  Using your own locator for xxxxxx",
+      "Home Location Set to default\nClick Locator to fix and\nAllow Cookies to Save\n\n Click OK to Continue.."
     );
-var isChrome =
-    /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor),
-  isOpera =
-    window.navigator.userAgent.indexOf("OPR") > -1 ||
-    window.navigator.userAgent.indexOf("Opera") > -1;
-if (isChrome || isOpera) var NavAdj = 19;
-else NavAdj = 19;
-gqs("localat") && gqs("localon")
-  ? (isNumeric((localat = gqs("localat"))) || (localat = 0),
-    isNumeric((localon = gqs("localon"))) || (localon = 0))
-  : (loadMapState(),
-    localat || "Microsoft Internet Explorer" == navigator.appName || getip(),
-    localat ||
-      ((localat = "-34.5696"),
-      (localon = "-58.4581"),
-      (satactivity += "LocBad/"),
-      alert(
-        "Home Location Set to default\nClick Locator to fix and\nAllow Cookies to Save\n\n Click OK to Continue..",
-      ))),
-  isNumeric(localon) || (localon = 0),
-  isNumeric(localat) || (localat = 0),
-  ((0 == localat && 0 == localon) ||
-    (-34.5696 == localat && -58.4581 == localon) ||
-    (35.3841 == localat && 139.6101 == localon) ||
-    (35.3841 == localat && 0 == localon) ||
-    (-34.5696 == localat && -58.4581 == localon)) &&
-    ((satactivity += "LocBad/"),
-    alert(
-      "Home Location Set to default\nClick Locator to fix and\nAllow Cookies to Save\n\n Click OK to Continue..",
-    )),
-  (Date.prototype.addHours = function (e) {
-    return this.setHours(this.getHours() + e), this;
-  }),
-  (husohoras = new Date().getTimezoneOffset() / 60);
-var ahora = new Date().addHours(husohoras),
-  ahora = ahora.addHours(-3);
+  }
+}
+
+localat = isNumeric(localat) ? localat : 0;
+localon = isNumeric(localon) ? localon : 0;
+
+// === Validate default locations ===
+const isDefaultLocation =
+  (localat == 0 && localon == 0) ||
+  (localat == "-34.5696" && localon == "-58.4581") ||
+  (localat == "35.3841" && (localon == "139.6101" || localon == "0"));
+
+if (isDefaultLocation) {
+  satactivity += "LocBad/";
+  alert(
+    "Home Location Set to default\nClick Locator to fix and\nAllow Cookies to Save\n\n Click OK to Continue.."
+  );
+}
+
+// === Time Adjustment ===
+Date.prototype.addHours = function (h) {
+  this.setHours(this.getHours() + h);
+  return this;
+};
+
+var husohoras = new Date().getTimezoneOffset() / 60;
+var ahora = new Date().addHours(husohoras).addHours(-3);
 function poneimg(e) {
-  "" != e && birdsw
-    ? ((e = e.replace(/ /, "")),
-      (document.getElementById("satimage").innerHTML = `<img class=disp src='${imageSrcUrl[`sat${e}`] || ""}'>`))
-    : (document.getElementById("satimage").innerHTML = "");
+  if("" != e && birdsw) {
+    e = e.replace(/ /, "");
+    document.getElementById("satimage").style.top = `298px`;
+    document.getElementById("satimage").innerHTML = `<img class="disp" src='${imageSrcUrl[`sat${e}`] || ""}'>`
+   } else { 
+      document.getElementById("satimage").innerHTML = "";
+   }
 }
 function cambiofecha() {
   isNumeric(
@@ -269,110 +295,174 @@ function cambiofecha() {
         tablelasttime.toTimeString()))
     : alert(document.tstest.timestamp.value + " > Correct Time");
 }
-function show_calendar(e, a) {
-  var l = [
-      "January",
-      "February",
-      "March",
-      "April",
-      "May",
-      "June",
-      "July",
-      "August",
-      "September",
-      "October",
-      "November",
-      "December",
-    ],
-    c = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"],
-    u = 0,
-    g = null == a || "" == a ? new Date() : str2dt(a),
-    b = new Date(g);
-  b.setMonth(g.getMonth() - 1);
-  var $ = new Date(g);
-  $.setMonth(g.getMonth() + 1);
-  var y = new Date(g);
-  y.setDate(1),
-    y.setDate(1 - ((7 + y.getDay() - u) % 7)),
-    new Date($).setDate(0);
-  var _ = new String(
-      '<html>\n<head>\n	<title>Calendar</title>\n</head>\n<body style="margin-top:0px;margin-bottom:0px;margin-left:0px;margin-right:0px;overflow-x:hidden;" bgcolor="#87CEFA">\n<table class="clsOTable" cellspacing="0" cellpadding="0" border="0" width="100%">\n<tr><td bgcolor="#4682B4">\n<table cellspacing="1" cellpadding="3" border="0" width="100%">\n<tr>\n	<td bgcolor="#4682B4"><a href="javascript:window.opener.show_calendar(\'' +
-        e +
-        "', '" +
-        dt2dtstr(b) +
-        '\'+document.cal.time.value);"><img src="' + imageSrcUrl.prev + '" width="16" height="16" border="0" alt="previous month"></a></td>\n	<td align="center" bgcolor="#4682B4" colspan="5"><font color="white" face="tahoma, verdana" size="3">' +
-        l[g.getMonth()] +
-        " " +
-        g.getFullYear() +
-        '</font></td>\n	<td bgcolor="#4682B4" align="right"><a href="javascript:window.opener.show_calendar(\'' +
-        e +
-        "', '" +
-        dt2dtstr($) +
-        '\'+document.cal.time.value);"><img src="' + imageSrcUrl.next +'" width="16" height="16" border="0" alt="next month"></a></td>\n</tr>\n',
-    ),
-    w = new Date(y);
-  _ += "<tr>\n";
-  for (var E = 0; E < 7; E++)
-    _ +=
-      '	<td align="center" bgcolor="#87CEFA"><font color="white" style="font-weight:bold;" face="tahoma, verdana" size="2">' +
-      c[(u + E) % 7] +
-      "</font></td>\n";
-  for (
-    _ += "</tr>\n";
-    w.getMonth() == g.getMonth() || w.getMonth() == y.getMonth();
 
-  ) {
-    _ += "<tr>\n";
-    for (var S = 0; S < 7; S++)
-      w.getDate() == g.getDate() && w.getMonth() == g.getMonth()
-        ? (_ += '	<td bgcolor="#FFB6C1" align="center">')
-        : 0 == w.getDay() || 6 == w.getDay()
-          ? (_ += '	<td bgcolor="#DBEAF5" align="center">')
-          : (_ += '	<td bgcolor="white" align="center">'),
-        w.getMonth() == g.getMonth()
-          ? (_ +=
-              '<a href="javascript:window.opener.' +
-              e +
-              ".value='" +
-              dt2dtstr(w) +
-              '\'+document.cal.time.value; window.opener.cambiofecha(); window.close();"><font color="black" face="tahoma, verdana" size="2">')
-          : (_ +=
-              '<a href="javascript:window.opener.' +
-              e +
-              ".value='" +
-              dt2dtstr(w) +
-              '\'+document.cal.time.value; window.opener.cambiofecha(); window.close();"><font color="gray" face="tahoma, verdana" size="2">'),
-        (_ += w.getDate() + "</font></a></td>\n"),
-        w.setDate(w.getDate() + 1);
-    _ += "</tr>\n";
+function show_calendar(e, a) {
+  const monthNames = [
+    "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"
+  ];
+  
+  const dayNames = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
+  const startDay = 0;
+  const currentDate = (!a || a === "") ? new Date() : str2dt(a);
+  const prevMonth = new Date(currentDate);
+  prevMonth.setMonth(currentDate.getMonth() - 1);
+  
+  const nextMonth = new Date(currentDate);
+  nextMonth.setMonth(currentDate.getMonth() + 1);
+  
+  const firstDay = new Date(currentDate);
+  firstDay.setDate(1);
+  firstDay.setDate(1 - ((7 + firstDay.getDay() - startDay) % 7));
+  
+  let calendarRows = '';
+  
+  calendarRows += '<tr>\n';
+  for (let i = 0; i < 7; i++) {
+    calendarRows += `  <td align="center" bgcolor="#87CEFA"><font color="white" style="font-weight:bold;" face="tahoma, verdana" size="2">${dayNames[(startDay + i) % 7]}</font></td>\n`;
   }
-  (_ +=
-    '<script language=javascript type=text/javascript>ff=new Date();savetime=(\'0\'+ff.getHours()).slice(-2)+\':\'+(\'0\'+ff.getMinutes()).slice(-2)+\':00\';function checknumeric(valor){oldvalue=valor;valor=valor.replace(/:/g,\'\');if(!opener.isNumeric(valor)){alert(\'Invalid Time\\n\'+oldvalue+\'\\n..Reenter..\');document.getElementById(\'time\').value=savetime;};}<\/script><form name="cal" style="margin-bottom:0;margin-top:0;">\n<tr style="border-color:#ffffff;border-width:0px;"><td align="center" style="border-color:#ffffff;border-width:0px;" colspan="7" bgcolor="#87CEFA"><font color="White" face="tahoma, verdana" size="3">Time: <input type="text" id="time" name="time" value="' +
-    dt2tmstr(g) +
-    '" size="6" onchange="checknumeric(this.value);" style="text-align:center;" maxlength="8"><\/font>&nbsp;<input type=button style="borde-style:outset;border-width:2px;border-color:#999999;" id="salir" name="salir" onclick="opener.MockDate.reset();opener.Orb.generateTable(opener.document.getElementById(\'passes\'));opener.tablelasttime = new(Date);opener.dateset=false;opener.document.getElementById(\'changedate\').style.left=\'211px\';opener.document.getElementById(\'cal\').style.width=\'16px\';opener.satactivity=opener.satactivity+\'CALERESET/\';self.close();" value=Reset><\/td><\/tr>\n<\/form>\n<\/table>\n<\/tr>\n<\/td>\n<\/table><font color="White" face="tahoma, verdana" size="3"><center>Set Time & Click Day<\/center><\/font><\/body>\n<\/html>\n'),
-    (altura = navigator.userAgent.match(/Opera|OPR\//) ? "328" : "236");
-  var I = window.open(
+  calendarRows += '</tr>\n';
+  
+  // Calendar days
+  const workingDate = new Date(firstDay);
+  while (workingDate.getMonth() === currentDate.getMonth() || workingDate.getMonth() === firstDay.getMonth()) {
+    calendarRows += '<tr>\n';
+    
+    for (let dayOfWeek = 0; dayOfWeek < 7; dayOfWeek++) {
+      let cellBgColor;
+      if (workingDate.getDate() === currentDate.getDate() && workingDate.getMonth() === currentDate.getMonth()) {
+        cellBgColor = '#FFB6C1'; 
+      } else if (workingDate.getDay() === 0 || workingDate.getDay() === 6) {
+        cellBgColor = '#DBEAF5'; // Weekend
+      } else {
+        cellBgColor = 'white'; 
+      }
+      
+      const fontColor = workingDate.getMonth() === currentDate.getMonth() ? 'black' : 'gray';
+      const dateStr = dt2dtstr(workingDate);
+      
+      calendarRows += `  <td bgcolor="${cellBgColor}" align="center">`;
+      calendarRows += `<a href="javascript:getTimeValue();window.opener.${e}.value='${dateStr}'+timeValue; window.opener.cambiofecha(); window.close();">`;
+      calendarRows += `<font color="${fontColor}" face="tahoma, verdana" size="2">${workingDate.getDate()}</font></a></td>\n`;
+      
+      workingDate.setDate(workingDate.getDate() + 1);
+    }
+    calendarRows += '</tr>\n';
+  }
+
+  const htmlContent = `
+    <html>
+    <head>
+      <title>Calendar</title>
+    </head>
+    <body style="margin-top:0px;margin-bottom:0px;margin-left:0px;margin-right:0px;overflow-x:hidden;" bgcolor="#87CEFA">
+      <table class="clsOTable" cellspacing="0" cellpadding="0" border="0" width="100%">
+        <tr>
+          <td bgcolor="#4682B4">
+            <table cellspacing="1" cellpadding="3" border="0" width="100%">
+              <tr>
+                <td bgcolor="#4682B4">
+                  <a href="javascript:getTimeValue();window.opener.show_calendar('${e}', '${dt2dtstr(prevMonth)}'+timeValue);">
+                    <img src="${imageSrcUrl.prev}" width="16" height="16" border="0" alt="previous month">
+                  </a>
+                </td>
+                <td align="center" bgcolor="#4682B4" colspan="5">
+                  <font color="white" face="tahoma, verdana" size="3">${monthNames[currentDate.getMonth()]} ${currentDate.getFullYear()}</font>
+                </td>
+                <td bgcolor="#4682B4" align="right">
+                  <a href="javascript:getTimeValue();window.opener.show_calendar('${e}', '${dt2dtstr(nextMonth)}'+timeValue);">
+                    <img src="${imageSrcUrl.next}" width="16" height="16" border="0" alt="next month">
+                  </a>
+                </td>
+              </tr>
+              ${calendarRows}
+              <form name="cal" style="margin-bottom:0;margin-top:0;">
+                <tr style="border-color:#ffffff;border-width:0px;">
+                  <td align="center" style="border-color:#ffffff;border-width:0px;" colspan="7" bgcolor="#87CEFA">
+                    <font color="White" face="tahoma, verdana" size="3">
+                      Time: <input type="text" id="time" name="time" value="${dt2tmstr(currentDate)}" size="6" onchange="checknumeric(this.value);" style="text-align:center;" maxlength="8">
+                    </font>&nbsp;
+                    <input type="button" style="border-style:outset;border-width:2px;border-color:#999999;" id="salir" name="salir" onclick="opener.MockDate.reset();opener.Orb.generateTable(opener.document.getElementById('passes'));opener.tablelasttime = new(Date);opener.dateset=false;opener.document.getElementById('changedate').style.left='211px';opener.document.getElementById('cal').style.width='16px';opener.satactivity=opener.satactivity+'CALERESET/';self.close();" value="Reset">
+                  </td>
+                </tr>
+              </form>
+            </table>
+          </td>
+        </tr>
+      </table>
+      <font color="White" face="tahoma, verdana" size="3"><center>Set Time & Click Day</center></font>
+    </body>
+    </html>`;
+  
+  const scriptContent = `
+    const ff = new Date();
+    let savetime = ('0' + ff.getHours()).slice(-2) + ':' + ('0' + ff.getMinutes()).slice(-2) + ':00';
+    let timeValue = '';
+    
+    function getTimeValue() {
+      const timeInput = document.getElementById('time');
+      timeValue = timeInput ? timeInput.value : '';
+      return timeValue;
+    }
+    
+    function checknumeric(valor) {
+      const oldvalue = valor;
+      valor = valor.replace(/:/g, '');
+      if (!opener.isNumeric(valor)) {
+        alert('Invalid Time\\n' + oldvalue + '\\n..Reenter..');
+        document.getElementById('time').value = savetime;
+      }
+    }`;
+  
+  // Determine window height based on browser
+  const altura = navigator.userAgent.match(/Opera|OPR\//) ? "328" : "236";
+  
+  // Create popup window
+  const popupWindow = window.open(
     "",
     "Calendar",
-    "width=200,height=" +
-      altura +
-      ",status=no,resizable=no,top=200,left=200,dependent=yes,z-lock=yes,directories=0,titlebar=no,toolbar=no,scrollbars=no,location=0,status=0,menubar=no",
+    `width=200,height=${altura},status=no,resizable=no,top=200,left=200,dependent=yes,z-lock=yes,directories=0,titlebar=no,toolbar=no,scrollbars=no,location=0,status=0,menubar=no`
   );
-  I.setTimeout("document.getElementById('salir').click()", 18e4);
-  var T = I.document;
-  T.write(_), T.close();
+  
+  // Set auto-close timeout
+  popupWindow.setTimeout(() => {
+    const resetButton = popupWindow.document.getElementById('salir');
+    if (resetButton) resetButton.click();
+  }, 180000); // 3 minutes
+  
+
+  popupWindow.document.documentElement.innerHTML = htmlContent;
+  popupWindow.setTimeout(() => {
+    const script = popupWindow.document.createElement('script');
+    script.text = scriptContent;
+    popupWindow.document.head.appendChild(script);
+
+    const timeInput = popupWindow.document.getElementById('time');
+    if (timeInput && !timeInput.value) {
+      timeInput.value = dt2tmstr(currentDate);
+    }
+  }, 200); 
 }
-function str2dt(e) {
-  return /^(\d+)\-(\d+)\-(\d+)\s+(\d+)\:(\d+)\:(\d+)$/.exec(e)
-    ? new Date(
-        RegExp.$3,
-        RegExp.$2 - 1,
-        RegExp.$1,
-        RegExp.$4,
-        RegExp.$5,
-        RegExp.$6,
-      )
-    : alert("Invalid Datetime format: " + e);
+
+function str2dt(dateString) {
+  const regex = /^(?<day>\d+)-(?<month>\d+)-(?<year>\d+)\s+(?<hours>\d+):(?<minutes>\d+):(?<seconds>\d+)$/;
+  const match = dateString.match(regex);
+  
+  if (!match) {
+    alert("Invalid Datetime format: " + dateString);
+    return null;
+  }
+  
+  const { day, month, year, hours, minutes, seconds } = match.groups;
+
+  return new Date(
+    Number(year),
+    Number(month) - 1,
+    Number(day),
+    Number(hours),
+    Number(minutes),
+    Number(seconds)
+  );
 }
 function dt2dtstr(e) {
   return new String(
@@ -404,62 +494,8 @@ function printpr() {
     (min =
       10 > ahora.getMinutes() ? "0" + ahora.getMinutes() : ahora.getMinutes())),
   "-" != (huso = (-1 * husohoras).toString()).substring(0, 1) &&
-    (huso = "%2B" + huso),
-  ((Image0 = new Image(20, 18)).src =
-    imageSrcUrl['printicon']),
-  ((Image1 = new Image(540, 270)).src =
-    imageSrcUrl['world1']),
-  ((Image2 = new Image(22, 22)).src =
-    imageSrcUrl['speakeron']),
-  ((Image3 = new Image(22, 22)).src =
-    imageSrcUrl['speakeroff']),
-  ((Image4 = new Image(24, 24)).src =
-    imageSrcUrl['home']),
-  ((Image5 = new Image(36, 24)).src =
-    imageSrcUrl['mon']),
-  ((Image6 = new Image(19, 11)).src =
-    imageSrcUrl['sun1']),
-  ((Image7 = new Image(36, 24)).src =
-    imageSrcUrl['satnoa']),
-  ((Image8 = new Image(36, 24)).src =
-    imageSrcUrl['saticon2']),
-  ((Image9 = new Image(36, 24)).src =
-    imageSrcUrl['saticon3']),
-  ((Image10 = new Image(36, 24)).src =
-    imageSrcUrl['iss']),
-  ((Image11 = new Image(36, 24)).src =
-    imageSrcUrl['saticon4']),
-  ((Image12 = new Image(36, 24)).src =
-    imageSrcUrl['saticony']),
-  ((Image13 = new Image(36, 24)).src =
-    imageSrcUrl['unknown']),
-  ((Image14 = new Image(118, 19)).src =
-    imageSrcUrl['box']),
-  ((Image15 = new Image(16, 16)).src =
-    imageSrcUrl['favicon']),
-  ((Image16 = new Image(128, 128)).src =
-    imageSrcUrl['cal']),
-  ((Image17 = new Image(22, 22)).src =
-    imageSrcUrl['birdon']),
-  ((Image18 = new Image(22, 22)).src =
-    imageSrcUrl['birdoff']),
-  ((Image19 = new Image(200, 186)).src =
-    imageSrcUrl['ft']),
-  ((Image20 = new Image(180, 180)).src =
-    imageSrcUrl['arrow']),
-  ((Image21 = new Image(170, 60)).src =
-    imageSrcUrl['bubble']),
-  ((Image22 = new Image(24, 18)).src =
-    imageSrcUrl['mail']),
-  ((Image23 = new Image(810, 405)).src =
-    imageSrcUrl['world1.5']),
-  ((Image24 = new Image(22, 22)).src =
-    imageSrcUrl['chat']),
-  ((Image26 = new Image(54, 16)).src =
-    imageSrcUrl['donate']),
-  ((Image27 = new Image(16, 16)).src =
-    imageSrcUrl['chati']),
-  ((Image28 = new Image(190, 88)).src = imageSrcUrl['et']);
+    (huso = "%2B" + huso);
+
 var Orb = {
   satelliteMarkers: [],
   startTracking: function (e, a, l) {
@@ -1411,10 +1447,13 @@ var Orb = {
           (E.alt = g[w].number - 1),
           (E.title = g[w].name.toUpperCase()),
           navigator.onLine &&
-            ((E.onmouseover = function () {
-              birdsw &&
-                (document.getElementById("satimage").innerHTML =
-                  `<img class="disp" src=${imageSrcUrl[`sat${this.title.toLowerCase().replace(/ /, "")}`]}>`);
+            ((E.onmouseover = function (event) {
+              if(birdsw){
+                 let top = event.pageY - 140 < 298 ? 298 : event.pageY - 140;
+                 top = event.pageY - 140 >= document.getElementById("passes").getBoundingClientRect().height ? document.getElementById("passes").getBoundingClientRect().height - 140 : top;
+                 document.getElementById("satimage").style.top = `${top}px`;
+                 document.getElementById("satimage").innerHTML = `<img class="disp" src=${imageSrcUrl[`sat${this.title.toLowerCase().replace(/ /, "")}`] || ""}>`;
+              }
             }),
             (E.onmouseout = function () {
               document.getElementById("satimage").innerHTML = "";
@@ -2482,367 +2521,570 @@ function isIE() {
 function detectIE() {
   return window.navigator.userAgent.indexOf("Edge/") > 0;
 }
+
 function versats(e) {
-  for (
-    omito = !!(5 != tiposel && (isIE() || detectIE())),
-      !0 ==
-        (IE7 = !!(
-          "Microsoft Internet Explorer" == navigator.appName && IEVersion() > 0
-        )) && (omito = !1),
-      isOpera && (omito = !0),
-      omito && (e = tiposel),
-      null != popupwin && popupwin.close(),
-      satactivity = satactivity + "SATS" + e + "/",
-      k = 0,
-      arr1 = [],
-      arr2 = [],
-      s = 0;
-    s < alljs.length;
-    s++
-  )
+
+  const omito = !!(5 != tiposel && (isIE() || detectIE()));
+  const IE7 = !!(
+    "Microsoft Internet Explorer" == navigator.appName && IEVersion() > 0
+  );
+  
+  let shouldOmit = omito;
+  if (IE7) shouldOmit = false;
+  if (isOpera) shouldOmit = true;
+  if (shouldOmit) e = tiposel;
+  
+  if (popupwin != null) popupwin.close();
+  
+  satactivity = satactivity + "SATS" + e + "/";
+  
+  let k = 0;
+  const arr1 = [];
+  const arr2 = [];
+  
+  for (let s = 0; s < alljs.length; s++) {
     arr1[s] = ("0" + alljs[s][1].substring(2, 7).replace(/ /, "")).slice(-5);
-  for (s = 0; s < freq.length; s++)
+  }
+  
+  for (let s = 0; s < freq.length; s++) {
     arr2[s] = ("0" + freq[s][0].replace(/ /, "")).slice(-5);
-  for (
-    cuentafff = 0,
-      ifff =
-        '<center><table border=0 cellpadding=1 cellspacing=0 style="font-size:12px;font-family:Courier;line-height:10px;font-weight:bold;width:460px;"></tr>',
-      ifff +=
-        "<tr><td id='kepa' id=kepa></td><td colspan=12 id=kepi style=\"font-family:courier;font-size:12px;font-weight:bold;line-height:10px;\"></td></tr>",
-      ifff =
-        ifff +
-        (encabe1 =
-          '<tr style="color:#ffffff;background-color:#000000;"><td align=center>Cat #</td><td align=center>&nbsp;Desig.</td><td align=center>Launch&nbsp;</td><td align=center>Orbit#</td><td>&nbsp;H.Km.</td><td align=center>Inclin.</td><td align=center>Orb/Day</td><td style="white-space:nowrap;">Satellite Name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td></tr>') +
-        "<tr>",
-      fff = "",
-      trc = "<tr>",
-      p = 0;
-    p < alljs.length;
-    p++
-  ) {
-    for (q = 0, found = !1; q < freq.length; q++)
-      arr1[p] == arr2[q] && (found = !0);
-    if (!found) {
-      for (
-        r = 0,
-          anio = 1 * alljs[p][1].substring(9, 11) > 50 ? "19" : "20",
-          trc =
-            cuentafff % 2 == 0
-              ? "<tr style='background-color:#e4e4e4;'>"
-              : "<tr style='background-color:#ffffff;'>",
-          altu = (maltura =
-            Math.pow(
-              (numerador =
-                (c11 = 0x9306132f11f) *
-                (orbseg2 =
-                  (orbsegundos =
-                    86400 / (periodo = 1 * alljs[p][2].substring(52, 60))) *
-                  orbsegundos)),
-              0.33333333333,
-            ) /
-              1e3 -
-            6378).toFixed(0);
-        r < alljs.length;
-        r++
-      )
-        alljs[r][1].substring(2, 7) == alljs[p][1].substring(2, 7) &&
-          (kepis =
-            alljs[r][0].replace(/ /g, "&nbsp;") +
-            "<br>" +
-            alljs[r][1].replace(/ /g, "&nbsp;") +
-            "<br>" +
-            alljs[r][2].replace(/ /g, "&nbsp;"));
-      (cuentafff += 1),
-        (fff =
-          fff +
-          trc +
-          "<td align=center><a href='#' onclick=\"document.getElementById('kepa').innerHTML='SAT<br>KEPs<br>TLE';document.getElementById('kepi').innerHTML='" +
-          kepis +
-          "'\">" +
-          alljs[p][1].substring(2, 7) +
-          "</a></td><td align=center>" +
-          alljs[p][1].substring(8, 15) +
-          "</td><td align=center>" +
-          anio +
-          alljs[p][1].substring(9, 11) +
-          "</td><td align=center>" +
-          1 * alljs[p][2].substring(63, 68) +
-          "&nbsp;</td><td align=right>" +
-          altu +
-          '</td><td style="text-align:right;">' +
-          alljs[p][2].substring(9, 13) +
-          '&nbsp;</td><td style="text-align:right;">' +
-          alljs[p][2].substring(52, 58) +
-          "&nbsp;&nbsp;</td><td>" +
-          alljs[p][0] +
-          "</td></tr>\n");
+  }
+  
+  let cuentafff = 0;
+  let fff = "";
+  
+  const encabe1 = `
+    <tr style="color:#ffffff;background-color:#000000; font-weight:bold;">
+      <td align=center style="font-size:14px;padding:2px 0px;">Cat #</td>
+      <td align=center style="font-size:14px;padding:2px 0px;">&nbsp;Desig.</td>
+      <td align=center style="font-size:14px;padding:2px 0px;">Launch&nbsp;</td>
+      <td align=center>Orbit#</td>
+      <td style="font-size:14px;padding:2px 0px;">&nbsp;H.Km.</td>
+      <td align=center style="font-size:14px;padding:2px 0px;">Inclin.</td>
+      <td align=center style="font-size:14px;padding:2px 0px;">Orb/Day</td>
+      <td style="white-space:nowrap;font-size:14px;padding:2px 0px;">Satellite Name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+    </tr>`;
+  
+  // Process satellites for unclassified view (e == 9)
+  if (e == 9) {
+    for (let p = 0; p < alljs.length; p++) {
+      let found = false;
+      for (let q = 0; q < freq.length; q++) {
+        if (arr1[p] == arr2[q]) {
+          found = true;
+          break;
+        }
+      }
+      
+      if (!found) {
+        const anio = 1 * alljs[p][1].substring(9, 11) > 50 ? "19" : "20";
+        const rowStyle = cuentafff % 2 == 0 ? 
+          "style='background-color:#e4e4e4;font-size:14px;'" : 
+          "style='background-color:#ffffff;font-size:14px;'";
+        
+        // Calculate altitude
+        const periodo = 1 * alljs[p][2].substring(52, 60);
+        const orbsegundos = 86400 / periodo;
+        const orbseg2 = orbsegundos * orbsegundos;
+        const numerador = 0x9306132f11f * orbseg2;
+        const maltura = Math.pow(numerador, 0.33333333333) / 1e3 - 6378;
+        const altu = maltura.toFixed(0);
+        
+        // Find KEPs data
+        let kepis = "";
+        for (let r = 0; r < alljs.length; r++) {
+          if (alljs[r][1].substring(2, 7) == alljs[p][1].substring(2, 7)) {
+            kepis = `${alljs[r][0].replace(/ /g, "&nbsp;")}<br>${alljs[r][1].replace(/ /g, "&nbsp;")}<br>${alljs[r][2].replace(/ /g, "&nbsp;")}`;
+            break;
+          }
+        }
+        
+        cuentafff++;
+        fff += `
+          <tr ${rowStyle}>
+            <td align=center style="padding:4px 0px;font-weight:bold;font-size:14px;">
+              <a href='#' onclick="document.getElementById('kepa').innerHTML='SAT<br>KEPs<br>TLE';document.getElementById('kepi').innerHTML='${kepis}'">
+                ${alljs[p][1].substring(2, 7)}
+              </a>
+            </td>
+            <td align=center style="padding:4px 0px;font-weight:bold;font-size:14px;">${alljs[p][1].substring(8, 15)}</td>
+            <td align=center style="padding:4px 0px;font-weight:bold;font-size:14px;">${anio}${alljs[p][1].substring(9, 11)}</td>
+            <td align=center style="padding:4px 0px;font-weight:bold;font-size:14px;">${1 * alljs[p][2].substring(63, 68)}&nbsp;</td>
+            <td align=right style="padding:4px 0px;font-weight:bold;font-size:14px;">${altu}</td>
+            <td style="text-align:right;padding:4px 0px;font-weight:bold;font-size:14px;">${alljs[p][2].substring(9, 13)}&nbsp;</td>
+            <td style="text-align:right;padding:4px 0px;font-weight:bold;font-size:14px;">${alljs[p][2].substring(52, 58)}&nbsp;&nbsp;</td>
+            <td style="padding:4px 0px;font-weight:bold;font-size:14px;">${alljs[p][0]}</td>
+          </tr>`;
+      }
     }
   }
-  var a = '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"> \n';
-  for (
-    a += "<html><head>\n",
-      a +=
-        '<meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1"> \n',
-      a += "<title>Sats List</title> \n",
-      a +=
-        "<style>.botonch {text-decoration: none;border:outset;border-radius: 9px 9px 9px 9px;border-width:2px;background-color:lightblue;color:#000000;font-family:tahoma,arial,trebuchet;font-size:12px;font-weight:bold;line-height:18px;white-space:nowrap;}a hover{background-color: yellow;}</style>",
-      a +=
-        "</head><body bgcolor='#f0e8dc' style=\"margin-top:2px;margin-left:0px;margin-right:0px;overflow-x:hidden;\">\n",
-      a += "<center>\n",
-      !0 == omito ||
-        ((a +=
-          "<a href=# class='botonch' style=\"background-color:#9fef86\" onclick='opener.versats(0)'>\n"),
-        (a +=
-          "&nbsp;SSB Linear&nbsp;</a>&nbsp;&nbsp;&nbsp;<a href=# class='botonch' style=\"background-color:#ffff62;\" onclick='opener.versats(7)'>\n"),
-        (a +=
-          '&nbsp;SSB + FM&nbsp;</a>&nbsp;&nbsp;&nbsp;<a href=# class=\'botonch\' style="background-color:#ff6af7;" onclick="opener.versats(1);">\n'),
-        (a +=
-          "&nbsp;FM Voice&nbsp;</a>&nbsp;&nbsp;&nbsp;<a href=# class='botonch' style=\"background-color:#ffb084;\" onclick='opener.versats(2)'>\n"),
-        (a +=
-          "&nbsp;FM Digital&nbsp;</a>&nbsp;&nbsp;&nbsp;<a href=# class='botonch' style=\"background-color:#9ae1ff;\" onclick='opener.versats(3)'>\n"),
-        (a +=
-          "&nbsp;XMT Only&nbsp;</a>&nbsp;&nbsp;&nbsp;<a href=# class='botonch' style=\"background-color:#61c761;\" onclick='opener.versats(4)'>\n"),
-        (a +=
-          "&nbsp;Weather&nbsp;</a>&nbsp;&nbsp;&nbsp;<a href=# class='botonch' style=\"background-color:#e2e2e2;\" onclick='opener.versats(6)'>\n"),
-        (a +=
-          "&nbsp;ALL Sats&nbsp;</a>&nbsp;&nbsp;&nbsp;<a href=# class='botonch' style=\"background-color:#222222;color:#ffffff;\" onclick='opener.versats(9)'>\n"),
-        (a += "&nbsp;UnClasif&nbsp;&nbsp;</a>&nbsp;&nbsp;&nbsp;")),
-      a +=
-        "<a href='#' onclick=\"self.close();\" style=\"font-family:Tahoma,Arial;font-size:14px;font-weight:bold;\">Go Back</a><br><span id=tit style='font-size:22px;font-weight:bold;font-family:Tahoma;color:#555555;'></span>\n",
-      a +=
-        "<span id=tit style='font-size:22px;font-weight:bold;font-family:Tahoma;color:#555555;'>",
-      0 == e && (a = a + countarray(0) + " SSB LINEAR SATS"),
-      7 == e &&
-        (a =
-          a +
-          (1 * countarray(0) + 1 * countarray(1)) +
-          " SSB LINEAR AND FM VOICE SATS"),
-      1 == e && (a = a + +countarray(1) + " FM VOICE SATS"),
-      2 == e && (a = a + countarray(2) + " FM & SSB DIGITAL SATS"),
-      3 == e && (a = a + countarray(3) + " TRANSMIT ONLY SATS"),
-      4 == e && (a = a + countarray(4) + " WEATHER METEOROLOGICAL SATS"),
-      6 == e && (a = a + "ALL SATS (" + alljs.length + ")"),
-      9 == e && (a = a + "UNCLASIFIED SATS (" + cuentafff + ")"),
-      a += "</span ><br>",
-      9 != e &&
-        ((a +=
-          '<table border="0" cellpadding="0" cellspacing="0" style="font-family:\'Arial Narrow\',Tahoma, Arial, \'Times New Roman\';font-size:11px;line-height:10px;align:center;width:auto;">'),
-        (a +=
-          '<tr><td id=kepa></td><td colspan=12 id=kepi style="font-family:courier;font-size:12px;font-weight:bold;line-height:10px;"></td></tr>'),
-        (a +=
-          '<tr style=\'font-size:bold;color:#ffffff;background-color:#000000;height:12px;\'><td align=center style="white-space:nowrap;cursor:pointer;" title="*=Selected&#13& Catalog #"><b>I CAT#</b></td><td align=center><b>NAME</b></td><td align=center style="cursor:pointer;" title="Center Frequency"><b>&nbsp;Uplink</b></td><td align=center style="cursor:pointer;" title="Center Frequency"><b>&nbsp;Dwlink</b></td><td align=center><b>&nbsp;Beacon</b></td><td align=center style="cursor:pointer;" title="Uplink Mode"><b>&nbsp;UM&nbsp;</b></td><td align=center style="cursor:pointer;" title="Downlink Mode"><b>&nbsp;&nbsp;DM&nbsp;&nbsp;</b></td><td align=center style="cursor:pointer;" title="Beacon Mode"><b>&nbsp;BM</b></td><td align=center><b>&nbsp;R/N</b></td><td align=center><b>&nbsp;T</b></td><td align=center style="cursor:pointer;" title="Subtone CTCSS"><b>&nbsp;ST</b></td><td align=center style=\'white-space:nowrap;\'><b>&nbsp;&nbsp;&nbsp;&nbsp;Emission Type&nbsp;&nbsp;&nbsp;&nbsp;</b></td><td align=center><b>&nbsp;Comments&nbsp;</b></td></tr>')),
-      i = 0;
-    i < freq.length;
-    i++
-  ) {
-    if (e < 6 && (freq[i][9] == e || 5 == freq[i][9])) {
-      for (
-        k % 2 == 0
-          ? (a += "<tr style='background-color:#e4e4e4;'>")
-          : (a += "<tr style='background-color:#ffffff;'>"),
-          j = 0;
-        j < 13;
-        j++
-      ) {
-        1 == j
-          ? (a += '<td align=center style="font-weight:bold;">')
-          : (a += "<td align=center>");
-        var l = !1;
-        for (v = 0; v < selsat.length; v++)
-          selsat[v] == freq[i][0].substr(0, 5) && (l = !0);
-        if (
-          (0 == j &&
-            ("NA-" == freq[i][1].substring(0, 3) || l
-              ? (a += "*")
-              : (a += "&nbsp;")),
-          1 == j)
-        ) {
-          for (r = 0; r < alljs.length; r++)
-            alljs[r][1].substring(2, 7) == freq[i][0] &&
-              (kepis =
-                alljs[r][0].replace(/ /g, "&nbsp;") +
-                "<br>" +
-                alljs[r][1].replace(/ /g, "&nbsp;") +
-                "<br>" +
-                alljs[r][2].replace(/ /g, "&nbsp;"));
-          a =
-            a +
-            "&nbsp;<a href='#' onclick=\"document.getElementById('kepa').innerHTML='SAT<br>KEPs<br>TLE';document.getElementById('kepi').innerHTML='" +
-            kepis +
-            "'\">" +
-            freq[i][j]
-              .replace(/height:76px;/, "height:4px;")
+  
+  const navigationButtons = shouldOmit ? '' : `
+    <a href=# class='botonch' style="background-color:#9fef86;padding: 8px 4px;font-size: 14px;" onclick='opener.versats(0)'>
+      &nbsp;SSB Linear&nbsp;
+    </a>&nbsp;&nbsp;&nbsp;
+    <a href=# class='botonch' style="padding: 8px 4px;font-size: 14px;background-color:#ffff62;" onclick='opener.versats(7)'>
+      &nbsp;SSB + FM&nbsp;
+    </a>&nbsp;&nbsp;&nbsp;
+    <a href=# class='botonch' style="padding: 8px 4px;font-size: 14px;background-color:#ff6af7;" onclick="opener.versats(1);">
+      &nbsp;FM Voice&nbsp;
+    </a>&nbsp;&nbsp;&nbsp;
+    <a href=# class='botonch' style="padding: 8px 4px;font-size: 14px;background-color:#ffb084;" onclick='opener.versats(2)'>
+      &nbsp;FM Digital&nbsp;
+    </a>&nbsp;&nbsp;&nbsp;
+    <a href=# class='botonch' style="padding: 8px 4px;font-size: 14px;background-color:#9ae1ff;" onclick='opener.versats(3)'>
+      &nbsp;XMT Only&nbsp;
+    </a>&nbsp;&nbsp;&nbsp;
+    <a href=# class='botonch' style="padding: 8px 4px;font-size: 14px;background-color:#61c761;" onclick='opener.versats(4)'>
+      &nbsp;Weather&nbsp;
+    </a>&nbsp;&nbsp;&nbsp;
+    <a href=# class='botonch' style="padding: 8px 4px;font-size: 14px;background-color:#e2e2e2;" onclick='opener.versats(6)'>
+      &nbsp;ALL Sats&nbsp;
+    </a>&nbsp;&nbsp;&nbsp;
+    <a href=# class='botonch' style="padding: 8px 4px;font-size: 14px;background-color:#222222;color:#ffffff;" onclick='opener.versats(9)'>
+      &nbsp;UnClasif&nbsp;&nbsp;
+    </a>&nbsp;&nbsp;&nbsp;`;
+  
+  let title = "";
+  switch(e) {
+    case 0: title = `${countarray(0)} SSB LINEAR SATS`; break;
+    case 7: title = `${1 * countarray(0) + 1 * countarray(1)} SSB LINEAR AND FM VOICE SATS`; break;
+    case 1: title = `${countarray(1)} FM VOICE SATS`; break;
+    case 2: title = `${countarray(2)} FM & SSB DIGITAL SATS`; break;
+    case 3: title = `${countarray(3)} TRANSMIT ONLY SATS`; break;
+    case 4: title = `${countarray(4)} WEATHER METEOROLOGICAL SATS`; break;
+    case 6: title = `ALL SATS (${alljs.length})`; break;
+    case 9: title = `UNCLASIFIED SATS (${cuentafff})`; break;
+  }
+  
+  let frequencyTable = "";
+  if (e != 9) {
+    const tableHeader = `
+      <table border="0" cellpadding="0" cellspacing="0" style="font-family:'Arial Narrow',Tahoma, Arial, 'Times New Roman';font-size:11px;line-height:10px;align:center;width:auto;">
+        <tr>
+          <td id=kepa></td>
+          <td colspan=12 id=kepi style="font-family:courier;font-size:12px;font-weight:bold;line-height:10px;"></td>
+        </tr>
+        <tr style='font-weight:bold;color:#ffffff;background-color:#000000;height:12px;'>
+          <td align=center style="font-size:14px;white-space:nowrap;cursor:pointer;padding:4px 0px;" title="*=Selected&#13& Catalog #"><b>I CAT#</b></td>
+          <td align=center style="font-size:14px;padding:4px 0px;"><b>NAME</b></td>
+          <td align=center style="font-size:14px;cursor:pointer;padding:4px 0px;" title="Center Frequency"><b>&nbsp;Uplink</b></td>
+          <td align=center style="font-size:14px;cursor:pointer;" title="Center Frequency"><b>&nbsp;Dwlink</b></td>
+          <td align=center style="font-size:14px;padding:4px 0px;"><b>&nbsp;Beacon</b></td>
+          <td align=center style="font-size:14px;cursor:pointer;padding:4px 0px;" title="Uplink Mode"><b>&nbsp;UM&nbsp;</b></td>
+          <td align=center style="font-size:14px;cursor:pointer;padding:4px 0px;" title="Downlink Mode"><b>&nbsp;&nbsp;DM&nbsp;&nbsp;</b></td>
+          <td align=center style="font-size:14px;cursor:pointer;padding:4px 0px;" title="Beacon Mode"><b>&nbsp;BM</b></td>
+          <td align=center style="font-size:14px;padding:4px 0px;"><b>&nbsp;R/N</b></td>
+          <td align=center style="font-size:14px;padding:4px 0px;"><b>&nbsp;T</b></td>
+          <td align=center style="font-size:14px;cursor:pointer;padding:4px 0px;" title="Subtone CTCSS"><b>&nbsp;ST</b></td>
+          <td align=center style='font-size:14px;white-space:nowrap;padding:4px 0px;'><b>&nbsp;&nbsp;&nbsp;&nbsp;Emission Type&nbsp;&nbsp;&nbsp;&nbsp;</b></td>
+          <td align=center style="font-size:14px;padding:4px 0px;"><b>&nbsp;Comments&nbsp;</b></td>
+        </tr>`;
+    
+    let rows = "";
+    
+    for (let i = 0; i < freq.length; i++) {
+      let shouldInclude = false;
+      
+      // Determine if this frequency should be included based on filter
+      if (e < 6 && (freq[i][9] == e || 5 == freq[i][9])) {
+        shouldInclude = true;
+      } else if (e == 7 && (0 == freq[i][9] || 1 == freq[i][9] || 5 == freq[i][9])) {
+        shouldInclude = true;
+      } else if (e == 6) {
+        shouldInclude = true;
+      }
+      
+      if (shouldInclude) {
+        const rowStyle = k % 2 == 0 ? 
+          "style='background-color:#e4e4e4;'" : 
+          "style='background-color:#ffffff;'";
+        
+        let row = `<tr ${rowStyle}>`;
+        
+        for (let j = 0; j < 13; j++) {
+          const cellStyle = j == 1 ? 'align=center style="font-weight:bold;padding:4px 0px;font-size:14px;"' : 'align=center style="padding:4px 0px;font-size:14px;"';
+          
+          // Check if satellite is selected
+          let isSelected = false;
+          for (let v = 0; v < selsat.length; v++) {
+            if (selsat[v] == freq[i][0].substr(0, 5)) {
+              isSelected = true;
+              break;
+            }
+          }
+          
+          let cellContent = "";
+          
+          if (j == 0) {
+            // First column - selection indicator
+            if (freq[i][1].substring(0, 3) == "NA-" || isSelected) {
+              cellContent = "*";
+            } else {
+              cellContent = "&nbsp;";
+            }
+          } else if (j == 1) {
+            // Second column - satellite name with link
+            let kepis = "";
+            for (let r = 0; r < alljs.length; r++) {
+              if (alljs[r][1].substring(2, 7) == freq[i][0]) {
+                kepis = `${alljs[r][0].replace(/ /g, "&nbsp;")}<br>${alljs[r][1].replace(/ /g, "&nbsp;")}<br>${alljs[r][2].replace(/ /g, "&nbsp;")}`;
+                break;
+              }
+            }
+            
+            let processedContent = freq[i][j]
+              .replace(/height:76px;/, e == 6 ? "height:22px;" : "height:4px;")
               .replace(/background-image: url/, "")
               .replace(/<br>Still <i>'Calling Home..'/, "")
               .replace(/LUSAT has survived<br>30 Years in Space/, "")
-              .replace(/<br>/g, "&nbsp;")
-              .replace(/&nbsp;&nbsp;/g, "&nbsp;") +
-            "</a>";
-        } else
-          a =
-            a +
-            "&nbsp;" +
-            freq[i][j]
-              .replace(/height:76px;/, "height:4px;")
-              .replace(/background-image: url/, "")
-              .replace(/<br>Still <i>'Calling Home..'/, "")
-              .replace(/LUSAT has survived<br>30 Years in Space/, "")
-              .replace(/<br>/g, "&nbsp;")
+              .replace(/<br>/g, e == 6 ? "" : "&nbsp;")
               .replace(/&nbsp;&nbsp;/g, "&nbsp;");
-        (a += "</td>"), (k += 1);
-      }
-      a += "</tr><tr>";
-    }
-    if (7 == e && (0 == freq[i][9] || 1 == freq[i][9] || 5 == freq[i][9])) {
-      for (
-        k % 2 == 0
-          ? (a += "<tr style='background-color:#e4e4e4;'>")
-          : (a += "<tr style='background-color:#ffffff;'>"),
-          j = 0;
-        j < 13;
-        j++
-      ) {
-        1 == j
-          ? (a += '<td align=center style="font-weight:bold;">')
-          : (a += "<td align=center>");
-        var l = !1;
-        for (v = 0; v < selsat.length; v++)
-          selsat[v] == freq[i][0].substr(0, 5) && (l = !0);
-        if ((0 == j && (l ? (a += "*") : (a += "&nbsp;")), 1 == j)) {
-          for (r = 0; r < alljs.length; r++)
-            alljs[r][1].substring(2, 7) == freq[i][0] &&
-              (kepis =
-                alljs[r][0].replace(/ /g, "&nbsp;") +
-                "<br>" +
-                alljs[r][1].replace(/ /g, "&nbsp;") +
-                "<br>" +
-                alljs[r][2].replace(/ /g, "&nbsp;"));
-          a =
-            a +
-            "&nbsp;<a href='#' onclick=\"document.getElementById('kepa').innerHTML='SAT<br>KEPs<br>TLE';document.getElementById('kepi').innerHTML='" +
-            kepis +
-            "'\">" +
-            freq[i][j] +
-            "</a>";
-        } else a = a + "&nbsp;" + freq[i][j];
-        (a += "</td>"), (k += 1);
-      }
-      a += "</tr><tr>";
-    }
-    if (6 == e) {
-      for (
-        k % 2 == 0
-          ? (a += "<tr style='background-color:#e4e4e4;'>")
-          : (a += "<tr style='background-color:#ffffff;'>"),
-          j = 0;
-        j < 13;
-        j++
-      ) {
-        1 == j
-          ? (a += '<td align=center style="font-weight:bold;">')
-          : (a += "<td align=center>");
-        var l = !1;
-        for (v = 0; v < selsat.length; v++)
-          selsat[v] == freq[i][0].substr(0, 5) && (l = !0);
-        if (
-          (0 == j &&
-            ("NA-" == freq[i][1].substring(0, 3) || l
-              ? (a += "*")
-              : (a += "&nbsp;")),
-          1 == j)
-        ) {
-          for (r = 0; r < alljs.length; r++)
-            alljs[r][1].substring(2, 7) == freq[i][0] &&
-              (kepis =
-                alljs[r][0].replace(/ /g, "&nbsp;") +
-                "<br>" +
-                alljs[r][1].replace(/ /g, "&nbsp;") +
-                "<br>" +
-                alljs[r][2].replace(/ /g, "&nbsp;"));
-          a =
-            a +
-            "&nbsp;<a href='#' onclick=\"document.getElementById('kepa').innerHTML='SAT<br>KEPs<br>TLE';document.getElementById('kepi').innerHTML='" +
-            kepis +
-            "'\">" +
-            freq[i][j]
-              .replace(/height:76px;/, "height:22px;")
+            
+            cellContent = `&nbsp;<a href='#' onclick="document.getElementById('kepa').innerHTML='SAT<br>KEPs<br>TLE';document.getElementById('kepi').innerHTML='${kepis}'">${processedContent}</a>`;
+          } else {
+            // Other columns
+            let processedContent = freq[i][j]
+              .replace(/height:76px;/, e == 6 ? "height:22px;" : "height:4px;")
               .replace(/background-image: url/, "")
               .replace(/<br>Still <i>'Calling Home..'/, "")
               .replace(/LUSAT has survived<br>30 Years in Space/, "")
-              .replace(/<br>/, "") +
-            "</a>";
-        } else
-          a =
-            a +
-            "&nbsp;" +
-            freq[i][j]
-              .replace(/height:76px;/, "height:22px;")
-              .replace(/background-image: url/, "")
-              .replace(/<br>Still <i>'Calling Home..'/, "")
-              .replace(/LUSAT has survived<br>30 Years in Space/, "")
-              .replace(/<br>/, "");
-        (a += "</td>"), (k += 1);
+              .replace(/<br>/g, e == 6 ? "" : "&nbsp;")
+              .replace(/&nbsp;&nbsp;/g, "&nbsp;");
+            
+            cellContent = `&nbsp;${processedContent}`;
+          }
+          
+          row += `<td ${cellStyle}>${cellContent}</td>`;
+          k++;
+        }
+        
+        row += "</tr>";
+        rows += row;
+        
+        if (e == 6 && k % 13 == 0) {
+          rows += "<tr>";
+        }
       }
-      k % 13 == 0 && (a += "</tr><tr>");
     }
+    
+    const tableFooter = `
+      <tr style='font-size:14px;font-weight:bold;color:#ffffff;background-color:#000000;height:12px;'>
+        <td align=center style="white-space:nowrap;cursor:pointer;padding:2px 0px;" title="*=Selected&#13& Catalog #"><b>I CAT#</b></td>
+        <td align=center style="padding:2px 0px;"><b>NAME</b></td>
+        <td align=center style="cursor:pointer;padding:2px 0px;" title="Center Frequency"><b>&nbsp;Uplink</b></td>
+        <td align=center style="cursor:pointer;padding:2px 0px;" title="Center Frequency"><b>&nbsp;Dwlink</b></td>
+        <td align=center style="padding:2px 0px;"><b>&nbsp;Beacon</b></td>
+        <td align=center style="cursor:pointer;padding:2px 0px;" title="Uplink Mode"><b>&nbsp;UM&nbsp;</b></td>
+        <td align=center style="cursor:pointer;padding:2px 0px;" title="Downlink Mode"><b>&nbsp;&nbsp;DM&nbsp;&nbsp;</b></td>
+        <td align=center style="cursor:pointer;padding:2px 0px;" title="Beacon Mode"><b>&nbsp;BM</b></td>
+        <td align=center style="padding:2px 0px;"><b>&nbsp;R/N</b></td>
+        <td align=center style="padding:2px 0px;"><b>&nbsp;T</b></td>
+        <td align=center style="cursor:pointer;padding:2px 0px;" title="Subtone CTCSS"><b>&nbsp;ST</b></td>
+        <td align=center style='white-space:nowrap;padding:2px 0px;'><b>&nbsp;&nbsp;&nbsp;&nbsp;Emission Type&nbsp;&nbsp;&nbsp;&nbsp;</b></td>
+        <td align=center style="padding:2px 0px;"><b>&nbsp;Comments&nbsp;</b></td>
+      </tr>
+      </table></center>`;
+    
+    frequencyTable = tableHeader + rows + tableFooter;
   }
-  9 != e
-    ? ((a +=
-        '<tr style=\'font-size:bold;color:#ffffff;background-color:#000000;height:12px;\'><td align=center style="white-space:nowrap;cursor:pointer;" title="*=Selected&#13& Catalog #"><b>I CAT#<\/b><\/td><td align=center><b>NAME<\/b><\/td><td align=center style="cursor:pointer;" title="Center Frequency"><b>&nbsp;Uplink<\/b><\/td><td align=center style="cursor:pointer;" title="Center Frequency"><b>&nbsp;Dwlink<\/b><\/td><td align=center><b>&nbsp;Beacon<\/b><\/td><td align=center style="cursor:pointer;" title="Uplink Mode"><b>&nbsp;UM&nbsp;<\/b><\/td><td align=center style="cursor:pointer;" title="Downlink Mode"><b>&nbsp;&nbsp;DM&nbsp;&nbsp;<\/b><\/td><td align=center style="cursor:pointer;" title="Beacon Mode"><b>&nbsp;BM<\/b><\/td><td align=center><b>&nbsp;R/N<\/b><\/td><td align=center><b>&nbsp;T<\/b><\/td><td align=center style="cursor:pointer;" title="Subtone CTCSS"><b>&nbsp;ST<\/b><\/td><td align=center style=\'white-space:nowrap;\'><b>&nbsp;&nbsp;&nbsp;&nbsp;Emission Type&nbsp;&nbsp;&nbsp;&nbsp;<\/b><\/td><td align=center><b>&nbsp;Comments&nbsp;<\/b><\/td><\/tr>'),
-      (a += "<\/table><\/center>"))
-    : (a = a + ifff + fff + "<\/td><\/tr>" + encabe1 + "<\/table>");
-    (a += "<\/body><\/html>"),
-    (preferences =
-      "toolbar=no,width=800px,height=540px,center,margintop=0,top=75,left=65,status=no,scrollbars=yes,resizable=no,dependent=yes,z-lock=yes"),
-    (popupwin = window.open("", "win", preferences)).document.write(a),
-    popupwin.setTimeout("self.close()", 18e4);
+  
+  // Build HTML content
+  const htmlContent = `<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1">
+  <title>Sats List</title>
+  <style>
+    .botonch {
+      text-decoration: none;
+      border: outset;
+      border-radius: 9px 9px 9px 9px;
+      border-width: 2px;
+      background-color: lightblue;
+      color: #000000;
+      font-family: tahoma,arial,trebuchet;
+      font-size: 12px;
+      font-weight: bold;
+      line-height: 18px;
+      white-space: nowrap;
+    }
+    a:hover {
+      background-color: yellow;
+    }
+  </style>
+</head>
+<body bgcolor='#f0e8dc' style="margin-top:20px;margin-left:0px;margin-right:0px;overflow-x:hidden;">
+  <center>
+    ${navigationButtons}
+    <a href='#' onclick="self.close();" style="font-family:Tahoma,Arial;font-size:14px;font-weight:bold;">Go Back</a><br>
+    <p id=tit style='font-size:22px;font-weight:bold;font-family:Tahoma;color:#555555;'>${title}</p>
+    ${e == 9 ? 
+      `<center style="width:800px;">
+        <table border=0 cellpadding=1 cellspacing=0 style="font-size:12px;font-family:Courier;line-height:10px;font-weight:bold;width:800px;">
+          <tr>
+            <td id='kepa'></td>
+            <td colspan=12 id=kepi style="font-family:courier;font-size:12px;font-weight:bold;line-height:10px;"></td>
+          </tr>
+          ${encabe1}
+          ${fff}
+          ${encabe1}
+        </table>
+      </center>` : 
+      frequencyTable
+    }
+  </body>
+</html>`;
+  
+  // Create popup window and set content
+  const preferences = "toolbar=no,width=1024px,height=540px,center,margintop=0,top=75,left=65,status=no,scrollbars=yes,resizable=no,dependent=yes,z-lock=yes";
+  popupwin = window.open("", "win", preferences);
+  
+  popupwin.document.documentElement.innerHTML = htmlContent;
+  
+  // popupwin.setTimeout(() => {
+  //   popupwin.close();
+  // }, 180000); // 3 minutes (18e4 milliseconds)
 }
 function showhelp() {
-  (satactivity += "HELP/"),
-    (preferences =
-      "toolbar=no,width=718px,height=583px,center,margintop=0,top=120,left=10,status=no,scrollbars=yes,resizable=no,dependent=yes,z-lock=yes"),
-    null != popupwin && popupwin.close(),
-    (popupwin = window.open("", "win", preferences)),
-    (helpi =
-      '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">\n'),
-    (helpi += "<html><head>\n"),
-    (helpi +=
-      '<meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1">\n'),
-    (helpi +=
-      '<style type="text/css">li {list-style-position: outside;margin-left: 1em;} a:link {color: #ffffff;background-color:transparent;}a:visited {color: #ffffff;background-color:transparent;}a:hover {color: #ffffff ;background-color: red ;} a:active {color:#ffffff;background-color:#ff0000;} a:focus {color:#ffffff;background-color:#ff0000;}</style>\n'),
-    (helpi += '<script language="javascript" type="text/javascript">\n'),
-    (helpi +=
-      "var english=\"<center><b>* This application predicts and tracks amateur satellites in real time (local or GMT)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<\\/b><\\/center><ul><li>Should set your location automatically, if not, click on blue <u>'Locator'<\\/u> label on top.<\\/li><li>Click on any colored icon, you'll see a intuitive graph showing actual Azim/Elev.<\\/li><li>Frequencies and modes of selected Satellite are shown with actual doppler.<\\/li><li>When sat clicked, shows path+coverage. Yellow icon marks Sat is in range.<\\/li><li>Table shows passes times/duration. Insure having correct time and timezone.<\\/li><li>Click on SUN will show day/night line, same for MOON, with usual EME freqs.<\\/li><li>By clicking on numbers at upper right, several zoomed maps are available.<\\/li><li>If sound enabled (red X), beep alerts for any Satellite approaching or leaving.<\\/li><li>Keps are updated daily (no need to update), most active Satellites are provided.<\\/li><li>Additional satellites can be added or deleted by clicking on '<u>+Sats<\\/u>' label on top.<\\/li><li>Application could be used in the field, runs even without Internet on any device.<\\/li><li>If <a href='pass.exe' Title='Download or Execute pass.exe program' target=_blank style='color:#facc2e;'>PASS.EXE<\\/a> runs concurrently with <a href='wispdde.exe' Title='Download or Execute wispDDE Driver' target=_blank style='color:#facc2e;'>wispDDE<\\/a> will control rotor and rig dopplers.<\\/li><li>If need <a href='MSCOMM32.OCX' Title='Download MSCOMM32.OCX' target=_blank style='color:#facc2e;'>MSCOMM32.OCX<\\/a> or <a href='mscomctl.OCX' Title='Download mscomctl.OCX' target=_blank style='color:#facc2e;'>mscomctl.OCX<\\/a>. Use admin regsvr32 on syswow64.<\\/li><li>If your locator not taken, start adding to url ?localat=xx.xxxx&localon=yy.yyyy .<\\/li><li>If using iPad or IOS and locator not taken, start adding to url ?locator=XXXXXX .<\\/li><li>To select a group add to url ?type= and any FM, SSB, SSBFM, NOAA, XMT, digital.<\\/li><li>If you want to start Pass with a specific satellite add to url ?sat=XXXXX .<\\/li><li>If you want to start Pass with only one satellite add to url ?satx=YYYYY .<\\/li><li>Or double click on a satellite, to see all sats again double click again.<\\/li><\\/ul><center><i>Enjoy!! Best 73 from LU7ABF, Pedro Converso, lu7abf at amsat.org.ar<\\/i><\\/center><br>\";\n"),
-    (helpi +=
-      "var espanol=\"<center><b>* Esta aplicaci&oacute;n predice y trackea Sat&eacute;lites amateur en tiempo real (local o GMT)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<\\/b><\\/center><ul><li>Deber&iacute;a poner autom&aacute;tico tu ubicaci&oacute;n, si no es as&iacute; clicke&aacute; arriba leyenda <u>Locator<\\/u>.<\\/li><li>Clicke&aacute; cualquier icono de color, ver&aacute;s gr&aacute;fico mostrando azimut y elevaci&oacute;n.<\\/li><li>Al seleccionar te muestra frecuencias y modos del Sat&eacute;lite y su Doppler real.<\\/li><li>Se muestran &oacute;rbita y cubrimiento, el icono amarillo indica Sat&eacute;lite al alcance.<\\/li><li>La tabla d&aacute; horario\\/duraci&oacute;n\\/azimuts. Asegur&aacute; tener bi&eacute;n d&iacute;a/hora/huso en tu PC.<\\/li><li>Al clickear el Sol, muestra l&iacute;nea d&iacute;a\\/noche y en la Luna frecuencias usuales TLT.<\\/li><li>Clickeando en n&uacute;meros arriba/derecha, podr&aacute;s ver varios acercamientos del mapa.<\\/li><li>Deshabilitando anuncios (X roja) un beep alerta Sat&eacute;lites apareci&eacute;ndo o y&eacute;ndose.<\\/li><li>Los Keplerianos se actualizan solos, se muestran los usuales Sat&eacute;lites activos.<\\/li><li>Dando click en '<u>+Sats<\\/u>' arriba en la pantalla, pod&eacute;s agregar o quitar Sat&eacute;lites.<\\/li><li>Pass puede usarse en el campo, corre a&uacute;n sin Internet en cualquier dispositivo.<\\/li><li>Si utiliz&aacute;s el <a href='pass.exe' Title='Bajar o Ejecutar el programa pass.exe' target=_blank style='color:#facc2e;'>PASS.EXE<\\/a> junto con el <a href='wispdde.exe' Title='Bajar o Ejecutar el Driver wispDDE' target=_blank style='color:#facc2e;'>wispDDE<\\/a> , pod&eacute;s controlar rotores y equipos.<\\/li><li>Si necesita <a href='MSCOMM32.OCX' Title='Download MSCOMM32.OCX' target=_blank style='color:#facc2e;'>MSCOMM32.OCX<\\/a> o <a href='mscomctl.OCX' Title='Download mscomctl.OCX' target=_blank style='color:#facc2e;'>mscomctl.OCX<\\/a>. Use admin regsvr32 en syswow64.<\\/li><li>Si no toma tu locator, arranca agregando a la url ?localat=xx.xxxx&localon=yy.yyyy .<\\/li><li>Si usas iPad o IOS y no toma tu locator, arranca agregando a la url ?locator=XXXXXX .<\\/li><li>Selecc. un grupo: agregar a url ?type= y cualquier FM, SSB, SSBFM, NOAA, XMT, digital.<\\/li><li>Si quiere empezar el Pass con un satelite especifico agregue a la url ?sat=YYYYY .<\\/li><li>Si quiere empezar el Pass con solo un satelite agregue a la url ?satx=XXXXX .<\\/li><li>O de doble click en un satelite, para ver de nuevo todos los sats, doble click de nuevo.<\\/li><\\/ul><center><i>Que lo disfrutes, 73 de LU7ABF, Pedro Converso, lu7abf arroba amsat.org.ar<\\/i><\\/center><br>\";\n"),
-    (helpi +=
-      "var portugues=\"&nbsp;&nbsp;&nbsp;&nbsp;<b>* Esta aplica&ccedil;&atilde;o prev&ecirc; e mostra sat&eacute;lites do radioamador em tempo real (local ou GMT)<\\/b><\\/center><font style='font-size:13px;'><ul style='padding:0;margin:16;'><li>Deve colocar a sua localiza&ccedil;&atilde;o automaticamente, se n&atilde;o clique acima lenda <b><u>Locator<\\/u><\\/b>.<\\/li><li>Clique em qualquer &iacute;cone de cor, voc&ecirc; vai ver gr&aacute;fico mostrando azimute e eleva&ccedil;&atilde;o.<\\/li><li>Ao selecionar, mostra freq&uuml;&ecirc;ncias e modos do sat&eacute;lite alem da sua Doppler real.<\\/li><li>Se mostra orbita e cobertura. Se o &iacute;cone e amarelo indica que o sat&eacute;lite e ao alcance.<\\/li><li>A tabela d&aacute; tempo/dura&ccedil;&atilde;o/azimutes. Certifique-se de ter bom dia/hora/fuso no seu PC.<\\/li><li>Ao clicar o &iacute;cone do Sol mostra linha dia/noite e da Lua frequ&ecirc;ncias habituais TLT.<\\/li><li>Clicando em n&uacute;meros acima/direita, voc&ecirc; ver&aacute; v&aacute;rias abordagens do mapa.<\\/li><li>Avisa com sinal sonoro se um sat&eacute;lite aparece ou vai, clique no X vermelho para parar o som.<\\/li><li>Keplers s&atilde;o atualizados sozinho, os sat&eacute;lites ativos usuais s&atilde;o mostrados.<\\/li><li>Clicando em <b><u>'+Sats'<\\/u><\\/b> acima na tela, voc&ecirc; pode adicionar ou remover sat&eacute;lites.<\\/li><li>PASS pode ser usada no campo, at&eacute; mesmo sem Internet. Opera em qualquer dispositivo.<\\/li><li>Se voc&ecirc; usar o <a href='pass.exe' Title='Bajar o Ejecutar el programa pass.exe' target=_blank style='color:#facc2e;'>PASS.EXE<\\/a> com o <a href='wispdde.exe' Title='Bajar o Ejecutar el Driver wispDDE' target=_blank style='color:#facc2e;'>wispDDE<\\/a>, voc&ecirc; pode controlar seus rotores e equipamentos.<\\/li><li>Se voc&ecirc; precisa <a href='MSCOMM32.OCX' Title='Download MSCOMM32.OCX' target=_blank style='color:#facc2e;'>MSCOMM32.OCX<\\/a> o <a href='mscomctl.OCX' Title='Download mscomctl.OCX' target=_blank style='color:#facc2e;'>mscomctl.OCX<\\/a>. Use admin regsvr32 en syswow64.<\\/li><li>Si localizador nao e tomado proba acrescentando a url com ?localat=xx.xxxx&localon=yy.yyyy .<\\/li><li>Para um gruppo, adicionar ao url ?type= e qualquer FM, SSB, SSBFM, NOAA, XMT, digital.<\\/li><li>Se voc&ecirc; quer come&ccedil;ar com um satelite especifico, adicionar ao url ?sat=YYYYY .<\\/li><li>Se voc&ecirc; quer come&ccedil;ar so com un satelite, adicionar ao url ?satx=XXXXX .<\\/li><li>Ou clique duas vezes em um sat, para ver todos os sats novamente, clique duas vezes.<\\/li><\\/ul><center><i>Apreci&aacute;-lo, 73 LU7ABF, Pedro Converso, lu7abf arroba amsat.org.ar<\\/i><\\/center><\\/font><br>\";\n"),
-    (helpi +=
-      "var deutsche=\"<div style='font-size:16px;line-height:16px;font-weight:normal;font-family:Arial Narrow,Tahoma;'><b>&nbsp;&nbsp;&nbsp;* Diese Anwendung sagt Flugbahnen von Amateurfunk-Satelliten in Echtzeit voraus (Lokalzeit oder GMT)<\\/b><br><br><ul style='padding:0;margin:0;'><li>Deine Position sollte automatisch gesetzt werden, falls nicht, klicke oben auf das blaue <u>'Locator'<\\/u>-Symbol.<\\/li><li>Klicke auf eines der farbigen Symbole um den Horizontalwinkel (Azimut) und Vertikalwinkel (Elevation) graphisch darzustellen.<\\/li><li>Es werden Betriebsart und Frequenzen (inklusive Doppler-Verschiebung) des ausgew&auml;hlten Satelliten angezeigt.<\\/li><li>Ist ein Satellit ausgew&auml;hlt, wird dessen Bahn und dessen (Funk-)Abdeckung angezeigt. Ein gelbes Symbol bedeutet, dass der Satellit in Reichweite ist.<\\/li><li>Die Tabelle zeigt eine &Uuml;bersicht der &Uuml;berflugzeiten und der &Uuml;berflugdauer. Stelle dazu sicher, dass auf deinem Computer die korrekte Zeit eingestellt ist.<\\/li><li>Klicke auf 'SUN' um die Tages- und Nachtlinie anzuzeigen, dasselbe gilt f&uuml;r 'Moon' f&uuml;r die &uuml;blichen EME (Erde-Mond-Erde) Frequenzen.<\\/li><li>Durch Anklicken der Zahlen oben rechts k&ouml;nnen verschiedene Kartenma&szlig;st&auml;be ausgew&auml;hlt werden.<\\/li><li>Wenn der Ton aktiviert ist (rotes X), werden Piept&ouml;ne f&uuml;r jeden Satelliten ausgegeben, der in Reichweite kommt oder diese verl&auml;sst.<\\/li><li>Die Kepler-Daten werden t&auml;glich aktualisiert (keine manuelle Aktualisierung notwendig) - die meisten aktiven Satelliten sind bereits eingetragen.<\\/li><li>Weitere Satelliten k&ouml;nnen durch klicken auf das <u>'+Sats'<\\/u>-Symbol hinzugef&uuml;gt oder gel&ouml;scht werden (oben auf der Seite).&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Wenn du mit einem bestimmten Satelliten anfangen willst, fugst du zu url ?sat=XXXXX<\\/li><li>Die Anwendung kann auch im Feld eingesetzt werden, sie l&auml;uft auch ohne Internet auf jedem Ger&auml;t.<\\/li><li>Wenn Sie nicht Ihre Locator nehmen, starten Sie auf die URL hinzuzufugen ?localat=xx.xxxx&localon=yy.yyyy .<\\/li><li>Wenn <a href='pass.exe' Title='Download or Execute pass.exe program' target=_blank style='color:#facc2e;'><b>PASS.EXE<\\/b><\\/a> zusammen mit <a href='wispdde.exe' Title='Download or Execute wispDDE Driver' target=_blank style='color:#facc2e;'><b>wispDDE<\\/b><\\/a> ausgef&uuml;hrt wird, wird der Rotor und die Dopplerverschiebung des Funkger&auml;ts eingestellt.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i>Vielen Dank f&uuml;r die deutsche &Uuml;bersetzung, Hauke, DH4CK<\\/i><\\/li><li>Um einen einzelnen Satelliten zu sehen, doppelklicken Sie auf einen Satelliten. Um wieder alle Satelliten zu sehen, doppelklicken wieder.<\\/li><\\/ul><br><center><i>Viel Spass!!! Beste 73 von LU7ABF, Pedro Converso, lu7abf at amsat.org.ar<\\/i><\\/center><br><\\/div>\";\n"),
-    (helpi +=
-      "var italiano=\"<div style='font-size:14px;line-height:18px;font-weight:normal;'><b>* Questa applicazione prevede a tracciare satelliti radio amatoriali in tempo reale (locale/GMT)<\\/b><\\/font><font style='font-size:15px;'><br><ul style='padding:0;margin:8;'><li>Dovrebbe mettere automaticamente tua posizione, se clicchi sopra <u>Locator<\\/u> potrai inserire il tuo.<\\/li><li>Fare clic su qualsiasi icona di colore, vedi il grafico che mostra l&#39;azimut ed elevazione.<\\/li><li>Quando si selezionano i satelliti, si vedono le frequenze e  modalit&agrave;, con il suo effettivo Doppler.<\\/li><li>Sono indicati orbita e copertura, Un'icona gialla indica che il satellite &egrave; a portata di mano.<\\/li><li>La tabella d&agrave; il tempo/durata/azimut. Contiene inoltre di avere ora e giorno sul tuo PC.<\\/li><li>Quando si clicca il Sole viene mostrato il giorno\\/notte e le solite frequenze Luna TLT.<\\/li><li>Cliccando sui numeri sopra a destra, vedrete diversi ingrandimenti della mappa.<\\/li><li>Annunci e disattivazione (rosso X) avviso acustico ingresso e uscita del satellite.<\\/li><li>L&#39;aggiornamento dei dati Kepleriani avviene in automatico, vengono mostrati il satelliti attivi.<\\/li><li>Cliccando su <u>&#39;+ Sats&#39;<\\/u> sullo schermo, &egrave; possibile aggiungere o rimuovere i satelliti.<\\/li><li>Pass pu&ograve; essere utilizzato anche senza collegamento a Internet su qualsiasi dispositivo.<\\/li><li>Se si utilizza insieme <a href='wispdde.exe' Title='Download or Execute wispDDE Driver' target=_blank style='color:#facc2e;'>wispDDE<\\/a> e <a href='pass.exe' Title='Download or Execute pass.exe program' target=_blank style='color:#facc2e;'>PASS.EXE<\\/a>, &egrave; possibile controllare rotori e ricetrasmettitore.<\\/li><li>Se non si prendono il vostro locator, aggiungere alla url ?localat=xx.xxxx&localon=yy.yyyy .<\\/li><li>Se si vuole iniziare con un satellite specifica, aggiungere alla URL ?sat=XXXXX .<\\/li><li>Se si vuole iniziare con solo un satelite, aggiungere alla URL ?satx=YYYYY .<\\/li><li>Oppure fai doppio clic su un satellite, per vedere di nuovo tutti i sats, doppio clic recentemente.<\\/li><\\/ul><center><i>Grazie IZ5TEP, Filippo per l'aiuto in italiano e IK8XLD, Rocco per i preziosi suggerimenti<br><br>Godere!! Miglior 73 da LU7ABF, Pedro Converso, lu7abf a amsat.org.ar<\\/i><\\/center><br><\\/div>\";\n"),
-    (helpi +=
-      "var frances=\"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>* Cette application pr&eacute;dit et montre Satellites Amateur de temps r&eacute;el (local ou GMT)<\\/b><br><ul style='padding:0;margin:16;'><li>Devriez mettre votre position automatiquement, sinon cliquez dessus l&eacute;gende <b><u>Locator<\\/u><\\/b>.<\\/li><li>Cliquez sur l'ic&ocirc;ne de couleur, vous verrez graphique montrant azimut et le &eacute;l&eacute;vation.<\\/li><li>Lorsque les fr&eacute;quences de s&eacute;lection et modes vous montre le satellite et son Doppler r&eacute;elle.<\\/li><li>Ils sont repr&eacute;sent&eacute;s les orbites et la couverture. L'ic&ocirc;ne jaune indique la port&eacute;e satellite.<\\/li><li>Le tableau donne le temps/dur&eacute;e/azimuths. pr&eacute;tend &eacute;galement avoir jour/heure/fuseau de votre PC.<\\/li><li>En cliquant sur l'ic&ocirc;ne Soleil montre jour/nuit et sur la Lune fr&eacute;quences habituelles TLT.<\\/li><li>En cliquant sur les num&eacute;ros ci-dessus/droite, vous verrez plusieurs approches de la carte.<\\/li><li>Annonces D&eacute;sactivation (X rouge) Satellite Apparaissant bip d'avertissement ou de quitter.<\\/li><li>Keplerian sont mis &agrave; jour seul, les satellites actifs habituels sont pr&eacute;sent&eacute;s.<\\/li><li>En cliquant sur <b><u>'+Sats'<\\/u><\\/b> sur l'&eacute;cran, vous pouvez ajouter ou supprimer des satellites.<\\/li><li>PASS peut &ecirc;tre utilis&eacute; dans le domaine, m&ecirc;me sans internet fonctionne sur tout appareil.<\\/li><li>Si utilisez le <a href='pass.exe' Title='T&eacute;l&eacute;charger ou Execut&eacute;r pass.exe program' target=_blank style='color:#facc2e;'>PASS.EXE<\\/a> avec <a href='wispdde.exe' Title='T&eacute;l&eacute;charger ou Execut&eacute;r wispDDE Driver' target=_blank style='color:#facc2e;'>wispDDE<\\/a>, pouvez contr&ocirc;ler les rotors et votre &eacute;metteurs-r&eacute;cepteurs.<\\/li><li>Si ne prenez pas le locator, commencer a ajouter a l'url ?localat=xx.xxxx&localon=yy.yyyy .<\\/li><li>Si vous voulez commencer avec un satellite sp&eacute;cifique ajouter &agrave; l'url ?sat=XXXXX .<\\/li><li>Pour voir un seul sat double-cliquer sur un sat, pour revoir tous, double-cliquer encore.<\\/li><\\/ul><center><i>Profitez !!, 73 LU7ABF, Pedro Converso, lu7abf a amsat.org.ar<\\/i><\\/center><br>\";\n"),
-    (helpi +=
-      "var russian=\"<img alt='russian.gif' src='data:image\\/gif;base64,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'><br><br>\";\n"),
-    (helpi +=
-      "var turkish=\"<font style='font-size:16px;font-family:Arial Narrow,Tahoma;line-height:16px;font-weight:normal;'>&nbsp;<b>* Bu uygulama tahmini ve ger&#xe7;ek zamanl&#x131; olarak (yerel veya GMT saatiyle) amat&#xf6;r uydular&#x131; izler.<\\/b><br><br><ul style='padding:0;margin:0;'><li>Konumunuzun otomatik olarak ayarlam&#x131;&#x15f; olmas&#x131; gerekiyor. Ayarlanmam&#x131;&#x15f; ise &#xfc;stteki mavi <u><b>'Locator'<\\/b><\\/u> linkini t&#x131;klay&#x131;n&#x131;z.<\\/li><li>Renkli simgelerden herhangi birine t&#x131;klad&#x131;&#x11f;&#x131;n&#x131;zda, ger&#xe7;ek zamanl&#x131; bir Az/El grafi&#x11f;i g&#xf6;receksiniz.<\\/li><li>Se&#xe7;ilen uydunun frekans ve modlar&#x131; doppler'i verilmi&#x15f; olarak g&#xf6;sterilir.<\\/li><li>Uyduya t&#x131;klad&#x131;&#x11f;&#x131;n&#x131;zda, uydunun ge&#xe7;i&#x15f; yolu ve kapsama alan&#x131; g&#xf6;z&#xfc;k&#xfc;r. Sar&#x131; i&#x15f;aretli olanlar g&#xf6;r&#xfc;&#x15f; alan&#x131;n&#x131;zdaki uydulard&#x131;r.<\\/li><li>Tablo, uydular&#x131;n ge&#xe7;i&#x15f; zaman ve s&#xfc;relerini g&#xf6;sterir. Do&#x11f;ru zaman diliminde olmas&#x131;na dikkat ediniz.<\\/li><li>Gece-g&#xfc;nd&#xfc;z hatt&#x131; i&#xe7;in G&#xfc;NE&#x15f;'e, EME frekanslar&#x131; i&#xe7;in de AY'a t&#x131;klayabilirsiniz.<\\/li><li>Sa&#x11f; &#xfc;stteki say&#x131;lara t&#x131;klay&#x131;p harita &#xf6;l&#xe7;e&#x11f;ini de&#x11f;i&#x15f;tirebilirsiniz.<\\/li><li>Alarm &#xf6;zelli&#x11f;ini aktif etti&#x11f;inizde (K&#x131;rm&#x131;z&#x131; X), kapsama alan&#x131;n&#x131;za giren ve &#xe7;&#x131;kan uydular i&#xe7;in sesli uyar&#x131;lar alabilirsiniz.<\\/li><li>Aktif olarak kullan&#x131;lan uydular&#x131;n keps verileri (ayr&#x131;ca g&#xfc;ncellemenize gerek kalmaks&#x131;z&#x131;n) her g&#xfc;n otomatik olarak g&#xfc;ncellenir.<\\/li><li>Yukar&#x131;daki <u><b>'+Sats'<\\/b><\\/u> linkine t&#x131;klay&#x131;p tabloya uydu ekleyebilir veya &#xe7;&#x131;kartabilirsiniz.<\\/li><li>Uygulama herhangi bir cihazda, internet olmasa bile &#xe7;al&#x131;&#x15f;abilir.<\\/li><li>E&#x11f;er <a href='pass.exe' Title='Indirmek veya Y&uuml;r&uuml;tme pass.exe program' target=_blank style='color:#facc2e;'>PASS.EXE<\\/a> uygulamas&#x131;n&#x131; <a href='wispdde.exe' Title='Indirmek veya Y&uuml;r&uuml;tme wispDDE Driver' target=_blank style='color:#facc2e;'>wispDDE<\\/a> ile birlikte kullan&#x131;rsan&#x131;z, rotor ve cihaz/doppler kontrol&#xfc; yapabilirsiniz.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i>Te&#x15f;ekk&#xfc;rler !!! T&#xfc;rk &#xc7;eviri i&#xc7;in Fuat Volkan YAL&#xc7;INER, TA1IFV<\\/li><\\/ul><br><center>Keyifli kullan&#x131;mlar. 73 de LU7ABF, Pedro Converso, lu7abf{at}amsat.org.ar<\\/i><\\/center><\\/font><br>\";\n"),
-    (helpi +=
-      "var chinesse=\"<img alt='chin1.gif' src='data:image\\/gif;base64,R0lGODlhvQLWAYAAAP\\/\\/\\/wAAACH5BAUUAAEALAAAAAC9AtYBAAL\\/jI+py+0Po5y02ouz3rz7D4biSJbmiaYd4ADu+34sOid1dFf5tttHrwBibkJSrvgDIRfLC3LXRBw1M+GS2AqKrM5AVOpTicfaMPPsAcKqa1fSC3tL3ZOvGR5rz+lytBfXUNPGB1a4N0hogNgzBciwmIiHFxfYVZl151iI+CD4mPnXV2ZoA0mqeDkZg7qpU8YpSiab0eh3ShuayqrluUvZArm6NprLgvVmDGt4lUt8i7po27x7C\\/UY3EstuDpNhA3x1OmsOs6FGTQ4rf0bq6bbXBR1DMVObX9qN6vvE304zJENTC1eSYwR+6fuVbtl8FoxGhXu3rqEFM/d6/fjH8KK/weriTqGS9y5KhA7YsLGjaEfkAul4ZPzUFO/gNpEPtsnJt+4hDqdxVSkp6FBg3d6ZQPpCVbSjWxWwmwZ65NUCgMlDiRaUwJLa/aQBrWZMZgZknyWBt3GLeJJdHkC6lFWkeRLoPVscv2jNGzZnThV6GQZteezn7WS4g3FiSYrdxf9NdRLNyXip4MDwS37NRO9dKSwPu7q7+vbzIzBXmM0rOlRk8WiVkOJhexU12J9wUV8GQ7Uu619uexrwk0yy3spYrSUVRVRua2HqkOKpjRv31BFGuX3Nix1eH9B3eRetHfyz659cvwOLW5B5oqhbycnni9Q77r3/JY/kb5wzvGTr//GD9wIkunimQ6w1ffRdXJN4VyBhNAEmF7TFbORRJ9cNx8+GIpXoCaNWfiYW4t1RuIcWgGI3mHm5GHbgO7Ft2FppxXExIORTGYacfq9Fxlv//EU4BgDzvbcgTxksSBoDXZT3HO0IdNHMs75xgZ/h6Vn0St5UVjhU5tZKVpWG453BB3KSHkbfSMaByWH76HVZG/tWakihQJN1iFzGSJDWp1XUubkmp8h9FOQwQ3FDI05rmBRklAuSSN7JTkl6J/LCfTghRnVeByO/XVXnTnUuaenckz9CWR476iUKm5uVvrji3lOd2kpWKbH1TaTRumnnnD+8p+sgRmaUx2AsqpEo2v/ClNnbJ5W+c2rzi7G4KNTNRHPdlV5aN5sPvKqak2eFcojX1tNOi5lwq6TVjeBjohmcRg2Ule7KkmK24+A+rrvfcRuYay7Y3U5hLIiftRmuYqO1dGYtzrK8LUtdfrrjeeZmkiEL747aIvsTJhlvpSUWeuzrOl7yYJ0vqkQy61C2PKr/c28Lsf/BpnnrsmumvOtJksocSkuYooVg0Xvlgpg+ArMtJr+avwkazZPffFcHqWEb5de2St0hkd7d/Cdw1p1rJM1zzk0TMCieLOQVZe8M5EwC/ot2VbfhfWzZiKrMHkhRhpx1CeelnarVk8Ncj5qddvKhyB67BAohHkE9tif/5az0pYcL151235JqNHCcfNzeKk9g0OuppaZqDroM4neHOKu92gKxoQyZFRt9AYajTWgEtlJZmdEKPpVJBNcMeaa8Vfxt5NbkG7rnXtO7PEEu+KtNKlfbPHj5XnPdsCZHzf3LIJlG3764hvhtBW07hR2ddMzjvCi3KJPff76789///7/D8AACnCABCygAQ+IwAQqcIEMbKADHwjBCEpwghSsoAUviMEManCDHOygBz8IwhCKcIQkLKEJT4jCFKpwhSxsoQtfCMMYynCGNKyhDW+IwxzqcIc87CH2UjQ9xfEgWnzTzEgI1ymq4Cw44FAit/pCPLYpJoSCCdcTe4gS+v8Bb4v284ZkYqUzLVqxX+BbFXGEx50hfc+JTivjGssDm3nQjk5RRFEdS8XF6gUNW2ACoh9tyLmmDa+JwODarqyXpik6zhaoqQ1yCDkzmdkOjY5Iohvd+IUnDOc8xsNaFkuEDgSZsW2MwWPIPIaZkfkQQMl7nCJtd0Vt2U9tZ9FIPXpSRZ/csmyyzOMjwXeZ2vmLlX2rH3kShUlgdo2U0RHN7Rh5E2ipEZAkusIuozlMUyVNaMIsF7+UBss5UjJ4oetKbgKnPqqMc37yGFzKQHml1MRPbuH0VMhyeQJR6bNPU+JCHW94KdlIbVOhrBwkZSSJYe4NndHbExuPRLfAXSX/miuD6ClHycpuqi6gpEOVE/AJvxKAFJlh1BVmkPRHGQp0SjCylTZFWSjO5E44OEhkQ6NkPOBZUnxL6yXglim/OpgJIxoNHx1HRUiOekM/GrXY+bJJBYBAhmJtkk1TRGmiVwIUXPoaaSJLOseQio1yEcXStrbHUx5ZsnsuTSlUBTdJ5FknYduka7tI2tFtuZOiGbNRKv1apYQijU3LIhqfelTMrYrJIeuEJFnLNs96/mxcz3TUWdO0vp5Kkk8Vitc0ZSI8hBrVOqq0S+OaRVAuQuySBg3XmMCpNtBETDqwspPy5gfDlaIKblxqqksmyqrtPa+nDkOZ3Qq2WfSUz56s/wUrNi9KTDklFU+xK1IRJRqS1jL3EKWDI7r2KC4E6bVDO9RtukznS3Hubjx/YwslswauuwUGs0oM1oHyRka3QiS0STxXeuE7V6vCSzn7rRcv12e57bosvqJKGHoLC7vE8QSkIOSoRyehXTMWhr0WFmsYgvXY5BrOoY6dIktdi0QXtVO2j7wjaZklDvMyNIyHjKp2TelfBm8RwNr52sP4xd5KzTBTmzCkzUSbRhZp6Dtr7ZjfmGZKyZIYpd4UspJ4VtAmena9y3XxWqycZUFGVqvStXGJ1pVj/+yYSYHt6J3ihJdpnZaGaqnKeH+zYTuPNcOLpJ0YkYxWdH3sKGe95/9b66PnspIJo2XFK+PAGeWgQi80cAIqgVOLYfgMy9HLnXLG2kHhD/rzjJ7sL32ptLo9xbGaJyuSKVadTAeTuEw4xSqvQBa03Z7Wi2cyUlwd62ZUbg1Mjpy0/gizU+BOmcXNdSH+tLcjPhuzrawz9hulnYJcWpNkRkwDPNN77Tw6mqwb22sNh5vJQ5/7oTqdpR2X6G2RWhtgVI5lthcVanNDV91BtPcqSWgHkt6yqJEJMadMXVEmE1HYI81RI4vNbIGt+OBa8218Q7xw9eYa3NpBMMdx++8NBlzLn72sU7lZl25XBrpQ0+8P3yHEGasKkUBbeXaJp9fDHRc7Baf0l+b//fFTh5yDwexvG7WKskBHXMryaXm4teJrkaX8tjRzHZE5zG+puCXq09Z4zICsJl5Ls3af3PnQK8zuPxtpXtjW+YibDjpqTd2ibLReqL6nyDELfXCRBrqEv66wZ5vY3ZHM99kTOPJUP/2dktry3E3+Xsiqun471bdMsBttnh93yzaXKqnDLjmbIjXORE3H4PeNJ4IfvoKqx3vOmV7nb7s9RfHrMHjaaHnu8s24gHa87lcb07VDnO30ZPRC7ZlmHUdX02k2/Or/JyNYO/5jT4PmxVV+4N133Yu49zc8N9xnC2kW0RD2OqOzRHxoozOvdpX91R/+xfwe8/kaRPJzX08x/+ZZUZ+uPqoxTboa/QRyPhcJycd7eMZLC7UyZNZs5gRj/PclYTJZBFiATUIu4AcjrUd/EGR/a4R/9/FpKLdOTscRLTdweyGAA3hh75JoVedheWFZilY+DChfChZk/zSBF1ct4ydm8pd8GzhBRfWD+IdZmyRiwIZ9SYh8XDZ62JM6nfZMu8YWBxaDZXY5HGZxONJgYvRhcTZ/CFMyF4h5X9iAQEhBQ4h7zHA6gcQ950Q5dSNrtnFQv4VqY1g8LDg2YydnD7Z0clNaW0hxKXdVDtJNYDchhbE2VvdFzmeGhgIxynZkg8RswEd7/JZu1/I+spJ4kiNI91RuxpVplGgYbv+HLesHiKjHgzm2dYXzf8digIzYiAESI9/HhT72iFzYeUiIUbTWdYRledWSXdc3bJVlhQlIdTDXi4sXSO+TYJ3Wh9onabFYQHLELl/1OqlyUxP2asIHcT4jgv7njc1FPoqYLc8mf9aHK1y3guoVf0fTPEqRcYfYhUoHhnA3Nw4ijQs0bnQoVCOIacx0fi1Id4vnb4DmcQ2HXHSlgr/Uic91SkqHdPlYfx8nC2xIkezjfU82RsFVSRfJPfwYSTEjAyOZka93bXfWNzjoZWnnkeOGa6hHdArJWUzRjZVXcxSpSQuogROHjARSV28Dash0erdFgzSIfu51PX+EV/tIYz7/pYSyR0vXs21zaHa7kXCwiECrBY3ql4uIdUSAYI5l+FaliDHtdyF7R2hshSx2dzVoSZCuWHww+ZFHx1+6kxhap38aeTrkmBaftZYoFx6HmHEx+VLKF5eKqG6585Me9lFN5pBfVoLZ1z6OIZlqVWO6+HJ5BzYEB3lDxYqRKX7ZR5aaaWRjSZmJdYXQAGdZl0FoI2eHWZX9Rhe+KH57BxYkiFNx4F/Nc2kpRlWuWGzyJJwlp44eoplwhZuTeExX14VCNpyeqWSLFVaWIoHJtTEL95x7w5s+hZUHJFpLiZSCGJyCRQ81wpjzBlsgyVyU+GGNdRGmB1eUMjHuuZDxeX06/wh6t7Zy5Qg7lDdzzXkuXcZ8VheSscdqyhmFRNcWfbQpbGWSFjmFGTidzJmbRNR88ThJAwYhfGh817VtIUhQJimW9uk110QmFlpttdl/dllORrMlLPWOzimaHoo68SdOMoqaGOQw1CJ3XFmZbXiE/eie8ZCFPoqNkLUfnVVa5kmF4GhnSXqCxxeM3vWkv7lx4yelyFWFybg06GOIVvZ+gQiiD1pb5SdqMolVQrmiWpNWI/qjrgSVQrWfcGmEO+c+B9iCopim6DilIIKPtNiY9oIWcfeNIbilDhUTB1h+euiAxpinYFpVMwljZ+qcfzVNJBgOX4UrhRqFSWeM92lqGf/qhREmdTcSRSnIO8sQJtNSUTh4RStyd0EZWvcCmyMmUxNBdjDlLinokvE0Map6O85SK0wpck1INZNZifIIZpW4WfOEhgfRUEv1mhxai77KYq+EggppjvjEg065aBmWnCDalbKlGmt5XqQzrB0ahnbYVuearv/VnfnDY8cKREYnO+FXisVVOkKIgN+ac9P3aGXaNOTljb6jqfvSTq+pn+HJpvTjI91KPkQlczj6ZpbCji26levoUcJqsXGViPHqOYQ4D/S1idFxjEnoDqPYi7Wnl9YXfYZDsJlGXdWYnNraMGfkYPLwieZyoGZXs+GYYKAEXC+ripx0pdSXnxhYXR3/Wp8CFLMGpz78x4k+CXf4yrMbaatSi4cO+BDK1h4vM7WfMiTZSLXCOJdQSXNhF5a+mJ7L5q1vW68cGWySd5nwqqPkeGERSHbRInZjK0yOBGt75nAE6GZDZbJzIZBhhlsnZS3hSK1E+pZHmloOCq3guLT2QU7jlCR7eFXNWWvPeLZQh2kCtbHOGLkiRI8Y6XKP2aeZi19TW4AEcbOKe5Q1hRrVeru5l3tFk7tiOq5+eIk7YoLy2LU4B24627vTRqGhyUJk2ZPHVqz3U6tG6nplB7ohqbplVGiCm1IRmZHn56Y0IHQlW5Hu5HzciqbLZxU1aZsex6kMO2hCeLCtOp3J/9iQasYp5mtaX8mpc2caDTaUy/qh9GtuDQuUQmqpOknAyOp98muTzgt/p4aQfYd37wa1ofa0qVvA53lJPMm8FVyjfBSxLMq3Tym94Bt+PreYhQq/LviegLuktEk1woXCYgmh97V2Jty0pbq2fqZpSmiTbdqvniercvW9l2ZLMcwLB/vD8ypFQSuigQin49gcfcXABsl3uMhkZql2rVp02Nm+3nOKYSuGwKqB/Nu/Acq6f2dmtZlwfsfBASNwTubDqGiuD0x4qgmf6JmUgoMmBeWaugOCjYOSu8jFQDzErKth7uuQ63WSsASFRLx/PSvDeuuXwcOkvwvH7+ubsXubHf9Djb5JoPfoupHXmz04aaHsu14JTGr5JDVZh95FgaQilaG3wI95isH7X4N8yo86e4QjWc2XopUsl5j8UsubZN14v278geG0VIQ8Z0ocU1wlwe/0hbfqhNE8qX32xz0mWIQ7yReLmmMMH6fKwJ1cxol8m74GwALLw5bpcjtKhu1FzOvnF255wtcVp7ZWNzP1gM1UcXJ7vYL3bVEcnmDGqGbMbbkp0Pg5XTx8nJRizuSWBkSowG8cvt8acSLiqt8lNX2bviqLt8WivfpryYUDM4L5sf8pkq6mLutBKOzsM7FxlwmpYBz6PNmkqEEmn8KYw+6MO/CbwK8DsF2JSyWoqTf/BbAHY5S0+tFC+8GbswIo6q2gCKrMCn7Kaqz0XGSdZa0S130xNtMMU0WqLKkJbFfxaFP5t6RwKIkSXcuxGkvUatRd4MEb5Tcqy9TG9lqFCLWgebp23Kz3CcIeKGVafWQKeLj1SFwJHRKRDLRQp5UUaxwQ+ra6jKVb/CYx3IHLPM5qu4DW5rzWjMod6zvUtthgN8+4NsD1EnNiTdn/GsJGzIyPlSv4BWQMKixIV4iriV4n5spIm9v0eYVRttNXOh+1TW1/inzHW4SE+stvt7ZFqSMfsoOXe4eRudDVF43ki9r/2zrMncLeHdb36ji2KJ0++If122g09mC+kq8vbbNA/wU3oGivi0m6syfe08tO+/u8HByWUWygc6aFhp2+GruLBlzeRvuLK2zebsWfT6S3ARtRmM3Yvwqp1o2yQtx45ETWDt2UDI7E7cY67LGtFxnhnJPL+FHIu6zhNQhz+0SyZcu7n2S9mfS36kiw0kfVohpeKJYry/SO4tooprrVyQydVJzFmDvk8O1SIh2JYpqgOMa93GvkisLjgNufady3fqvklVukMtXjsksDDCmLHonm5atfXUtvJFdpgcvIgf20bR636SThGXWQ+cTJHcyabvuPITDgfc6SQLe62Xu9/627gS1vNWzTAznaRxzdgJ7HxUznEuk/cM5mSf66GXXRlv9rcL9z1hWYKL0GpX28ZpXg6Ynu45EORzaa52V5sWpJpGU9y0M9pJbunYWUGvbb5K5e6EHbW6XmyZots7MkzzZmdNt734T+kprdmScrywfNyv7LyoS9uzF9ybgOkNncbeQcm/UlsXQr1YZ2k7G3ncxO2lYr5bqMxPF7ToK8SDf8yaGSiOOu0/Oe0dpOBoujlRgLrxgdjMFaEpqToPgb7F5iv+rUsAaNxfmsayBug7iDzQPq4i2bX76XmhXf0fr+L6Pen+n3a23XxnI38XBoX9nBnbGV8IReoqYe1U83UcJcoVQJ1cWEP5xX09ZZ8/tmFtTO8Xq0puUknd4Oszgspc3/XkRn02op/2MuH6E5bsvHrsGTCIm7Od/27qmu9M8De455rR5ar9g7/POfw+fX7Kel7JcDjjekYWAXv9xuf+QDier5aYMIZ7mNTcVKdZOGOYM0CWHPrC1tn8JRaSN/P/b8s/EKMnqYjr3M6sJeu2AFzzVpaYF6TNwFttJWCi18hryCCqgDJoORX+82rzI0CUaKtqsOHqLsffghuzxtvbRUrrUzCOws2CfGevqbKjOnD6MD6IzcJ9GnrpROrdEYNou4f46kafi6n/uqHdEpu/ytTz0CmdkymfVZ/2RPqLzyzfTMD/d2YmFHzfqxM1zoPFpybfYC1ktKr8/Lbxhdyv0Z/1+ZVQj40n/myqIb08wkVf41kNiDm0EAwRFijZXXi45OK5vNW/acQAeDSI4cv6tUWO0stwo25Rq8oafV6dj1NCPgjGfApWRDFKaYgw2flyNyVrVesVntltv1fsFh1KvSWhGdQrRH7SS74Aj3MnFO1lU/PGcPVYq0dqYo/nKKxnzgEt1ilhgbkcwYQ9745OJqVi4Pe4wuPQ/sFK+gNEMjy8JUV1lbXV9hqxBF8BBndTgjbDMTHSdmM5uERRcff5JIbZB5iZoUT4+Xd4lH7/aYn1V8O6Nl34B5gNqClh+Bo6q1UwFj293f4eO5zplGdx3pQG8o07x198cU8lZvDTV0Uf/8EOJm5c+2dP/2GYpoCqCyXwzthJuIkSBCiAA/dWwwzoskfSBPouw2Ul5Lly9hvjqHppJBI+9mdoEGEQtJmzPBmbOp0xgmVgHdAcWBi2ayok9LGszpL6bDmFexZs069WFNV1xxxgI7L+rRF2OpZkHbk6zatmy3AD3odS49qD7WBiqrlW/frW/hPrnmlmHFEyBvkUIsmN7itFRvGa7pTAxgxhvnOg1MeHPTUtUC7mz6UORkeB0w3/W7mvVXyxg9pyz4uKve17RyikSN+JNFUZ+trgJrty7ve5d5j6Z9sDQ/PaL9SXY2TXXl4Mbztta+XfLQzHOMfluePeVgupWcmwn/x1wz6HLrRkIvmbo69cpdlao0/Vuzz+eicyMHOVw2oUSOA/lhARq5tmvQQTAa0++7dfzz7yPzbiNts4RYokxA5ezpzgQMIVRMQvcOoy+8CdErCqkUJQwhtY4IPFAoS2rp5z2mFgRvtz7KIe/BIatqj0bs1ltRPuheLBFEqCrywzFzBktMvP9KE85IF09cJB9NBmTyRmyKKfPDICIqhaA2phOKRj1uyuMiJfUhk8g7+5rSNzOtpIwp2eK0RyLjyPwxuTGthGxM5QQyRkH5eupSt6HowOyUiQCUalHsWBzUwjfTUGk9DnW5kgkF4TPMz/fwbHU1+1YKiqZVIRTRuzJl/5UF1E4DVa+MjU6lz1Atv5v0PCHjuk5PPsMcp8JdV0x1z2F4AmTB3jLqJhdXueULVkgKLYaNQb74jNdDPdK1UXRZGnE0u75dyDZN90TxQlvdstVY6/ZDJUVWd3px3QQFrEcSD8Up+Ahku214L6/2PYM6k3DUTyBneUlU4oGo0NhHeVc6jB3cejSzPRcXvbc3BjmVM+OUy5vmSILV8BVOx1BVCNGC+0lYIZsZdFhomJaNGVJz2TjWqUY7sdDe46jltQeNQxsxy1LFkLToiUm+9Mkzs6nXS/bS6bHmjkuFNhSDW7zyLHl38FfqZoauW56IJxGMCkHZ8rneq59GB1QkJ//1WIiLieOjHbzFzSxXE51TGduxiaFYR4ugbRo8lF+OJm7PO6SB8KXtLt22qOc+eONo8Zqt3WD4e9InKSeP6zzW824macUJQ/1Wj3EPvpfKL6ecc8HdDjZT+FokaZs1X2cbmcRtN9l00/0GPvl+cU/0utiLZXHXqB2yPOy6TBEP8NjN1RDE55/6lvqQWTdfTfSjhXRqT31ZWJCTwPe4ZF2PgO8Cm2oidrj0TGl0b1OXiLQXNKYpwXnMYsapRFYb0JVtOa/jW8XIdYz5NQJfIwvYnDxoJxReSmBucxcsShauAs6QWLARX2PypzSz2PA3OKxP7lrHJITx0Hpf6+Bd4mX/g8iccEJOg9HKmrgkqySRDGJy4O1UqJOrUZGGXSTKvIg4QlV06YgarJ64CGXEW31RhtXpTONuxzCGeZGOdbTj4s6IvL2pkY1IxGKEVASu7cUqj0R0HG0qpacmca+KwCLXHO8YSUlOkjNvfBtwWvawzglyjYakn9Gw1b652Sk4mxTbmsiIjQrmkJKtdOUr54GkUSrQaydLlrCAyL/aya5c/SmkLS/0EVMRb5ASW8pjSJUHSMKSmc283nAeWAe/lRGY5bvgKAVlsTSeq2g6RGHrtEHBHK0wjAv7UHNc5kx1rpOS0OQI2nSJrEXaK36/1J8nJRdKmOGneDVaW9p+JY2Q/wALUUDCizmLyE6FLnRoY7GUOvh5FH3xspMZk18JWfnJ4SmxXznbnUnURhHVtU2fVWToSVGKvT5uz0NuFMsNhXUim5mSlNxDp/GgZxQbcWOVMdzc/VLWv5QOlaiu6mZt8IHPWGZyntfEIoUghtHotU2nzCEYOOWGml6lwp8//ZvoMGXGoo6VrC6x3xEJaqijZuiDdCmlotraRlqFrKV7myZYcQSjaqFuGMpLEla3VVbBDvYlLdVeLsXoJAuKUlJvQRpG78qu9rWpo9/EIGLP1Nf9WM5nhyPsZ0G7Q+P9bp8I5Ipar5jCuFowSE2k6LRyKbeN0gKe1hTcNSgLG85Clf95ofXtb8HYRr1BQoAZ5Aw4Mjda90lDdyGE49duesp/bK5j5dvWxbwEUmJiDrjd9e54qBmob65xKjPFH+zoxShKhU+NAXJU5HiaLUPMIafuIl8MKRZdrH2Xv/zVJlNHOrbixqa8xVERu0D5qDQiJbEiXaVqn8hCBP9qE73FLs+k118Nb7ipasnwansZz7dusYatOKxLx3ifDvrOqWDqZ0U3HGPBLhOby3Rnt2i80kMCU6lYtUxun9rjHMuYyA3LzTZhnND0VjKa8B2yabcm1REi98bsdWxYrQrfPxaZy7D0Z5UmI8t8Fhg9jwxkh5+sZB+DGIFdU14lo2sp87Cpa7H//ZEKh9VlPXfxrWvGpmKpq1wUAQ6SDWRkzHisrXfhNqh2NuVSgArYXzgSzHu2dOkGYTgH4xLFs81Sh3nGR0AzuZSJpVlakjkzs/EnSuqr8+5S8L0kX5rWD+qzE9l4WpGaZsKynTUYg/YMKeMqn+XR3FeNdsA3k5iQqi11raEttFu7lYFiNuKzxebnTgc32KxNxokNiKVHzsu2qoPfrOLzT9loOdrttjUnExyS0o66xZuKTY/nE+QKZXG8kwghE4mNXkAJs8z/vFbPpjCqfjPN3Q1v0PJ2TNVeSLXe9cw2yPitFwWzG9Zu3uVkBU7bA9aUTnI6TmHIqY6/TtXhLR+S/xUjLmKYuzSRAJd5Yrp9H1zTb32xtQaYZwputY4PTQDWmejapV1RupzpWFG3Hy0eXA2CGtSW/HVncu4orJMNdkEPuSAffNdAjBSkNlr5o+B9z6avHYbe+dRSnfvnqmcz0fPlttVFrN70PRTsXw/WwBdCS07H+mPSvJyx0sx2xY/4J7chc/oqnt4Bu5jUeJfaIqEoaZL5fbq9rVOQbbh0a/o10Io3vUzWCzEdK/nvjQ+jNy1/6FlPfnZgI7rWq2pyakw4YcAb19hPH3zXfDjyDqW4xGOELimCXqwJjreEGajUCUaq1/t7J9TJCfKjf5ndwve+iiMvPPBqR+1qN7FWlP9i3Gpl3JAA2iWXZGr3ii/9+/Vv5dtHvvP6/Vi0YZF63X/ppQoo8VZvlmBPzZDJ6QpQ9ggQpbjPubQPbuLI5z4g05Tpz0Dp5vCN/Swqk+hJ+iDn37Tmv5DsuRAwxCwvF1oos7aG2qLszAgBQ2QlsH6ORH5rijbNf9Ik5pJsri4iAgEwvPqNvAwq0dLk/SaQ3rZN15oLQWYuKTzMyVjuRnxQv5BK9XZPRqyGqabQ5xqQ/NbG/FYP1yJQTQyEIyCoe54I9PLCvXDl+IrIoTIklc6lMEqQA70Nj07GcKTpCG1L3Ahu93JQZtLJjASPVU4Q0/CQydQQ6TwFgACxmvowQXb/8HwGguK6LV4AaWWWRezwae62LAG/oRM9b9s06V86UAs5yD4SCN6+TtBSbu5aTQqcsPvoqK5SjAe3zwTRpr7CRL66Dp5CERSRa7iiLvTs7YqY0LX+T4bM7uk4KakiSqI8sBB/ZuQKKkZeTBeTDyVC49+Szjfor47Mp/9wz+MwBaECazoq7L1K7q9A0WX8ajGgr0COEcui0d8gzQYDjvkOqvq8TdUmcXLSrLzOivCKrh0za1Ochgy3brbQCx6B6AsdhCDt0f0yb8z4Ed38RR1vK3JqUd7IwbCOC89kYqJcqNd88dr0hQ5x0RPSbRCXpPQWMQAzqEk+ShyLMB+lhRtN/9Kk5E8cdYZt6NCL8ou+FlKVjiUNO5Kk9EgZPOoVy5HK7hDCUPB4dmSfVrJTmgotXjKPmM0aEzFfdKfOVI9xkI9/SvGFZC7CzsnYNMWzMO6O2HGcxJIXNTHCaHArKzA9mvJejk7f2guNEKwr03Jajsl6IujqDMvaEigxuSjF3DAh5W0eWVAbmeu8Lk68qGWI3Gz78IuZgEwnIU72YBGcFMga5+q6zo2DfEmuYg/RqEs3uokv4wglz2gym6V2bHPIRG/f6MqrkpHnBhNKwAXWZM0Vx6VKKPIv8u8YlcsWuiP6QEE4aXHOlK20JpOxfrKahkngggJoGHG1iouxWlBDxP+zosSQAuMEOBqNwraLJ40zBOfMQDhrRmCm42zzmbLS+vbvAOmpITIznYQqGNokHp3PNLVttBLzZWZwTnSz+F4PtoSxeOTLvPhtPcVvCGvJss5QMxknMkMRorCQHYhPP2mSgJwQN1h08wQRQJ8rzqSFzAJsZBauxMIPzSLuKCkvgDJOR0fUx3JqsrwHEZfRknyIbrZRHksumGC0jPaz1M7GOg9Kodow/GTzQjcqNUGI0cSrVwKs576NK/WyPgNpJF3s4/zzjchI+ZDDq+6z81YnvpqRTCFPV/wzSVby7PJm6FQFyRAKffKhEIDGFp0JCa0uL9OF7truDS10jr4ET5X/0q1EUU4fsT+V8ErnUCLeFFNxwocQlTNRU4l2StRq8ipxcXZOVPdO9f7+L+te8SpSdTyZEd+cSEwrcgPZz8b8scias/lO8CvlsB+VsFVv6Tw/r0Rp6hxvruY2EhvxL1mx0hJfVDPR0SJnpBoXVKyOtEz5Dg+/8jSmrlkHsQfXskyL1VaBUgjZ03lqkb5sjmheMzpNFSL1DjqhqxJ9tFrZ8A4x1CfNNSXZlVttcllRTkNhKGeETFmxVI+qLF3V9VyBVTobFKKGNDALqwlrNCpIsB7vFR2blTdT8enIY+Owcz41olJBVurUxtriqV75xD5DNVwNtS1gVSpLiEYT7qpw/7T7iEM6FsxljRRCiZbh4kGCmNNiXsuDYAXbgvAl8+xagZBff6oc/QzNdlLRMJD16lSEfshecfV0aFUqxcexICPu7NAuwQ0YYfYKKUc89bRXcZTyRG/8mmc+R/ZZJ84DQxOtuEnLvKZDqTZLJzL14hNmN9ECAzM7Hmxgu7Z+IOsqXWgss8p14AInM1QmPxRusWbjvjQprLZAkHAxK6chg3TXMC5CAtFOT7dqbmJW2wwZqXX+NJYf8dMR4cQUmXVsIVb8InRQCNcRGZdV5xR415LFPpRYTYoTVo5ye4kkPycPB/c4J3WTcoXF+Cl6Jy9WyXacNG1y9xVfvzSJtpdVEf+vVaX0WjgxVDsJOOOwJGP0Li8XWpmFFPco1HhRA9MTWHMRqBCHb1XGLO8XTb0VYwLvdv8XUANYL4GSBvtUJsNXQk02I083I+wSEgeYPi+r2TYzvDqu2AxQLDtL557TNeXRMXvyZT8GIR8QYfciLG2xPM+rrj4tdtnSRp/GdttvQrWUWP/w3uw196q3gtcVyDyxTmlpd0/xcF0xhDN4hJ0Ee7lTYt9PQNWvqpiXSVvCClHMfp6QOOsQylbNQk2mwL6RtFB20qD0qXg2hac32aipM/MT/CI4kSQ3jDN3fgmUt0IMeb2JO6cSSKYU9zj3dRHyikfNfQlNeRnUcJuMfS//EC7Bp3F8T3O9dDSRCl8YTul0MRej44JrOJEDrefWosFWFsbkmFNrVEOv642N1tdIpy9BkmjDUQXXld76hI8RcXaVs22P7E82dlQjuV2v7inF13Etygt1CHsjappCWXJ9Ub9KOQjdyIxRkSAnjtxsjxk/jYLKsj0Db3k3aE3DdYkL0QcF7RuxGQOXCHrc95wzalpNkyRn746t0HSJl43xF4ONdQ0FGEwhGY95N6Gs1npRmcLi1UEVI8zW75CpFVUoK7fkUgBL18lcNwZF5YE1UnQVqczQlVTr0xgnDTMpNYAbSFtTy/U0cpxbeGdJ+oZnyE/TUbLILZUaV7eE8XFk/5qL3PWjvTZuyXiLJWqhUU9WcVBucbhHC7bPvOUTqzk2r+1xWw5B500x5Qn4Do1rhtY5oZp/dRWpF7Bg2/Yhm5qaC6nQ2Mr+1Fqo2ZCteC8MY7h2B+98Dgww/3Yga084GkswH3nc8FZae/VX13qwN9Qq441Cq1NJqrJEw7KrfxKd9S+tC7t8exmIKTauCTuzzSp46RfYjuem7ZkCHy9tD8WWj9o19jAF+0NmIe6x9FmzYVtWP3ZX57hJY0okdyaKxdqu91ZwzZFKYBDVDm9JJxmc3Ta2kRsKc/Rw55ES8TqhP8g9uRI3N8Rhz/FPzs9u1zhuE2KROfVOvzq5xfuBSv8Rb1Z5OH80pVsL9irtIxXXqTQClIdw7Ny0fRXXV1aZTUrVDkWudsf7vwEjv1RVl1sxKHfYslVa4hD5okPkqiLaq2/5jW24vii8kZxbXbYWwDV8W2M3soKqHiuzo7PTcO/neyb4i/H7LfuXtOsarkzOwQXWW8N7wzec+PB4Lztau5bs9o55NR/adxvvlaunkuuOu49tj4xWyJ2XxmNbyVnrmfNRxxnbn7c0XOLvANUZtxVcxc6Y5nBa4cCYuyLYvplcw9F5RKF8cD7TYFX8xVZQiZv2wJl4v+DXWre7aKVLRwL5TMsYwsvc9HbLb2u1suUZASM1nFl2thk2eFh5OEn/GeXAc1qhu80vz8//fO0KOqoTnNANdljfc76XTImNN4jXNuS2UuhW+2ShEsE9WLAvXcZ2GrpWelT7ZxaD2nJdL9ZXfTff9VHLdjz9EmfEDOeEMjKSuhsX+9WVvZiJWFPFWkQVPY9d2ZPH8I67WEnVj6qXfdt717EdxtXJr5PvMQnBeqAlO4vENN3Dms3eN+qm1txhO9k7CgJ5u6FcmDWEVtuwbZ7WB2s5mt/L1awzkYeoLDCQRtMNntV7KO7Afc+uV9Vpm4b09tsn2TDZ1tQTrlb56uL073ctOOObeOKTCbAvO5SCVl8xtreLcq2vd1lHu8miaqCqWGYlp6LN794D/9G52fcPBQZoVfGw9tFLKzS5uqc2n7SIjUToEydal0urh0fLx5rlja0h+JwjCZ5ZMZkKR5mq0k+xLgxLHg2kD5JDuM+pUdcvd7mJ5bPeKpbC/foykX2C+xuOIuu5QZNnnVytW56XOTvYNph6SY7OXrxBCTCa4XnEg5xEtV7sxziPqS7c4vNWiUnwBbJUIzPSIlwZ8ZKAhTRZGx7WZdfTSsq9k/eGtZ1WPJHoG1WLPRPRVbryS38FDyFn2Vw6V3ftq/HEa0l7Zzh12htMnFVUPBIufdzSF89JozbssV35U4iqQ7pFg1IcBAHt1jAMF/86x/w0obGt6nJI23ijfcrKw//symf7zTFJtG9X38s5lh2YwHUZuR8cf1tzkEe29IRIj6Nf2AhVizFn4wF//gkgPpymGnCLawZYHbYUy5b0FnqXaJkd6p0RA7nsg8ijVs/tEjsPD/P/iIQjzYQc4U8HSjGbzic0Kp1Sp0PO63i9BY3dokr3BUu2O4rto8UeiW3wNs7uZkXvmCtp0nvn6jICn0ogIAvKFcjKW4WeGGFjz4Xj38RfHVdRo8zSnaFnYNKc5GjfYdUpaqrqKiuTHFGdmSTkmNsibMcS520fpxpiBukiUNvrym7o8FruJ1qw29BHJGjhGUzQJR0ZtJ1uDncxpfBmrzYvI/m1nS2vDe6vaHP/2W5rvf09PjMjcax8aWctb5ji0VMEDJPBYOIKFmsIThEuZScErotWymKNaRHRpRCzkB03XZAc3aII0Uwih7YmmnJHaGMYQTtorYGXZaRMWfl28ux5yhgokuzoBfT30NmNlAMvwkwGcyXSjf1UmhqUyZ9APCEwGkrjQwkxa8u2+doKrtbRauMuOR1a1SUgZGrNEkxXVR9Rn3r38mU4loy4jvI07pu5z2NYkoIijWw2FVbiyIinOZUp+Atct54C95Omr+LAk5hpNFFacq7Qq6dVuzWJ9uXndU0/ZXsNmy/u3H2Z5f04UxMckLpV5SW+2y+2WTRLvCPVlqLq2qv33Maa/wO4XbCFMgs/lMfZC5G9lycfxxFq7OHq1+9Of7cKd/aois9PnQ+5uSimw5eee7hFWLJRkpp9/03iH4DWQdddGPMM1uATC9oFDUTbnCMfhhlquCGHHXr4IYghijgiiSWaeCKKKaq4IostuvgijDHKOCONNdp4I4456rgjjz36+COQQQo5JJFFGnkkkkkquSSTTTr5JJE4STkllVVaeSWWWWq5JZddevklmGGKOSaZZZp5Jpppqrkmm222BSWccco5J5112nknnnnquSefffr5J6CBCjoooYUaKmJB5Pln206mRWhFPRbR5gR9j1oYj3GyMQqpFJXq54pR7mUqF6iXKv9jD6n9TajqoacuShSsBlLGT06/VUhYTDiVeh0ezzFWV0T40YEdc9uVpihArH5FrGHMbiqqqa4qayu1u5bVjaaaLWuZo9iQdxMUidBKmKdFSsPsglSS9hdgcQV32LTbBbjfWUaAW8mq6y4q3Lm1Lnagda+pS1UeHmE2ZbybdvsftqL0losm0L2prW1wCetbUJIBvMFB2SpZaWOX4cWaeWXxh161AEZ8FXYnO6SEF1ZOqpZW++aHjKL/anSvxQ2jzCClCXPsar+zMqaxlNVcW6+0mrokXcGJxay0rBlX++yN5VaNlniWYZEzrzBbjdLQZaNc4TvPsQHPGKle6LSqyK7/FpxoSFRGl9kqOYsgwmV79he9T9m8FLUGZ1z0zm+1ffgonMmaEFmhDZ6j1kGHSmnHgY91MuI12903W8vWy4+9M7/qHbGTBQh02KuzRPff4oZs4NbtWN4RgaEk+NhQ4xZIVpX4mhf5PLNH/SZ/H1lCNfBH4/o2jVoV6Duus9sastjB8gF5cz+HThVk376Lhtgq67rJ9tRI9U3Q2z/fHXVbWaL2+NEyR1+sgQ2d/fHJXEz6ORIlsIxIaHLx25rR5nU4AEKrci563+Xg05/l6S45XivaRbj3OMWsTltea1y2fJEZwz1Gfw7SoODe9T1J4W0l+IugwoaXlOVdTYX+M4d0/4BGGZDsjEDQw9/volM8oRzjhpOzEQS9VZngma+CXHDZM27VvT3wjof5gR3bzlaC80Hra8BBxGKUs8PWzetuaeFWCwvzOPRZL4IsxOHmHPMyOA4DXSAUyx2zSDjFXI8lneNYy4gHrKXxSHoP+xkMw/WMkrUuKjTMI2DAloEvTrESNTNhtJLmyHbdzntwEyJC6mg9PUoIbZ9M4U0GxEYjhtFs+iPiusS1yDs6UnMNwWTeJkWTJuqEdUhUJCJTSEZYCsNxNmxiOR4Zn6fJMZX6wkEPZDa4zGFNjIYLZv3mWLu6KQQ0V9wXN4WIwrRg6m5eGU3jzMgzJcqOkzGTG/wEyf8UfgkJZH2kzcRKOcloohN8m9FbrlwnuexI5Im8iSe7Poe8BaaRgBf02dRiA7n+oc1TSqHkdcoRrGP+ynLR2Nv3NqnNmxWlbcHb6MuMWE1zJYtkQ8znIo15vf09M2xcy9VSzvUUVcrwjXlzRxWz8br4BNBnx6hfRQO20mCmJHHaG+NRCac+mNXGNZEzJdRc6ig9Xk6dUfkH9IyES+Ed0kI6GWGyXjE+hy6UaAeSAz//BpvvNHSTMu0ZRm32Qc6traULW5gvPeY2zVQ1hLwCT0mv+FfmkdSomDrlVkVmvyNRtKMyNB07zdnCg8h0WvYU4CPe2qwRAoOZr8Qn/WqywFr/sSyUZLXgZmjRVE518aVBxJi+/MrW5/VPqZFkbe0MmkOt4VZ4k63TbqN5UrCO7kEIstRKYxWhF3ZyWKN0Z3NR5RgzisqBDpQsPojKIGLKk2SL9Rh4u1Wcyon3u616L3zjK9/50re+9r0vfvOr3/3yt7/+/S+AAyzgARO4wAY+MIITrOAFM7jBDn4whCMs4QlTuMIWvjCGM6zhDdcXsNHtVCoGlsvF3UWEmqSCeyPFk7JW9z0YMmUihYmkFPsTvIYSMXZri95QUZGPcfwmiSXK2By2GHV7tamLf3JEi0J3W9dVqCTDyjoYMzfG8llaLwO6scBKuU/SLVZLhGa1orIL/8cJLW8/hzkxYN4uq4Bb7qc2qONq2hN3HPlyOHrYt2yGVswdulaWwcm4mXLZy9biLmOdHEQyy/htlSV0W0HMCrY2ttJWbvIPU8fFS0uXyGlNI80sxWI1eigrOUH0ZvHyQUCJZjzkEpgBV13mPScUrvdbjpkxp9LkbvnMXe6UrAtNXT/P85aFC6mLO0fCFtO4USUuMRrZJhcq/4mCs+TzedjnTWul532gtSVuF31E6Hbsx0iFWLAluKsix7qN7nIOVKAZ4mZv+x40HnUuv4MYwVDbT/KmJbLv/K9659V8vnS35yjmYzx2A57kLrNWh/fqpWZ0g5W97XTbeq/LWPuA7f/YdLZ3fLr7ZApebVxnHhN0wuPuaYXmJQ6ybAllwJ4TotQk202V7DAt5266lx637VYL0lJt/Nk5NRi+0yHedV/KdZNIYI9Hy52i++2WJERmo/2tQvCkm+lN2ymfnwyuHi87os3rumTLvb7YLtThbX6oATHN9uwZfedZ/B2gWxrnnP84nGehuweDbvZi6vPXePo3Kf9xcYH6lmlVnFvVZ1NOl0KeU4/PJHZl4V6hwtrGOuZs3ErHV6v4mjXfLWBUhwhmGQcOy3WR6zILnSfEr0Xxcz454NDZtTWD3p/MLInb2xcdJm758ZtnqJoja6pOS/Wf8ubKkQntSp3zvcoBHyf/8aiO8mvTnIf0pmzpJD5xrKUrp7Gkp1GoyTQtVr6Oe0flZbG/RtJzW+ShXj7RGRhmeP+eaPWXfWLRhcSs3nAZSzlJD928hAZlRbVJEbzoHTZZEeOQltPIDcaolTv1EsJ9FuX5VCcMVu88yh8hBedhm6Mtw3isnuSNGB1R39aZHsH0EyGtivN0hQ1e0yQZV/Md3v/pHeqhBg2Oxgy2n+xUTwDWG8ulUg9lwtTZWAE5CCJtXDiBYHlUmWAp1vk5YcltE7k8XRkdFsOABr6VoLZVR1V9n1jtn22R3V65HRSRnuqcWEjI0bVZXK+I2LBp1MKJBXXYx+vYX2cIIBxwkTTZ/6GY3VVqbRqtSRqiKI27+VUZqiAaMomwBJngmVWyQQwU0pbhPaFPHJ8rcBBaTRqoWdnpJZkbYZanzRlyMY+4tR98zWAHeRjLTZmokRy6gdwkUtwu2hyX9aLcVd8OuqDXeR4qsiIwctgqpI6WPVbUJZ+JJZVHHcvenFK39dErHqMWaNoiYhPVJVnEnBrCUd7XWaHQfQaehSKTEVstKmNuvNFsfWO/pNdXdNvQ6QwSdtU9RSEAfl43BRa4bZHO3GH6lKKkZVns4SMmxoXBDVM9MqI28pw7ZoghNZxlOV4Pmk7sWRrPpeNX2d4+6sdyQZ/coRANuZ4qBdJPqIs0XR42Mv8gsFQMkrUkrXniRB5HwknNgIyfKIGOay0k+ciaTSIURqUPV3GiOuaT1MggQ8Kd+VlSB7Gb/XnRmklgFardhWCfRwJZP96kdhWbnMXB0t1iaRlidFlgxEkiOYyVVBrj2gnIDVaebBWk4c1cTjIeIMZc7ykb1PETLF6hNaGdV94HGpGgGbZXzPWgFLmPHyomND4d8qkb6lgcR6KfYYTkA5KhMcBZ4Q1eYD6gG/VeDNKhVaLjUo7mYKpHuriPNfClU8kkaY7OBXJlvuUYFYWX8P2huQFl5FlQ6NhEVerQc/nBN5gk/olmdpUh1Dgl7/hdaupFOAYnQCAmuqjkuSkEqun/IpjxZXOMIIrhnkZNnzBu48Chw1zqFJXBil52VPJkp/HsHIVs4OWN4lua5XPqhgNipiWOJ8MVoR1lnmFlnxUlj4qVH+KwH8UApV+onRKO3yrWH85Bov0gp99JG28iKLL1230SZsJZ5jXmIu+dh0s25RhFIFNhZ1z5QfAZoCWqZ4kOVDESp7El3k915ML51IFCHMfNQnLGW3iq5W4654Y2yh6GT2Ki18Oc1gmCD69JI2IRKERVR6JlXlQa3xwKXSvx0h0WxhSm2a0AUM8I5KqpHGcoIkAd4fEM4skl45DqoIcCoQ1KKAZ+2SMx2iGGpRC60PtlICCqQ+nBj2W52ot6/5B2+iBIxh38rZWakhef5l42ZWObKpJNZFaUncZUYOVYhkcrAR1CZaKMtmP5UQibPao2spAfmd159SjYQaX+xRCaElyOQeA3OWmkkuJOVmX+7NJ0YKSinWb32KEP4Ywcih454g4znmIlvqmxVtCkYmKi4F5KMuXi8WTT/Bv55VZRlWBn1eoywin9cer8OWKIGSREwhB9jqtGglwqClowusdQDlaEXqdkxipcFqNNehqbcmtM/MaHdaWnuuXPTZq6AuaSMtqDWp/ldZdGTuNXwsfATuizrBffFSDEYt6eRuTIjBwvPomk4JzYUaNQ7tgL7R5B9qV0RqMcLl16FiuQJf+RUTbQwrJKik3diqKsmSLpww3ZhwoZtOEqNS4rArKrdUWlv+rIPIImcZaW//Qa5BVWpplhmgFbNy4prtXYPnVdLCRRzNZQawTfwSaaLPaqz4JjUnahJjUGoKkkjCkplibQ3rEFXtZhkxJtkERrShXc8h3pmTnTIOgORbWjcwHSOIZeVrJsgNaQ4/Sf/4XVvbHgiRqVIi6tER6u612i4mQrDo4b2bnpXS3OoAZsPTlPjk5nNYYqBjniQqhnvEmnqv1Ch+qaX45UdLosnP3dePot7tJurnUSxZ5KXL0u78rm2qIgTg1kTtaSZklfCZHmRtpUIPWWueXrirhZcP0iPK3/7Oee2MoA7ueh5R7F5AzR7dkBAdyChYOWVDVOJczeX4yeo1lgVeG+ISeFKVAx6QpaExPS5TNGGlplaBgWrYyIbtuJYe76o1bxT5xaK0pRZcoa0g92Bfb8o56aqMWi4DrFoUnJKsUJrVUopes+8CAOUO8MTFHSQAQDnPt+2iXy7dRgsOAWJgx+DAuWLK3YruO25hfxFGHBWzeNLuiuITN6U1DRMKUB6gw7o20SMU4BcGliq3eRsEixT+NG1LnCqIu+pgduDEzK3BVr8WNFyYh5MYoOqplWaAcS4paurJEFcdrBb326bvUJq3nFbrZtXzrF8RYep0k9Gcd51WXSTkeW/weOuvF8KioCQUhT0LEYn5Uh51UaJk2Hsq0nNZ3VqtYpMnD/KZ8Fb+8ZnI9cMZKWsi9plNt6+QtZjan6auw/SctEyVYj7+yFlnBo6apojTIge56FVjIZBeEHay0TR88RY+bokqFpzuIOXlezqvAdDCwFLqDyfOTFuIv6DZqf8pTKbvBV1p1/orIvBkTz1itCzOYjuCkIqfFBTbP0waGPFpdgSW+pxWr3JfHQ1TFm1dhtKnJdyWsK1+j3kihMRR73/LMTQ7CzZPLIkvOVemmvRq2oCtMovSc/T5633K1P2vD/OqvubSYe1uWLMDKrmrKJ5s8X48cjBhQ8ty3AklOeNv+TkRlUnvmQebIoKwNq2YWcd9TmAJW0ndIiLj2hcR6zDhYR3VYu136NBCouL0VkoP1SnRGwSpnrt1ZwaTYrpvIYauktw4mnVvNrnBoyQ6/qViPthORhmOaLUjWwMWsiKhJ1FKYK9Zoji721VfFmoKnuj0yr3LLvrRaqwAGxnkUbLQ3oqFqucWnHKs/vfn6rxOpm+Emcod40R8MkH1biECqqeIDs2CrwTmb1odIz/rVvUKOH3d6GObecKmsov8kSiiFqPpYtEVetTc8WS/upZ5Fb71rqJrKjMW42bTdjISZbNvr0+qkctnhDkSqrKc4VLB93ZX+M6GJse3F0w+LGUq//GKa5jcSCs187JRFuty+/R3aXF0nTIyv6a3iPSqS44cVSt9eR7DzPh4xSoQp+pF/b6hpy4eAK6j/nN3d3qn8P1yueIR7mLt3RorJgN12vm3tHX3UJ9Hljdv26Nm9N02CLrdgm6wQ+tYc1ru8otVUr5F+KJNSSa/tIbmvr8FiimQky7ncPKwQi58xJ9/qJHBtajEB/XBvqb2y+JNLEIIg3cYg3NVJ2FRQvMCZroHG4THMDMncRmU5jDsPEYeYyopN7739CeMo8NUEz+EXDeOfN0gLW5ab6swLFq0XvcvoBk3rdaUyO6CM+NI49uasuWUKfORi5eMY1pH3W+UeF7A/b/3TfmrD4tu7YXuthgzevoh2elW/OMPMEPaxHsS76hfI4H2WFeyiOsvbMRNX1qjIlF5mQC22E46z2JvbbxmarzfcaD7qEI83xzmurP2uVHvjfgSnQSrnnjLpUzu4qspetr3rU8GlxyYxrXlQQ2iMfJ3Vevrd2U2GoQ/VgMOaUz+pZamnxbRZeFTC48ltfgdKRV620NxB7+q6ujjgkxaeZn+m3TyujXuqYS+rgtep+ZCkSALpUG4QnV6xe6d9EaLu5eu9n9yuPoxqsbjID6Wa5jFOXWrE4G26c5XI53zKRn3nWUbqUKl/WjvvcVU9Aq7p+53o/+7rGU+o3Q6VR7zNq7v+oXX66KwISxX/tsVTMeqavjO/ypWbzWEOk0xKMH/dy5kI6hC8RelojvgAXj6+yrXnzUkKpR9PszV/t5JKYtTboRcK7B3Y2SiS94O38jNez451U0T2fe+Ia2AcmtZbjBN36xE19+AZqDEsqIaaat/OqLuMmJldmfnZ929e0PEnhr5O8La8qacE5+aYl94Zh04tjGidu9RqfLu7ajmOr36TWJHdZ3hE92oNKHvq24RMvfSv4+MKwwt0yMc/bsQY2Ugt6iWYqbHYzAe7q/fyo+bJ6xiYzd17ySMsqlIZ2fQv8j1Zyc/L7RwdVRgbuQm/wwZLK86UNJ5sQW9ZzWauqqjb/aW/jckbhM6lmP8pDfdzONODDozCruw57t83br/wEfbzrJ2ydH9tyPdh2svErJ/st/G9xs8RrMJAna/IDO1giqEQxHwHEh1PLRW1Qtsjcu6xmBPz3uA7EyjKhlk0St9W0VHaOgyjF3BMi7Rj8yHy/S8VouQk1ImVySJyhhjiddNqEPTNO4kvnsGbBSh9OXNueYS90lt3WxotM7bG8VtfM43eLA1w5Atwjm6ODq7ujchtDAkSERKIplHss5DILo7OLk+LKAdUYtEMZDZn001PtU3wizDQxbfwbCZKDc1lcoqUpBYrss2L9MqQMprxFFR1k8R3Nc4W8MWV749RMlFyW/4VWeX7wzJY53pmmxuRGwxZffz01Z1YutjmtPScjvZRP63y3/833SRCvM+cEIhpIK5CXCb3A/YsXbdg9iPV4pEtWx+CsbMRUpTHC6hC/kYxilUQ5D1oglRw5pYTp8RBDkTFH+qoFc00PgzVB6kRpDRlCoKlQTSzJ0mE3lRh93nrqjYnFlLls9cwTVadWkhyLfrWEJ+jXfWTNKhO6qaVXsEMp8iLE9mzSqUC5zo2EV+9evn39nu1J1eq7iBmrPYr4Vt0kpTfB8OzhLRhkW8voFR47tExYcEHi5r2MuU1Na1ehGLW37SK1un+oOpbMets3gn9t38adW3fG0CQ+JYPHzf/j3Siem3D+ZfKKusoEYYXqi/FO2VZrYR8tgvWKLtXKn3dd7Sx5ZNfNG9vM7pn2bvbt3b+nzu/8cuuJzTrBdg1LYsqvNVYej7wwRNskOWlGS00Y5ggEzxIDZVpOF0x6qyfA5uQqJ5peIkvCPgr9K6tDDeEjsUQT9RqmmdF4AqZBCgHTpreHsPDuI3x2OC2hTgDjjL68RESLLofyuWyzAT/i7iUks0LNx6VGVNJJ3nj7grgTr8TyRJFgaYy7DzlELL4CkZuNxcViowDMMPXoLyTGtrrQizQNDG1HZJ4aThwM6xTjIDS7A48xZp6Z8EwVNWsxvAuzZLTRLOOi6CUvNcP/r5nA+DzPp+DGa9LQ327c1MqKpkHUyBAgnPLNDi45tchDgRv1sxq3MO1AHF0RrkyGgKk1VUd/BVa3T+FaSlZYw+mRuhR8K45OOs908LEocuAUOh5BbAitRWNZT1fBXr1r2W+e7ajaZs1zpE/9AD0psxdBqTBYeedtL0qSll3yy0FPbVWNFKfT5Ld1i311hFv3QNgRBoOK1lRyy5RrvvIAXHA9fBv5lMjTbpWKni8vOlg5Uy2jUVqPu6U3ZZXvY9XM6V7+bB0ceyxUCGfYIVPhaht+6Ls5e91OopiAtlOUx/oVOenaKm23YpjpE69Wnjm22caebewwHgWlHBaKrlcG/ztsIcXK0SVcQkZWVT039vTGs619BeCZC271Yq6ooPlqFSGUzte1/7NYm60zpvttw8oeB2qqE5FwlrS+40FsyScvlRSZNd4lxiKNa7rojQPm11noLHfZx0KnFoY2bA+VqXF4k901xM4N1fNiDZkut3Srq/7Y9JBHHJnPaeXT1VrKj1f53y7qy5apsPguGFfMAU24I44fhPZJdGb6Ie+abTccO+fE99YiuyPkMHvjgY/NaoHUjJdxrx2feHcpkccf2Il093eXTEQcnNKA1KTnEI5JZrPfk6AkJt3loli9ih35igG72szvSJCjHVu+lqSufA+BY3tcAleXPxJeSXn3q/9GJSqRtoDNIS36it3XNJfCCAZqhtM6EvcU1zpDKKZvMPTTy1qyiB8271ixeljvmPITJKpHO0dLYgml2Khw7QkqWpGY35IyGLXsI4WtaYoEixIlVKGnVHYZE7NOZh21WbEqXUSje0Q1RTqa6IRgRJEd9zLHCuqQLGWEUadYNjY8pgdlYlofUdiowHm8EDR/fGMdJXmTnPXRkt1JluYg8iEkXrKTR5uKbGxIP1oRyF4ME50gFUUeN86okK8sn4WM88WIjdBzH/QKH43CIF1OUnJeuqMqb3cUUrVRl1isHxxx9sTZ/W5DUSTW3yrXwY10zGOrHBczGXg9VobElt17Xgb/lTaXdqDpkL6kY91OucTDSc884rkmJx8ZyiI+0pvmixBUVuKWxW2NnasqhbJgqUVpAYSWLjqOdPJTNFTdE5DgKuVV2jSnzYmOYsJEpy9xcs9PjlJx1ArljjLpRytuaXjLi9kB79QtvEETJEgTnmJshU03tSCL1PIETCNpDN/kbWYAIRjE5He9JcRvFf9wZi8zGixg4jJU4wKc+UQ5KETuiRxQVGNUKZgaL5IScGQTUvUUuBCU1RCIhmSlG/vWppKxaU2ei5vvTrIuN8WvCp2D5zyXerzCZEp2xFMLEYdHumq2E4jdPKla8VrImp1rW/QUkFMxRFYKClaD6THSWmqa/88KIfaDVchVdWpHDIQFNEeBO6lS9zovs0pKmC3FXnUA6DBHWhWj8WRfiICEHw95K2KDNAYjYRXHcKywlRMTZSi6xNPE3hJxtcPaO+OZVnMOVq+r/SViwtlMV9KoNOlwojR/lNzElYebTtlhB+vyRQcSlJO9/dtBLxXLcYjGh3DMKm6ZRlaq4RNj570o7kSb0rbJU7XYdZSSgng4Wv7ssbucTcluymCFfJR5A16aa1YVnoq6l5ELpmwlPRlNCdKVUAwM510hFzqt6Reuo1tMDlX8rtsiOH/5dScv+zSj4vr2ai1MLCAb/BMMCjSB4lxjuugnsy3q9KmLGrJQB5NKFf+a82HQUxStuitbkA4syZok445zyAch1paSNk7et4Isj2HVbXk7NhjnaJenUba5wIFxbW3bCyX29mNM+pjzZMOo2Yim1bVWFoyhXeg2LwNven5tK778lCZozZfEaF7ZQhcZI5YQyaHUrS6C2nonQEd1jIh6KOECqBGblPGqv2XzOSUm0zNO4XKidrRn2TZXt60Zw911sJm7eGBM84WF/IQwrp+rzx8v23BmNmuBLezXgybqbD2Oqx/SxubXXhbJ1Z5Sl8jLXYE1Eqy4lXCWbRagzdC4Xa/eYrFZC7ORvvrQiZtyZLdNlMko1JImxZqE82RvBI6ZNPROorCFyGytPlb/R4ECtxE1fcFN0ztz0Qsik8d47+PKW2w1jDi6TbZcUncq2l29eHam6UwlR67KCCWpGdvI7aV9117VJo12mVnM4RZEh6/pdMVVq2aae1yjhOwjvP94zk0PvSCFrfU/GZt0rLIU1iiHpNG1vvVJ4smmsR3xTrH+I8jWO0gBj95AWylkb1cw2mxXImaIzXW61/09Xo+mwLSJ9GePXezCPWzQ+T7iCc9ayo4F9UylrWy7N97xCba0F098RuKstbk+jvl1JV9PzR+GrdblHdwWrjM5/9fRvJv741W/+qxfp4fg1GnF//1ZQru+M/yhtTRzX/Qye3e6h3e2oMy1YtSz3vjH/ydRVPqd1Xx/E5Y3fTvfnV/rrnHcyDd8EaXLbSmpgn2ZdrXyrpE/fvLvsSqZrJLaUbnVq1d1IRCXtdW5+3JWq820T9Z1xphfcFsaq/z/B8C/U6aqm5Sow4uTWyt/yzY4az/oSrvTYx+KwiA6u6ZdmcBee5vUC8ANbLxxOyDXkb2ym6oLC65hYzx9qb2xCj3EM579ur230j4ZUa5347QS1EAOxEGtuzWPMrAc80ABPLsGJKjGYkCa8q8MkhWxyrYY1CTBYZFJAzag0jupycEqtELxUzjsULpTI7vcGpWOQztEm7CGiyxbCTPrGggp/C8obEIee7lJmb4rlEOjszOPUv8d9Zu+TSmvNmwtAlochms2sXJAOxHEFfEnSdMbFyrDdYIXUqqeG5zDSJSikwu3vcGoPMyKRgPELpwbtPKsbVM4BcNAcIIo2uKc4jK4DGk2kaEzSJTEV0QeSuy3owo7Tbmf2WmokirB9jOWLJw59sOyf0HFBTrEVVw4UXQ5WFTGugOvyPs9fqsxWhzAirky8toIPFuvaHQ3dgg3B6mmTnOZuBqYSnm4ZTRHu6PEr6OoIGwLmhK0ItyK3Qgm84sjTxqzkjMZYAPDc+TH1Uo9ZDpAd0keE6RHP1S/RXqo2jslvEsVV+zHhxSWmfg8iEk8DwufafRERbMNgNsSpqtEVIv/Q6VTPkRTvErqKaKDyJT8JR/DnQhyB84rMZrRMSEMyPWyEHZEyE3KCWVCRnliFwtEKhm8hlN0kuBQyaOUl1mbSEzSvMyTK3xcwZCDE+0gQne8xMujRhXUnv14HoMCK2RkFj2sKqQkS9wQsXz5yJRLSPI5Q0pJpKa0PYyZyZXDqi3bysWinjf8RbsMiIY4H5wsy8BMPg1aSqF0OHYKMX3IvQIcS9fzRTHUNriQhckbREIMrfgqvU+7x5MMqFwUzM8czF0Mo1ULvNWBNnODxy1sR5/TOancw33kxo7SK/x7s94Tv0YEmNZ0SNDkzddUiqmRQZFrPajES6/iwaFZqdj8/8NFuxfY0URc1El2cRrT+j2xZJPRC8Pe1M7bQEm0vDlc8Eg480wk88LGjMxciZqdkDWfO8GLMqwJ6jXoM4wntDbmtMjtxE/k3EWfibx0dAMqM0KhALhBcjVj2qaZkju5qU/HMcmPwUZeI8M4Kc/8pNCloz/SK71zg8fj/M54xMjVPJDtcq5cgs83KUbGazRNFJU0vJeXArINq9AYFci+80JeCk/EbDr7PM6UM0hc6oe5RAgWQxfl5KE4a9AInKowGRBL28wHlNEnbbtO3EQAXaKg61Cq40SbQjoaOsF9cgn/Ii0OQ1GjWZ/YWtEH7EOHclIoZdMLnTbZBEy3s0267P9SLWLIEAXOvyLRUmya7esv78ylcWNRyJwATdnNNn3FFhI8STi4jAxJ9USOt/CP7tTGWMo4H4Qv29qdjty9qnzN92QODbVMmETUNs2ix2RPA8yNEYrDesQjRgw7dEs0SpU5tXyw/7S8r0StUuXVKRrP6jvQccJSLvyLO40ouITNWgXRu3uUuByiQRvOdjowgHwlkEtUTAI1YD2ydXrOYNNMYS20SK0njdOt7nzQVFW7/TElSmpGbZIvs3TW6PxNALMvt2zI9SQ9hBRR4WvV1TsdbokUyhxFA1xADuq4yisQGA3BtbQ5J7LFHf23H7RT5GKxZAVCAiw+ZYPDDxM0b7z/0gi7oPky2FLDrvDKI65KuFSdQqKprwRlKIGlPlctqJ4iwO57q1hVVc8bqWfdtyYCEWoNQZmFVt9qPpzAwE/LyyNDwddDIXUEqh660RKSIVdtydB7SSGtEpe6IocdUthi2KW9JFb92GeyWZe9xToL2vTrMQ3FvzClko38urPzWiaSLAj1GiBlzUQSRtiLmkI8uvskoMJ8GpxzK3+gkq0aDhjMyU0sKUFtiobhuEU11jhF27W1tZx60fiaUGR11HoFDsVFjbYdkplzWgFhDTmRyaclRJLxR8Dt0QkSWcjVm9Iy3J3o0vQ7LkE81wA61YzVXcTD2m4Dw6KNIoI7gX3R/8joODN4+5/SAbENARWD+tkBhJR3bEHWPVQTAjqJktUyxCmWhQ0Q3BmofRauLVvD9c/sXNxhJFSdpN1Dmh42SsD1tNw4c5UARU3XjFaV+9zx9ZT0Kc5pe1G3xdI9g1QqLNSd3CtN6x73sT/78bd8EhrGLNh2WyAJTsdzNSIxBLpBA8HKpMF0fdaxqF+x+9gk9AsmA5BUEt/rGy0AljTvg6FQmxD5++Avw7T3rd2zdVsDahkzMcqm9UkF1WF/0N+e09FlNUQg1kqKtKfZU9VWIN59lZQ1OWI0alSApc+gfB/0ktK1sb5k/KjqXSUw89Z+pRy//T7FpCriFItWZNpO5P85LdzRBRs1q2xfQNNM6opfqyordv1BdV3Xt5w7GaLVRbWeFwvgGAO7AtWYe1Sk5umXXszeevnDsaUrXBVXD2njR0TcA3bPmF3OCY2+QPXfUeYyX4m4Maw8xyU70kSxnTqMTc1U0qlbcbI+4q26oqpZbBLPSV7TWCSqC9ZYGHPjxbvgRzO98AEf56E1V4NfEswtcrWsLHZj471AC9vg4iOwkNrSwFKvMjOXoxWuhIC7cN7BEmtCIsJdXw0dBTbdbanai0TQBy6bh93M2i0nJWbcfkZAGebRpHLWPsywZRtZa/IqH/7QFNQyzBKaEGabKk5eU1xQRhtWMh2gnulMhC7/NoTtvXbA12YuSn324kSzJjsmYfmtWdTdZHLsmMP0VPgzpRE0ZgsyrvvdQz9daE2VDIn8HX8qSuyTxrZp2/OtTxX2IIpzXUm61YUuZTITM3q0OTKVuqRDig2d0vicVO+F1ecTWh8FWLTytWK96qbGFDXr4thzv1uWuV78YaqmRX4xPk7trCH1uxAq1ooWOvhpy6Ed2LeED9XcaaczT2FearCQKDRW1oOEasZewSim0xSGusIdR7aFuWWmWLMuz1/l6j+11/4Bbbou371LtczW05U+S4CsZMAWH9Ge6FS4YV/20BktuJ0u0T0VquM9QvZQnrQOYmWloZvE6slq44QW/9PgXD/LQ2GPpdwRFq+3fcq0rVaGEU6zpE6qY26stsX+sG2ntO0zvuJYu1kp9r025M5whcBkll5ZIgz33CCLcUYIVt3K5tu+LVLTu+6YBttp9DJsVKfTxkP2JkinrckBZbk83qYBSk/O/eHHLDKqjO9pTmUFr2p+Tqiy5SqTk7j6nt7cHXDYfacVNms9AyykOWMbYmmF1laFgCk+jle7/cj56OrwjbkTZ+ix5G7drshwLTJn7gagBSx8k2AFrfCvTkY2jC5Kfbi1/EL+7s/GUkIF5pVqVLIxRHD1ReJy/pzbui99lNmunlacxTzYrMMRpfHNrkT521xNjpQJ3zB4Uv9s6v6unwwa7BRNlEzPbCVwUqYnOj8fAyfZNwdq2hIeulRonAyx3cbYUqxiyBbVSo3XPD/MwW5vnzLzn9vWre1xYkZZ0F400mTgVW1abCvUdYSHO48u5VTaYVK8Tz+9xC7cz742BOZlz07LQw9SWVepIP/dNddwKMpw5B7oAb5jocPKUOHCTadmEeKs8s5ydyygwiauNx5mBdE43AswRpVha6zpirBaGkREHl/0GUyvfZ3hdLtmU6x08/VPB6NGAQNk6VrkGQ+uBf9RvEVNhmPyEmfAx+ktUpfSRP8W9uWtqCXWK7Uoh3UnVN/yr9TTjObRBtM3hT/1u+Z3RV5k4yb/zgUcxXZHy9i0Ej2zawYvSXLubvu264UhyDLH6258IYgXuRkzWHofznM2m0xW5+gF4EsPzoWyckci9ksv0O0ArZ1PSIDedKHPUI9ndVwm1tsmI83u2EYW5dDtd0efn4vss1fu33i5K8UkYoCqc47+8v3EIcFpemZm63vXWnLHV2788+sN0EVcvNaJZggeqkDH6REVRucVoxnFHEasIh/VZdnTaaNJ3LDCe5qLYP/D7+LxyyFftXYW2pZvHM5Me/qjtjpVZcKoQT12+zrZP54/8/3g/MEX40M3qfHk9UDDekXO5cKmidPvbiEOcdO9jmwuuavGlVLyHwmPfAKGcpK3/8MMjLFz4amJ7lu9Zt2x13rjz/uFt/g4xqE8rXBIOzcrPcYcTXv2u494lndhp+3lB1UPt+bFxy8651lvtt1Cb2YZj0DRWxHlbSRLtyyibzFV7FNMTW0xVqKGI4DYcBmby4iBSeeBN2Ysq9Wgo3jks0XmloJdaYlP2brUSF9mzJ187//AoCqTU3BoFVwwhuSliktUyNiDzjxO3xP3lCml4B1kJSyfyGaNjpWuDqnsNmK1JcrVcHQ0a9+z9HeAaFZub3BmeoBfd4yNjISKjo5kkX1xi1WVP5ofmGJihDt0koFacppCqIekho9pqkB1k66bsWWylql5hay9vr/AwcLDxP/Fxq+tdje8Kk1ELySmZ0g1uZ8NLm9eyc9YWJ6wfLbWZ+PLbIlc1ZZr5cfv8PHy8/T1xg7ZSu051O2iNv5E9Ru3KFSYgLAUNUBnLdy0cwxrSft0hNuhgCjykbPHsaPHjyBDntJV8Q+VhZgMIvQ0MhdGDNsuNeuHsua1jchgUARFMItOMNFmzPG26p/MnSKTKl3KtOmvmDA1whyaxGTRlXmCqus0alfPk7diaaVT1eEXnbggsjw71aYRgwVbvTzqtK7du3jzjphiElocagChfZNJyetapFcKk7zkNmJUUmgtRkpUbVkRK0S57HWGU6/nz6BDB6qsVQJfgVGrWv27OAz/u6viWuC5mbgTT20Zy7I1W3uwYi2lZ0Phh1Mh3JmqRStfzlz55LZJhs9OCY6TxdNdi1NdN0cyrsBcp09FHOVnsucT91ndF33skeBFm8ufT78ptsF4dEi/Qn0VafeAGZbdYW5dxg0MUrG2EEollWJeN2rRtWA+7iG2HzbiHVbfhhx2CA+DEYngWoHIxfTgbxfFxdp196kGYoid0aaMYSM9CJtED71wG2Yh6ObfGPDR5eGQRBZJy3cLvsVWYimmKCJjhnSxTldz3eYOgRttM4iGqQzUQYzxDfGkeNmpJ2NjYJpm5Jpsttkid9DVcCEzPL6H34CvKahPOWrh+SMzhBHI/xudrdVSh0oCUsQEflyO1+ajkNb34qEV+cMgJCz5iaIfe9Ho2IGxWShZcdY5KstxR0WWGaKn7bTGi2GCFemstIY2ZiG/iWjTpJmCeh2gRjmpoZ+fInfjsItduiSyPo3hDnyLhpdrhrF2Wuu12DoVbYWWZahrH7emFs0oqIS71qUQGZhjNsk5e26ohDYIJIU03boFiPqpiNGratSb7b8AywdrsPxJeCUyiEyUZqjpfPXnr5zCq6gkxEJsm5qtXhzwxhwbOWi1ztG6qUIHf0fOx8AiwtnBJeNIXjgDTyzxeVdWmVDHzXmp8EkJigunZz/b5W9DLMs8MpdvulhWu8X25v/wdiub3J8TGm+l45ZFg+xpouJApTXOdQkSGJZmfq0X08yV+W6WUKZUGrH8rnacyUND7POUq22VcMbtDhIcTVDLyed5OoN9l9hTQJW01CXSrXTQUA8VuMb8QK7ZKY9zxSi8dYKrkQwxu+rN27ISPBfdJ4O3eSXKKnwnT6eyjXSYZesT3s6GA11bg6jKjl7eRvW+H5kuaV11slz/4aJcF0X3bJOLE4TmN69vDXxq85K37pjDK65ifGTJOZZtWMc9Nunbll1l7kkhLq9xm2sPCaYE47YsuuOaTQvxjiZP++BtaZnpxie++FHLVbFh3SZ6FjxwyQ10zfsAo7Biv2a5Bhz/fWlSbm7HPqGlR3UFJJHnvMAjuJQLRgfsnDCGNx61rWhUD+wW+BLnrtDta2YSZJrggrapDQYlSS+p0+0mNLZhhate0WuhVGInpA6GJGk9+hmV/qapuEiNE1KsHFn0hSB8hM8v5FuWuKJ0LEHJqD9avF97qFe3HiqpUZko3BWx04zvLcmF4AtdWFoooerx0YlhW8/WqEQ8TSVnUluUSCKphTfhAG84reMfrGrXtmcgTJIXdJYK35i1dCApaj0JYwX3xcE0Escr+NKcDhMkQjyWhISA1JYgE2eiwJWujHqDIa7qeEtN8mV6ssOkrPAIN0umT4uCa6C7rLa7y2Fsbc97/2GwFqejzXQrjOQyFRyZlMmHzdBqEsygFy2nv1jaA190TB2zekXGTuJuOlv6Vn6WeY1GCvOA27mRzWCYJGWOUzvODKg2u3aVlXnTNCqsZiZ/QskgYcxcF3Mj1m4ZmVgZx5wfgSLvWuXDvvmqeMo0GCqhJzcpcE8aLESn6Qb5jx4qpp9zklII27NATtJTWMwrqNfeJ0badG51APRPJCF0p3O8SqVI7CVG54HUIvavabiU2T0fA9KUvm95xepe8izlMFGesW0K9ScCH7k07ngVddszoJBYSJ2Eog1DL42RuSoJ0v5pNGtKXWo83HfDPVmUcFKSnG+URtT7TG5A6nPqYP9Vydj0Rax+aHUgEzU5UXm9UoNWgl1XQShFSxKUrkGEJuO6k7KJsgqfa0WZXhsRT1tgJl1+XY5qXVaMuYJ1Xl67l5J0dUgx5el00STtMz/amSflMLjSdIO6wJKvmYhlp3zswtTsttqONOxpeyunLIlBzqe807KPVc/vMlXWqrVWuAIF5zgDRNVeHc0PHCSaOvaonfmpk7rVza9+98vf/vr3vwAOsIAHTOACG/jACE6wghfM4AY7+MEQjrCEJ0zhClv4whjOsIY3zOEOe/jDIA6xiEfsW+YFKLF79FvP6MfZ45H4xXhxKC9bkia19oKAlIhoDtc7vynZGKU1c2c64Uv/WyQVFzIuBmcmgJNkGHe4d9ZqgxvbOYzaSfR+8uWplH0Y3c8VznWNuwGPM4PfQn02ZRyFcP6aR1LSNlKmELKBQMtr3m3GsclrZoUefTHlPNH4g9eT6kCjbCazhJOj3+JVbDmFMhb35sdo9vPMtEdbpg6Jq9YaopuH6eejPvS1nq0r5swWVoo1Uc94lfQlHxuonP7op6eexpCjy5ChGipVK1aVo7VbzvEu7LsfurQGjXvoSKLpsrFlAqEB2q9odeeU2OPD4yS3BB9/ab4AobY9t9k3s9LZzC5GkZHTmO0tTyiZaoItbtE24+u6d55527PrlF0daSETftt6bhKFQhWn/95ZsI1d4I6vvb8SwnRElNJXkP846TkhFKHQxkclqylCRTrTlSqlKy8wvWtgVxazhEwnb4BYQ0rLRp7PNWJudR1myIg6LZvm9nTjtSsxQvmB8HQZvT/mWEdSXMfFJmoUqdoYa1PNec8+CDPBq2lsDxe5pxViMMFcMHdXGprT/WKbR25Seo65t+ABTqAtNvNQzyLrOYr3Lcy69qDfNJen3iR40x5rIvOsMkBhDMp/OcIWOcZ9y6T4VTmJ2GYb/Z1RVziq8yobO4tKl5ClkbzN4cvTOvCpOj86K1kua15nuX7IHjuVTR63mrBd9FPLsQLTXHA1vqdfz9x76Gttu56aeP8zSs+0ZRNuWPQm8HqYfjtrbe/qr5hQgJ9q6tlVtTbHyvjlky75Tdnr+53t2qpf67gAj21XmbO0Neu7pFV3XjqSYUeekEx65v8ocfLpJ+OcfjilsW9HaEe5+lSmv8mtVFn4w3yjM0Z5XtRAtkZ88ZIxYocWgCddhUJvyRdz2Vd22wdv/IMOhad3muNqs8VTulV+fvdURaVKMQRF//dm/aZYQJdMb0JwTPYf1BZBV7RImgdn+WR2wAI5WgInlTM5cmaDQNYjzOVXDFV3K3VYpwd8jMc6h+QXf0EU7tddBYN/hSU+66ZkmaZ6Kwg9WAhdDbaB5xSBDHZCvNNc9NNF7GYzU/xGdkG4G1GlYTcnYI0mcbLVXVAIYE02I8MmdDQEM3/GIqK2fxh2hiBWh05WiIbYFAUAADs='><\\/div>\";\n"),
-    (helpi +=
-      "var japanese=\"<img alt='japan.gif' src='data:image/gif;base64,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'><\\/div>\";\n"),
-    (helpi += "<\/script>"),
-    (helpi +=
-      '<title>Pass Help</title></head><body style="margin-top:0px;margin-left:0px;margin-right:0;" bgcolor="#172447">\n'),
-    (helpi +=
-      '<center><table border=0 cellpadding=0 cellspacing=0 style="font-family:Tahoma, Arial;font-size:14px;line-height:22px;color:#ffffff;font-weight:bold;">\n<tr><td style="font-family:Tahoma, Arial;font-size:14px;line-height:18px;font-weight:bold;width:700px;">\n'),
-    (helpf =
-      '<div id="lenguaje"><center><b>* This application predicts and tracks amateur satellites in real time (local or GMT)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b></center><ul><li>Should set your location automatically, if not, click on blue <u>\'Locator\'</u> label on top.</li><li>Click on any colored icon, you\'ll see a intuitive graph showing actual Azim/Elev.</li><li>Frequencies and modes of selected Satellite are shown with actual doppler.</li><li>When sat clicked, shows path+coverage. Yellow icon marks Sat is in range.</li><li>Table shows passes times/duration. Insure having correct time and timezone.</li><li>Click on SUN will show day/night line, same for MOON, with usual EME freqs.</li><li>By clicking on numbers at upper right, several zoomed maps are available.</li><li>If sound enabled (red X), beep alerts for any Satellite approaching or leaving.</li><li>Keps are updated daily (no need to update), most active Satellites are provided.</li><li>Additional satellites can be added or deleted by clicking on \'<u>+Sats</u>\' label on top.</li><li>Application could be used in the field, runs even without Internet on any device.</li><li>If <a href=\'pass.exe\' Title=\'Download or Execute pass.exe program\' target=_blank style=\'color:#facc2e;\'>PASS.EXE</a> runs concurrently with <a href=\'wispdde.exe\' Title=\'Download or Execute wispDDE Driver\' target=_blank style=\'color:#facc2e;\'>wispDDE</a> will control rotor and rig dopplers.</li><li>If need <a href=\'MSCOMM32.OCX\' Title=\'Download MSCOMM32.OCX\' target=_blank style=\'color:#facc2e;\'>MSCOMM32.OCX</a> or <a href=\'mscomctl.OCX\' Title=\'Download mscomctl.OCX\' target=_blank style=\'color:#facc2e;\'>mscomctl.OCX</a>. Use admin regsvr32 on syswow64.</li><li>If your locator not taken, start adding to url ?localat=xx.xxxx&localon=yy.yyyy .</li><li>If using iPad or IOS and locator not taken, start adding to url ?locator=XXXXXX .</li><li>To select a sat group add to url ?type= and any FM, SSB, SSBFM, NOAA, XMT, digital.</li><li>If you want to start Pass with a specific satellite add to url ?sat=XXXXX .</li><li>If you want to start Pass with only a satellite add to url ?satx=YYYYY .</li><li>Or double click on a satellite, to see all sats again double click again.</li></ul><center><i>Enjoy!! Best 73 from LU7ABF, Pedro Converso, lu7abf at amsat.org.ar</i></center><br></div><center><input type=button style="font-weight:bold;" value="Exit Help" onclick="self.close()">&nbsp;&nbsp;<input type=button style="font-weight:bold;" value="Users Locations" onclick="opener.satactivity=opener.satactivity+\'LOCUSER/\';document.location.href=\'http://lu7aa.org/passlog.asp\'">&nbsp;&nbsp;<input type="button" onclick="document.location.href=\'http://lu7aa.org/satloglist.asp\'" style="font-weight:bold;" value="Users Usage" target=\'_self\'>&nbsp;&nbsp;<input type="button" onclick="document.location.href=\'http://lu7aa.org/decay.asp\'" style="font-weight:bold;" value="Decay" target=\'_self\'>&nbsp;&nbsp;<input type=button style="font-weight:bold;" value="Graphic Help" onclick="opener.graphichelp();">&nbsp;&nbsp;<input type=button style="font-weight:bold;" value="Comment & Grid Map" onclick="opener.comment();">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</center>\n'),
-    (helpf += "<\/td><\/tr><\/table><\/center>\n"),
-    (helpf += "<\/body><\/html>"),
-    (helpt = helpi + help + helpf),
-    popupwin.document.write(helpt),
-    popupwin.setTimeout("self.close()", 12e4);
+  
+  satactivity += "HELP/";
+  
+  const preferences = "toolbar=no,width=718px,height=583px,center,margintop=0,top=120,left=10,status=no,scrollbars=yes,resizable=no,dependent=yes,z-lock=yes";
+  
+  if (popupwin != null) {
+    popupwin.close();
+  }
+  
+  popupwin = window.open("", "win", preferences);
+  
+  const languages = {
+    english: `<center><b>* This application predicts and tracks amateur satellites in real time (local or GMT)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b></center>
+      <ul>
+        <li>Should set your location automatically, if not, click on blue <u>'Locator'</u> label on top.</li>
+        <li>Click on any colored icon, you'll see a intuitive graph showing actual Azim/Elev.</li>
+        <li>Frequencies and modes of selected Satellite are shown with actual doppler.</li>
+        <li>When sat clicked, shows path+coverage. Yellow icon marks Sat is in range.</li>
+        <li>Table shows passes times/duration. Insure having correct time and timezone.</li>
+        <li>Click on SUN will show day/night line, same for MOON, with usual EME freqs.</li>
+        <li>By clicking on numbers at upper right, several zoomed maps are available.</li>
+        <li>If sound enabled (red X), beep alerts for any Satellite approaching or leaving.</li>
+        <li>Keps are updated daily (no need to update), most active Satellites are provided.</li>
+        <li>Additional satellites can be added or deleted by clicking on '<u>+Sats</u>' label on top.</li>
+        <li>Application could be used in the field, runs even without Internet on any device.</li>
+        <li>If <a href='pass.exe' Title='Download or Execute pass.exe program' target=_blank style='color:#facc2e;'>PASS.EXE</a> runs concurrently with <a href='wispdde.exe' Title='Download or Execute wispDDE Driver' target=_blank style='color:#facc2e;'>wispDDE</a> will control rotor and rig dopplers.</li>
+        <li>If need <a href='MSCOMM32.OCX' Title='Download MSCOMM32.OCX' target=_blank style='color:#facc2e;'>MSCOMM32.OCX</a> or <a href='mscomctl.OCX' Title='Download mscomctl.OCX' target=_blank style='color:#facc2e;'>mscomctl.OCX</a>. Use admin regsvr32 on syswow64.</li>
+        <li>If your locator not taken, start adding to url ?localat=xx.xxxx&localon=yy.yyyy .</li>
+        <li>If using iPad or IOS and locator not taken, start adding to url ?locator=XXXXXX .</li>
+        <li>To select a group add to url ?type= and any FM, SSB, SSBFM, NOAA, XMT, digital.</li>
+        <li>If you want to start Pass with a specific satellite add to url ?sat=XXXXX .</li>
+        <li>If you want to start Pass with only one satellite add to url ?satx=YYYYY .</li>
+        <li>Or double click on a satellite, to see all sats again double click again.</li>
+      </ul>
+      <center><i>Enjoy!! Best 73 from LU7ABF, Pedro Converso, lu7abf at amsat.org.ar</i></center><br>`,
+    
+    espanol: `<center><b>* Esta aplicación predice y trackea Satélites amateur en tiempo real (local o GMT)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b></center>
+      <ul>
+        <li>Debería poner automático tu ubicación, si no es así clickeá arriba leyenda <u>Locator</u>.</li>
+        <li>Clickeá cualquier icono de color, verás gráfico mostrando azimut y elevación.</li>
+        <li>Al seleccionar te muestra frecuencias y modos del Satélite y su Doppler real.</li>
+        <li>Se muestran órbita y cubrimiento, el icono amarillo indica Satélite al alcance.</li>
+        <li>La tabla dá horario/duración/azimuts. Asegurá tener bién día/hora/huso en tu PC.</li>
+        <li>Al clickear el Sol, muestra línea día/noche y en la Luna frecuencias usuales TLT.</li>
+        <li>Clickeando en números arriba/derecha, podrás ver varios acercamientos del mapa.</li>
+        <li>Deshabilitando anuncios (X roja) un beep alerta Satélites aparecéndo o yéndose.</li>
+        <li>Los Keplerianos se actualizan solos, se muestran los usuales Satélites activos.</li>
+        <li>Dando click en '<u>+Sats</u>' arriba en la pantalla, podés agregar o quitar Satélites.</li>
+        <li>Pass puede usarse en el campo, corre aún sin Internet en cualquier dispositivo.</li>
+        <li>Si utilizás el <a href='pass.exe' Title='Bajar o Ejecutar el programa pass.exe' target=_blank style='color:#facc2e;'>PASS.EXE</a> junto con el <a href='wispdde.exe' Title='Bajar o Ejecutar el Driver wispDDE' target=_blank style='color:#facc2e;'>wispDDE</a> , podés controlar rotores y equipos.</li>
+        <li>Si necesita <a href='MSCOMM32.OCX' Title='Download MSCOMM32.OCX' target=_blank style='color:#facc2e;'>MSCOMM32.OCX</a> o <a href='mscomctl.OCX' Title='Download mscomctl.OCX' target=_blank style='color:#facc2e;'>mscomctl.OCX</a>. Use admin regsvr32 en syswow64.</li>
+        <li>Si no toma tu locator, arranca agregando a la url ?localat=xx.xxxx&localon=yy.yyyy .</li>
+        <li>Si usas iPad o IOS y no toma tu locator, arranca agregando a la url ?locator=XXXXXX .</li>
+        <li>Selecc. un grupo: agregar a url ?type= y cualquier FM, SSB, SSBFM, NOAA, XMT, digital.</li>
+        <li>Si quiere empezar el Pass con un satelite especifico agregue a la url ?sat=YYYYY .</li>
+        <li>Si quiere empezar el Pass con solo un satelite agregue a la url ?satx=XXXXX .</li>
+        <li>O de doble click en un satelite, para ver de nuevo todos los sats, doble click de nuevo.</li>
+      </ul>
+      <center><i>Que lo disfrutes, 73 de LU7ABF, Pedro Converso, lu7abf arroba amsat.org.ar</i></center><br>`,
+    
+    portugues: `&nbsp;&nbsp;&nbsp;&nbsp;<b>* Esta aplicação prevê e mostra satélites do radioamador em tempo real (local ou GMT)</b></center>
+      <font style='font-size:13px;'>
+        <ul style='padding:0;margin:16;'>
+          <li>Deve colocar a sua localização automaticamente, se não clique acima lenda <b><u>Locator</u></b>.</li>
+          <li>Clique em qualquer ícone de cor, você vai ver gráfico mostrando azimute e elevação.</li>
+          <li>Ao selecionar, mostra freqüências e modos do satélite alem da sua Doppler real.</li>
+          <li>Se mostra orbita e cobertura. Se o ícone e amarelo indica que o satélite e ao alcance.</li>
+          <li>A tabela dá tempo/duração/azimutes. Certifique-se de ter bom dia/hora/fuso no seu PC.</li>
+          <li>Ao clicar o ícone do Sol mostra linha dia/noite e da Lua freqüências habituais TLT.</li>
+          <li>Clicando em números acima/direita, você verá várias abordagens do mapa.</li>
+          <li>Avisa com sinal sonoro se um satélite aparece ou vai, clique no X vermelho para parar o som.</li>
+          <li>Keplers são atualizados sozinho, os satélites ativos usuais são mostrados.</li>
+          <li>Clicando em <b><u>'+Sats'</u></b> acima na tela, você pode adicionar ou remover satélites.</li>
+          <li>PASS pode ser usada no campo, até mesmo sem Internet. Opera em qualquer dispositivo.</li>
+          <li>Se você usar o <a href='pass.exe' Title='Bajar o Ejecutar el programa pass.exe' target=_blank style='color:#facc2e;'>PASS.EXE</a> com o <a href='wispdde.exe' Title='Bajar o Ejecutar el Driver wispDDE' target=_blank style='color:#facc2e;'>wispDDE</a>, você pode controlar seus rotores e equipamentos.</li>
+          <li>Se você precisa <a href='MSCOMM32.OCX' Title='Download MSCOMM32.OCX' target=_blank style='color:#facc2e;'>MSCOMM32.OCX</a> o <a href='mscomctl.OCX' Title='Download mscomctl.OCX' target=_blank style='color:#facc2e;'>mscomctl.OCX</a>. Use admin regsvr32 en syswow64.</li>
+          <li>Si localizador nao e tomado proba acrescentando a url com ?localat=xx.xxxx&localon=yy.yyyy .</li>
+          <li>Para um gruppo, adicionar ao url ?type= e qualquer FM, SSB, SSBFM, NOAA, XMT, digital.</li>
+          <li>Se você quer começar com um satelite especifico, adicionar ao url ?sat=YYYYY .</li>
+          <li>Se você quer começar so com un satelite, adicionar ao url ?satx=XXXXX .</li>
+          <li>Ou clique duas vezes em um sat, para ver todos os sats novamente, clique duas vezes.</li>
+        </ul>
+        <center><i>Aprecia-lo, 73 LU7ABF, Pedro Converso, lu7abf arroba amsat.org.ar</i></center>
+      </font><br>`,
+    
+    deutsche: `<div style='font-size:16px;line-height:16px;font-weight:normal;font-family:Arial Narrow,Tahoma;'>
+        <b>&nbsp;&nbsp;&nbsp;* Diese Anwendung sagt Flugbahnen von Amateurfunk-Satelliten in Echtzeit voraus (Lokalzeit oder GMT)</b><br><br>
+        <ul style='padding:0;margin:0;'>
+          <li>Deine Position sollte automatisch gesetzt werden, falls nicht, klicke oben auf das blaue <u>'Locator'</u>-Symbol.</li>
+          <li>Klicke auf eines der farbigen Symbole um den Horizontalwinkel (Azimut) und Vertikalwinkel (Elevation) graphisch darzustellen.</li>
+          <li>Es werden Betriebsart und Frequenzen (inklusive Doppler-Verschiebung) des ausgewählten Satelliten angezeigt.</li>
+          <li>Ist ein Satellit ausgewählt, wird dessen Bahn und dessen (Funk-)Abdeckung angezeigt. Ein gelbes Symbol bedeutet, dass der Satellit in Reichweite ist.</li>
+          <li>Die Tabelle zeigt eine Übersicht der Überflugzeiten und der Überflugdauer. Stelle dazu sicher, dass auf deinem Computer die korrekte Zeit eingestellt ist.</li>
+          <li>Klicke auf 'SUN' um die Tages- und Nachtlinie anzuzeigen, dasselbe gilt für 'Moon' für die üblichen EME (Erde-Mond-Erde) Frequenzen.</li>
+          <li>Durch Anklicken der Zahlen oben rechts können verschiedene Kartenmaßstäbe ausgewählt werden.</li>
+          <li>Wenn der Ton aktiviert ist (rotes X), werden Pieptöne für jeden Satelliten ausgegeben, der in Reichweite kommt oder diese verlässt.</li>
+          <li>Die Kepler-Daten werden täglich aktualisiert (keine manuelle Aktualisierung notwendig) - die meisten aktiven Satelliten sind bereits eingetragen.</li>
+          <li>Weitere Satelliten können durch klicken auf das <u>'+Sats'</u>-Symbol hinzugefügt oder gelöscht werden (oben auf der Seite).&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Wenn du mit einem bestimmten Satelliten anfangen willst, fugst du zu url ?sat=XXXXX</li>
+          <li>Die Anwendung kann auch im Feld eingesetzt werden, sie läuft auch ohne Internet auf jedem Gerät.</li>
+          <li>Wenn Sie nicht Ihre Locator nehmen, starten Sie auf die URL hinzuzufugen ?localat=xx.xxxx&localon=yy.yyyy .</li>
+          <li>Wenn <a href='pass.exe' Title='Download or Execute pass.exe program' target=_blank style='color:#facc2e;'><b>PASS.EXE</b></a> zusammen mit <a href='wispdde.exe' Title='Download or Execute wispDDE Driver' target=_blank style='color:#facc2e;'><b>wispDDE</b></a> ausgeführt wird, wird der Rotor und die Dopplerverschiebung des Funkgeräts eingestellt.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i>Vielen Dank für die deutsche Übersetzung, Hauke, DH4CK</i></li>
+          <li>Um einen einzelnen Satelliten zu sehen, doppelklicken Sie auf einen Satelliten. Um wieder alle Satelliten zu sehen, doppelklicken wieder.</li>
+        </ul><br>
+        <center><i>Viel Spass!!! Beste 73 von LU7ABF, Pedro Converso, lu7abf at amsat.org.ar</i></center><br>
+      </div>`,
+    
+    italiano: `<div style='font-size:14px;line-height:18px;font-weight:normal;'>
+        <b>* Questa applicazione prevede a tracciare satelliti radio amatoriali in tempo reale (locale/GMT)</b></font>
+        <font style='font-size:15px;'><br>
+        <li style='padding:0;margin:8;'>
+          <li>Dovrebbe mettere automaticamente tua posizione, se clicchi sopra <u>Locator</u> potrai inserire il tuo.</li>
+          <li>Fare clic su qualsiasi icona di colore, vedi il grafico che mostra l'azimut ed elevazione.</li>
+          <li>Quando si selezionano i satelliti, si vedono le frequenze e modalità, con il suo effettivo Doppler.</li>
+          <li>Sono indicati orbita e copertura, Un'icona gialla indica che il satellite è a portata di mano.</li>
+          <li>La tabella dà il tempo/durata/azimut. Contiene inoltre di avere ora e giorno sul tuo PC.</li>
+          <li>Quando si clicca il Sole viene mostrato il giorno/notte e le solite frequenze Luna TLT.</li>
+          <li>Cliccando sui numeri sopra a destra, vedrete diversi ingrandimenti della mappa.</li>
+          <li>Annunci e disattivazione (rosso X) avviso acustico ingresso e uscita del satellite.</li>
+          <li>L'aggiornamento dei dati Kepleriani avviene in automatico, vengono mostrati il satelliti attivi.</li>
+          <li>Cliccando su <u>'+Sats'</u> sullo schermo, è possibile aggiungere o rimuovere i satelliti.</li>
+          <li>Pass può essere utilizzato anche senza collegamento a Internet su qualsiasi dispositivo.</li>
+          <li>Se si utilizza insieme <a href='wispdde.exe' Title='Download or Execute wispDDE Driver' target=_blank style='color:#facc2e;'>wispDDE</a> e <a href='pass.exe' Title='Download or Execute pass.exe program' target=_blank style='color:#facc2e;'>PASS.EXE</a>, è possibile controllare rotori e ricetrasmettitore.</li>
+          <li>Se non si prendono il vostro locator, aggiungere alla url ?localat=xx.xxxx&localon=yy.yyyy .</li>
+          <li>Se si vuole iniziare con un satellite specifica, aggiungere alla URL ?sat=XXXXX .</li>
+          <li>Se si vuole iniziare con solo un satelite, aggiungere alla URL ?satx=YYYYY .</li>
+          <li>Oppure fai doppio clic su un satellite, per vedere di nuovo tutti i sats, doppio clic recentemente.</li>
+        </ul>
+        <center><i>Grazie IZ5TEP, Filippo per l'aiuto in italiano e IK8XLD, Rocco per i preziosi suggerimenti<br><br>Godere!! Miglior 73 da LU7ABF, Pedro Converso, lu7abf a amsat.org.ar</i></center><br>
+      </div>`,
+    
+    frances: `&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>* Cette application prédit et montre Satellites Amateur de temps réel (local ou GMT)</b><br>
+      <ul style='padding:0;margin:16;'>
+        <li>Devriez mettre votre position automatiquement, sinon cliquez dessus légende <b><u>Locator</u></b>.</li>
+        <li>Cliquez sur l'icône de couleur, vous verrez graphique montrant azimut et le élévation.</li>
+        <li>Lorsque les fréquences de sélection et modes vous montre le satellite et son Doppler réelle.</li>
+        <li>Ils sont représentés les orbites et la couverture. L'icône jaune indique la portée satellite.</li>
+        <li>Le tableau donne le temps/durée/azimuths. prétend également avoir jour/heure/fuseau de votre PC.</li>
+        <li>En cliquant sur l'icône Soleil montre jour/nuit et sur la Lune fréquences habituelles TLT.</li>
+        <li>En cliquant sur les numéros ci-dessus/droite, vous verrez plusieurs approches de la carte.</li>
+        <li>Annonces Désactivation (X rouge) Satellite Apparaissant bip d'avertissement ou de quitter.</li>
+        <li>Keplerian sont mis à jour seul, les satellites actifs habituels sont présentés.</li>
+        <li>En cliquant sur <b><u>'+Sats'</u></b> sur l'écran, vous pouvez ajouter ou supprimer des satellites.</li>
+        <li>PASS peut être utilisé dans le domaine, même sans internet fonctionne sur tout appareil.</li>
+        <li>Si utilisez le <a href='pass.exe' Title='Télécharger ou Executér pass.exe program' target=_blank style='color:#facc2e;'>PASS.EXE</a> avec <a href='wispdde.exe' Title='Télécharger ou Executér wispDDE Driver' target=_blank style='color:#facc2e;'>wispDDE</a>, pouvez contrôler les rotors et votre émetteurs-récepteurs.</li>
+        <li>Si ne prenez pas le locator, commencer a ajouter a l'url ?localat=xx.xxxx&localon=yy.yyyy .</li>
+        <li>Si vous voulez commencer avec un satellite spécifique ajouter à l'url ?sat=XXXXX .</li>
+        <li>Pour voir un seul sat double-cliquer sur un sat, pour revoir tous, double-cliquer encore.</li>
+      </ul>
+      <center><i>Profitez !!, 73 LU7ABF, Pedro Converso, lu7abf a amsat.org.ar</i></center><br>`,
+    
+      russian: `<img alt='russian.gif' src='${imageSrcUrl['russian']}' /></br></br>`,
+    
+    turkish: `<font style='font-size:16px;font-family:Arial Narrow,Tahoma;line-height:16px;font-weight:normal;'>
+        &nbsp;<b>* Bu uygulama tahmini ve gerçek zamanlı olarak (yerel veya GMT saatiyle) amatör uyduları izler.</b><br><br>
+        <ul style='padding:0;margin:0;'>
+          <li>Konumunuzun otomatik olarak ayarlamış olması gerekiyor. Ayarlanmamış ise üstteki mavi <u><b>'Locator'</b></u> linkini tıklayınız.</li>
+          <li>Renkli simgelerden herhangi birine tıkladığınızda, gerçek zamanlı bir Az/El grafiği göreceksiniz.</li>
+          <li>Seçilen uydunun frekans ve modları doppler'i verilmiş olarak gösterilir.</li>
+          <li>Uyduya tıkladığınızda, uydunun geçiş yolu ve kapsama alanı gözükür. Sarı işaretli olanlar görüş alanınızdaki uydulardır.</li>
+          <li>Tablo, uyduların geçiş zaman ve sürelerini gösterir. Doğru zaman diliminde olmasına dikkat ediniz.</li>
+          <li>Gece-gündüz hattı için GÜNEŞ'e, EME frekansları için de AY'a tıklayabilirsiniz.</li>
+          <li>Sağ üstteki sayılara tıklayıp harita ölçeğini değiştirebilirsiniz.</li>
+          <li>Alarm özelliğini aktif ettiğinizde (Kırmızı X), kapsama alanınıza giren ve çıkan uydular için sesli uyarılar alabilirsiniz.</li>
+          <li>Aktif olarak kullanılan uyduların keps verileri (ayrıca güncellemenize gerek kalmaksızın) her gün otomatik olarak güncellenir.</li>
+          <li>Yukarıdaki <u><b>'+Sats'</b></u> linkine tıklayıp tabloya uydu ekleyebilir veya çıkartabilirsiniz.</li>
+          <li>Uygulama herhangi bir cihazda, internet olmasa bile çalışabilir.</li>
+          <li>Eğer <a href='pass.exe' Title='Indirmek veya Yürütme pass.exe program' target=_blank style='color:#facc2e;'>PASS.EXE</a> uygulamasını <a href='wispdde.exe' Title='Indirmek veya Yürütme wispDDE Driver' target=_blank style='color:#facc2e;'>wispDDE</a> ile birlikte kullanırsanız, rotor ve cihaz/doppler kontrolü yapabilirsiniz.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i>Teşekkürler !!! Türk Çeviri için Fuat Volkan YALÇINER, TA1IFV</li>
+        </ul><br>
+        <center>Keyifli kullanımlar. 73 de LU7ABF, Pedro Converso, lu7abf{at}amsat.org.ar</i></center>
+      </font><br>`,
+
+      chinesse: `<img alt='russian.gif' src='${imageSrcUrl['chin1']}' /></br></br>`,
+    
+      japanese: `<img alt='russian.gif' src='${imageSrcUrl['japan']}' /></br></br>`,
+
+    
+  };
+  
+  const htmlHeader = `<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+    <html>
+      <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1">
+        <style type="text/css">
+          li { list-style-position: outside; margin-left: 1em; }
+          a:link { color: #ffffff; background-color: transparent; }
+          a:visited { color: #ffffff; background-color: transparent; }
+          a:hover { color: #ffffff; background-color: red; }
+          a:active { color: #ffffff; background-color: #ff0000; }
+          a:focus { color: #ffffff; background-color: #ff0000; }
+        </style>`;
+  
+    const scriptContent =  Object.entries(languages)
+      .map(([key, value]) => `var ${key} = ${JSON.stringify(value)};`)
+      .join('\n          ');
+  
+    const htmlContent = `${htmlHeader}
+        <title>Pass Help</title>
+      </head>
+      <body style="margin-top:0px;margin-left:0px;margin-right:0;" bgcolor="#172447">
+        <center>
+          <table border=0 cellpadding=0 cellspacing=0 style="font-family:Tahoma, Arial;font-size:14px;line-height:22px;color:#ffffff;font-weight:bold;">
+          <tbody>  
+          <tr>
+              <td style="font-family:Tahoma, Arial;font-size:14px;line-height:18px;font-weight:bold;width:700px;">
+                ${help}
+                <div id="lenguaje">
+                  ${languages.english}
+                </div>
+                <center>
+                  <input type=button style="font-weight:bold;" value="Exit Help" onclick="self.close()">
+                  &nbsp;&nbsp;
+                  <input type=button style="font-weight:bold;" value="Users Locations" onclick="opener.satactivity=opener.satactivity+'LOCUSER/';document.location.href='http://lu7aa.org/passlog.asp'">
+                  &nbsp;&nbsp;
+                  <input type="button" onclick="document.location.href='http://lu7aa.org/satloglist.asp'" style="font-weight:bold;" value="Users Usage" target='_self'>
+                  &nbsp;&nbsp;
+                  <input type="button" onclick="document.location.href='http://lu7aa.org/decay.asp'" style="font-weight:bold;" value="Decay" target='_self'>
+                  &nbsp;&nbsp;
+                  <input type=button style="font-weight:bold;" value="Graphic Help" onclick="opener.graphichelp();">
+                  &nbsp;&nbsp;
+                  <input type=button style="font-weight:bold;" value="Comment & Grid Map" onclick="opener.comment();">
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                </center>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </center>
+      </body>
+    </html>`;
+    //popupwin.document.write(htmlContent),
+    //popupwin.setTimeout("self.close()", 12e4);  
+   popupwin.document.documentElement.innerHTML = htmlContent; 
+   popupwin.setTimeout(() => {
+      const script = popupwin.document.createElement('script');
+      script.text = scriptContent;
+      popupwin.document.head.appendChild(script);
+   }, 100);
+   popupwin.setTimeout(() => popupwin.close(), 120000);
 }
 function birdimage() {
   birdsw
@@ -3041,6 +3283,7 @@ function kepsupdate(e) {
     popupwin.close(),
     loginsert.length > 4 && setTimeout("showkeps('gotokeps')", 500);
 }
+/*
 function showkeps(e) {
   satactivity += "KEPS/";
   for (var a, l = "", c = 0, u = 0; u < alljs.length; u++)
@@ -3235,6 +3478,268 @@ function showkeps(e) {
     (popupwin = window.open("", "win", preferences)).document.write(g),
     popupwin.setTimeout("self.close()", 12e4);
 }
+    */
+ 
+function showkeps(e) {
+  satactivity += "KEPS/";
+  
+  // Find the latest KEPS data
+  let latestIndex = 0;
+  let latestDate = "";
+  
+  for (let u = 0; u < alljs.length; u++) {
+    if (alljs[u][1].substr(18, 12) > latestDate &&
+        alljs[u][1].substr(3, 3) !== "999" &&
+        alljs[u][1].substr(18, 1) < "5") {
+      latestDate = alljs[u][1].substr(18, 12);
+      latestIndex = u;
+    }
+  }
+  
+  const fecha = new Date(
+    "20" + alljs[latestIndex][1].substr(18, 2),
+    0,
+    1 * alljs[latestIndex][1].substr(20, 3)
+  );
+  
+  const fech = fecha + " ";
+  const dateFormatted = `dated: ${fech.substring(4, 7)}-${fech.substring(8, 10)} 20${alljs[latestIndex][1].substr(18, 2)} ${("0" + parseInt(24 * alljs[latestIndex][1].substr(23, 3))).slice(-2)} hs.`;
+  
+  const isMobile = screen.availWidth < 801;
+  
+  let tableRows = "";
+  let selectedCount = 0;
+  
+  for (let u = 0; u < Math.floor(alljs.length / 4 + 1); u++) {
+    tableRows += "</tr><tr>";
+    
+    for (let j = u; j < alljs.length; j += Math.floor(alljs.length / 4 + 1)) {
+      let color = "";
+      
+      // Check if satellite is already selected
+      for (let k = 0; k < PLib.tleData.length; k++) {
+        if (alljs[j][1].substr(2, 5) === PLib.tleData[k][1].substr(2, 5)) {
+          color = "background-color:#bbffaa;";
+          selectedCount++;
+          break;
+        }
+      }
+      
+      const catalog = alljs[j][1].substr(2, 5);
+      tableRows += `<td onclick="cambio(this,'${catalog}');" class="tddet" style="${color}">${catalog} ${replacesatname(alljs[j][0])}</td>\n`;
+    }
+  }
+  
+  // Generate TLE data display
+  let tleDisplay = "";
+  for (let u = 0; u < PLib.tleData.length; u++) {
+    tleDisplay += `<div style="padding:4px 0"><span style="padding:2px 0">${PLib.tleData[u][0]}</span><br>`;
+    tleDisplay += `<span style="padding:2px 0">${PLib.tleData[u][1].replace(/ /g, "&nbsp;")}</span><br>\n`;
+    tleDisplay += `<span style="padding:2px 0">${PLib.tleData[u][2].replace(/ /g, "&nbsp;")}</span></div><br>\n`;
+  }
+  
+  // CSS styles based on screen size
+  const styles = isMobile ? `
+    .tdtit {font-family: 'Courier New'; line-height:15px; font-size:12px; font-weight:bold; white-space: nowrap;}
+    .tddet {font-family: 'Courier New'; white-space: nowrap; font-size:12px; line-height:10px;cursor:pointer;font-weight:bold;padding:4px 0;}
+    table{border-collapse: collapse;}
+    tr {border:none;}
+    td{border-right: solid 1px #000000;}
+    .tdch {font-family: monospace; white-space: nowrap; font-size:11px; line-height:9px;cursor:pointer;font-weight:bold;}
+  ` : `
+    .tdtit {font-family: 'Courier New'; line-height:18px; font-size:16px; font-weight:bold; white-space: nowrap;}
+    .tddet {font-family: 'Courier New'; white-space: nowrap; font-size:16px; line-height:10px;cursor:pointer;font-weight:bold;padding:4px 0;}
+    table{border-collapse: collapse;}
+    tr {border:none;}
+    td{border-right: solid 1px #000000;}
+    .tdch {font-family: 'Courier New'; white-space: nowrap; font-size:13px; line-height:10px;cursor:pointer;font-weight:bold;}
+  `;
+  
+  // HTML content using template literals
+  const htmlContent = `<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <title>Keps Add/Del/Insert</title>
+  <style type="text/css">
+    ${styles}
+  </style>
+  <meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1">
+</head>
+<body style="margin-top:0;margin-bottom:0;margin-left:1px;margin-right:0px;">
+  <center id="adddel" style="white-space: nowrap;">
+    <font style="font-family: 'Courier New'; line-height:14px; font-size:14px; font-weight:bold; white-space: nowrap;">
+      <input type="text" name="busco" id="busco" maxlength="15" size="5" onchange="buscar();" oninput="buscar();" style="height:18px;text-transform:uppercase;">
+      <input type="button" name="buscobutton" id="buscobutton" value="Search" onclick="buscar()" style="font-size:13px;font-weight:normal;line-height:13px;height:20px;">
+      &nbsp;Click Sats to Add/Del from predictions and click 
+      <input type="button" style="font-weight:bold;line-height:14px;height:20px;" onclick="opener.kepschange(document.getElementById('add').value,document.getElementById('del').value);self.close();" name="Submit" value="Submit">
+      &nbsp;or&nbsp;<a href="javascript:self.close();">Go Back</a>
+    </font>
+    <input style="visibility:hidden;" name="del" id="del" type="text" maxlength="1420" size="1" value="${window.parent.del}">
+    <input style="visibility:hidden;" name="add" id="add" type="text" maxlength="1420" size="1" value="${window.parent.add}">
+    
+    <form target="pass" name="changes" id="changes" action="pass.htm" onsubmit="self.close();" style="margin-bottom:0;margin-top:0;margin-left:0px;margin-right:0px;">
+      <table border="0" id="satelites" cellpadding="0" cellspacing="0" style="font-family: 'Courier New'; font-size:12px; font-weight:bold; line-height:13px;width:98%;">
+        <tr>
+          <td class="tdtit"><u>CATNO</u> <u>Satellite Name</u></td>
+          <td class="tdtit"><u>CATNO</u> <u>Satellite Name</u></td>
+          <td class="tdtit"><u>CATNO</u> <u>Satellite Name</u></td>
+          <td class="tdtit"><u>CATNO</u> <u>Satellite Name</u></td>
+        </tr>
+        ${tableRows}
+        <tr>
+          <td align="center" style="background-color:#fff380;border-right: solid 0px; font-size:14px;">
+            ${alljs.length} Sats, ${selectedCount} Selected
+          </td>
+        </tr>
+        <tr>
+          <td align="right" valign="top" style="border-right: solid 0px;font-size:14px;">
+            Paste here + Keps to add:&nbsp;<br>
+            Formated as 2 lines (TLE)&nbsp;<br>
+            <input type="button" onclick="opener.kepsupdate(document.getElementById('kepsnew').value);self.close();" name="nkeps" style="font-weight:bold;" id="nkeps" value="  Send New Keps  ">&nbsp;&nbsp;
+          </td>
+          <td colspan="2" align="left" style="border-right: solid 0px;">
+            <textarea name="kepsnew" id="kepsnew" cols="70" rows="5" style="font-size:9px;line-height:9px;font-weight:bold;"></textarea>
+          </td>
+          <td align="center" style="border-right: solid 0px;">
+            <input type="button" value="Clear All" style="font-weight:bold;" onclick="clearall();">&nbsp;
+            <input type="button" value="Mark All" style="font-weight:bold;" onclick="markall();">
+            <br>
+            <font style="font-family:Arial;font-size:15px;font-weight:bold;vertical-align:15%;">Save</font>
+            <input style="font-weight:bold;" type="button" value="This" onclick="collect();opener.satactivity=opener.satactivity+'This/';opener.kepschange(document.getElementById('add').value,document.getElementById('del').value);opener.saveMapState('yes');self.close();">
+            <input style="font-weight:bold;" type="button" value="Original" onclick="opener.defaults='';opener.satactivity=opener.satactivity+'Orig/';opener.selsat=opener.selsatsave.slice();opener.loadTLE();opener.kepschange('','');self.close();">
+          </td>
+        </tr>
+      </table>
+    </form>
+  </center>
+  
+  <div style="white-space: nowrap;">
+    <font style="font-family: Courier; font-size:15px; line-height:12px; font-weight:bold;">
+      &nbsp;<br>
+      Last Keplerian Data used in Nasa Format&nbsp;${dateFormatted}<br>
+      &nbsp;&nbsp;&nbsp;<a href="javascript:self.close();">Go Back</a><br>
+      <div class="tdch">
+        &nbsp;These Keps at <a href="http://amsat.org.ar/keps.txt" target="_blank">http://amsat.org.ar/keps.txt</a>&nbsp;or&nbsp;<a href="http://lu7abf.com.ar:8080/amsat.org.ar/keps.txt" target="_blank">http://lu7abf.com.ar/keps.txt</a>
+      </div>
+      <br>
+      <div style="font-size: 17px;line-height: 18px;padding: 4px 8px;">${tleDisplay}</div>
+    </font>
+  </div>
+  <br>
+</body>
+</html>`;
+
+  // JavaScript content for the popup
+  const scriptContent = `
+    function clearall() {
+      document.getElementById('del').value = '';
+      document.getElementById('add').value = '';
+      const table = document.getElementById("satelites");
+      const rows = table.getElementsByTagName("td");
+      
+      for (let k = 5; k < rows.length - 4; k++) {
+        if (rows[k].style.backgroundColor === 'rgb(187, 255, 170)' || rows[k].style.backgroundColor === '#bbffaa') {
+          rows[k].style.backgroundColor = "";
+          document.getElementById('del').value = document.getElementById('del').value + rows[k].innerHTML.substring(0, 5) + ',';
+        }
+      }
+    }
+
+    function markall() {
+      document.getElementById('del').value = '';
+      document.getElementById('add').value = '';
+      const table = document.getElementById("satelites");
+      const rows = table.getElementsByTagName("td");
+      
+      for (let k = 5; k < rows.length - 4; k++) {
+        if (rows[k].style.backgroundColor === '') {
+          rows[k].style.backgroundColor = '#bbffaa';
+          document.getElementById('add').value = document.getElementById('add').value + rows[k].innerHTML.substring(0, 5) + ',';
+        }
+      }
+    }
+
+    function collect() {
+      const table = document.getElementById("satelites");
+      const rows = table.getElementsByTagName("td");
+      let defaults = "00000,";
+      
+      for (let k = 5; k < rows.length - 4; k++) {
+        if (rows[k].style.backgroundColor !== '') {
+          defaults = defaults + rows[k].innerHTML.substring(0, 5) + ',';
+        }
+      }
+      
+      const defaultm = defaults.split(",");
+      defaultm.sort();
+      defaults = "";
+      
+      for (let h = 1; h < defaultm.length; h++) {
+        defaults = defaults + defaultm[h] + ",";
+      }
+      
+      opener.defaults = defaults;
+    }
+
+    function cambio(what, catalog) {
+      const toChange = catalog + ',';
+      
+      if (what.style.backgroundColor === '') {
+        what.style.backgroundColor = "#bbffaa";
+        document.getElementById('add').value = document.getElementById('add').value + catalog + ',';
+        document.getElementById('del').value = document.getElementById('del').value.replace(toChange, "");
+      } else {
+        what.style.backgroundColor = '';
+        document.getElementById('del').value = document.getElementById('del').value + catalog + ',';
+        document.getElementById('add').value = document.getElementById('add').value.replace(toChange, "");
+      }
+    }
+
+    function buscar() {
+
+      const busco = document.getElementById('busco');
+      
+      if (busco.value.length > 0) {
+        const buscando = busco.value.toLowerCase();
+        opener.satactivity = opener.satactivity + "S:" + buscando + '/';
+        const tds = document.getElementsByTagName('td');
+        
+        for (let j = 4; j < tds.length; j++) {
+          if (tds[j].innerHTML.toLowerCase().indexOf(buscando) > -1) {
+            tds[j].style.color = '#ff2200';
+          } else {
+            tds[j].style.color = '#000000';
+          }
+        }
+      }
+    }
+  `;
+
+  // Window preferences
+  const preferences = `toolbar=no,width=${screen.availWidth - 14}px,height=${screen.availHeight - 30}px,center,margintop=0,top=0,left=10,status=no,scrollbars=yes,resizable=no,dependent=yes,z-lock=yes`;
+  
+  // Close existing popup if open
+  if (popupwin != null) {
+    popupwin.close();
+  }
+  
+  // Create new popup and set content
+  popupwin = window.open("", "win", preferences);
+  popupwin.document.documentElement.innerHTML = htmlContent;
+  
+  // Add script after DOM is loaded
+  popupwin.setTimeout(() => {
+    const script = popupwin.document.createElement('script');
+    script.text = scriptContent;
+    popupwin.document.head.appendChild(script);
+  }, 100);
+  
+  // Auto-close after 2 minutes
+  // popupwin.setTimeout(() => {
+  //   popupwin.close();
+  // }, 120000);
+}
+
 function screensize() {
   1 == aumento
     ? ((aumento = (screen.availWidth - screen.availWidth / 14) / 8 / 100),
@@ -3989,106 +4494,219 @@ function graphichelp() {
     (preferences =
       "toolbar=no,width=795px,height=634px,center,margintop=0,top=30,left=3,status=no,scrollbars=no,resizable=no,dependent=yes,z-lock=yes"),
     null != popupwin && popupwin.close(),
-    (popupwi = window.open("passhelp.gif", "win1", preferences)).setTimeout(
+    (popupwi = window.open(imageSrcUrl['passhelp'], "win1", preferences)).setTimeout(
       "self.close()",
       72e4,
     );
+    
 }
 function comment() {
-  (satactivity += "Comment/"),
-    (codata =
-      '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">\n'),
-    (codata += "<html><head><title>Comment to author</title>\n"),
-    (codata +=
-      '<meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1">\n'),
-    (codata += '<style type="text/css">\n'),
-    (codata +=
-      '.box {font-family:Arial;background-color:transparent;font-size:14px;font-weight:bold;color:#ffffff;cursor:default;"\n'),
-    (codata += "</style>\n"),
-    (codata += '<scrip language="javascript" type="text/javascript">\n'),
-    (codata +=
-      "var topy = ((-parseInt(opener.localat) + 90)* 1.5 * 1.5 - 34)+ 'px';\n"),
-    (codata +=
-      "var topx = ((parseInt(opener.localon) + 180)* 1.5 * 1.5 - 60) + 'px';\n"),
-    (codata += "setTimeout(function(){ carga(); }, 1000);\n"),
-    (codata += "function carga(){"),
-    (codata += 'document.getElementById("mapac").style.top = ""+topy+"";'),
-    (codata += 'document.getElementById("mapac").style.left = ""+topx+"";'),
-    (codata += "}\n"),
-    (codata +=
-      "function latlon2loc(lat,lon){base='ABCDEFGHIJKLMNOPQRSTUVWX';c1=base.charAt(Math.floor(lat/10)+9);lat-=Math.floor(lat/10)*10;c3=Math.floor(lat);lat-=Math.floor(lat);c5=base.charAt(Math.floor(lat*24)).toLowerCase();c0=base.charAt(Math.floor(lon/20)+9);lon-=Math.floor(lon/20)*20;c2=Math.floor(lon/2);lon-=Math.floor(lon/2)*2;c4=base.charAt(Math.floor(lon*12)).toLowerCase();return c0+c1+c2+c3+c4+c5;}\n"),
-    (codata +=
-      "function getAbsoluteOffset(htmlelement) {var offset={x:htmlelement.offsetLeft,y:htmlelement.offsetTop};while(htmlelement=htmlelement.offsetParent){offset.x+=htmlelement.offsetLeft;offset.y+=htmlelement.offsetTop;};return offset;}\n"),
-    (codata +=
-      "function image_onmouseout(ev) {document.getElementById('mouseinfo').innerHTML='';}\n"),
-    (codata +=
-      "function image_onmousemove(ev) {var offset=getAbsoluteOffset(this);posx=ev.clientX-offset.x;posy=ev.clientY-offset.y;var lat=(80-posy*180/405).toFixed(1);var lon=(-158.8+posx*360/810).toFixed(1);document.getElementById('mouseinfo').innerHTML='&nbsp;&nbsp;At cursor:&nbsp;&nbsp;&nbsp;&nbsp;Lat:'+lat+'\xb0'+'&nbsp;&nbsp;&nbsp;&nbsp;Lon:'+lon+'\xb0'+'&nbsp;&nbsp;&nbsp;&nbsp;Locator:'+latlon2loc(lat,lon)+'&nbsp;&nbsp;';}\n"),
-    (codata += "function sendcomment(){\n"),
-    (codata += "if(navigator.onLine){\n"),
-    (codata +=
-      "urlmatrix=(window.location.href).split('/');urlfuncion = urlmatrix[urlmatrix.length-1]; urlsola = urlfuncion.split('?'); urlreal =  urlmatrix[urlmatrix.length-2] + '/' + urlsola[0];\n"),
-    (codata += "if(opener.bip==true){biptext='Bipon'}else{biptext='Bipoff'}\n"),
-    (codata += "var losMeses = 'EneFebMarAbrMayJunJulAgoSetOctNovDic';\n"),
-    (codata += "var ultimahora = new Date();\n"),
-    (codata +=
-      "var ultimoDiayMes = losMeses.substring(ultimahora.getMonth()*3,ultimahora.getMonth()*3+3)+'-'+('0'+ultimahora.getDate()).slice(-2)+' ';\n"),
-    (codata += "ultimahora = ('0'+new Date().getHours()).slice(-2);\n"),
-    (codata += "ultimomin = ('0'+new Date().getMinutes()).slice(-2);\n"),
-    (codata += "horafinal='Final:'+ultimoDiayMes+ultimahora+':'+ultimomin;\n"),
-    (codata +=
-      "acti='Inicio:'+opener.horainicio+' TZ:'+opener.huso+' Con '+urlreal+' Loc:' + opener.document.getElementById('loc').value + ' Lat:' + (opener.localat*1).toFixed(4) + ' Lon:' + (opener.localon*1).toFixed(4)+ ' Z' + opener.zoom + ' ' + biptext + ' ' + screen.width + 'x' + screen.height + ' ' + opener.satactivity.replace(/[/]/g, ' ')+' '+horafinal;\n"),
-    (codata += "var xhr = new XMLHttpRequest();\n"),
-    (codata +=
-      "var comentariovalue = document.getElementById('comentario').value;\n"),
-    (codata +=
-      'var urlpost = "http://lu7aa.org/satmsg.asp?comentario="+encodeURIComponent(comentariovalue);\n'),
-    (codata +=
-      'var params = "comentario="+encodeURIComponent(document.getElementById(\'comentario\').value)+"&comcall="+encodeURIComponent(document.getElementById(\'comcall\').value)+"&comlocation="+encodeURIComponent(document.getElementById(\'comlocation\').value) + "&comname="+encodeURIComponent(document.getElementById(\'comname\').value) + "&comemail="+encodeURIComponent(document.getElementById(\'comemail\').value)+"&acti="+encodeURIComponent(acti);\n'),
-    (codata += 'xhr.open("POST", urlpost, true);\n'),
-    (codata +=
-      'xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");\n'),
-    (codata += 'xhr.setRequestHeader("Content-length", params.length);\n'),
-    (codata += "xhr.send (params);\n"),
-    (codata += 'alert("Comment Sent.. Thanks !");self.close();}};\n'),
-    (codata += "<\/script>\n"),
-    (codata =
-      codata +
-      '</head><body bgcolor="#172447" onmouseout="image_onmouseout.call(this,event);" onmousemove="image_onmousemove.call(this,event);" style="background-position:-43px -18px;margin:0;padding:0;color:#FFFF59;cursor:default;background-repeat:no-repeat;" background=\'' +
-      Image23.src +
-      "'>\n"),
-    (codata +=
-      '<center><form name=formu id=formu action="pass.htm"><table border=0 width="96%" cellpadding=2 cellspacing=2 style="color:#FFFF59;font-family:Tahoma;font-size:16px;font-weight:900;"><tr><td colspan=4 align=center>\n'),
-    (codata +=
-      '<font style="background-color:#172447;">&nbsp;Please Send Comment, Question, Requirement or Suggestion for Pass&nbsp;</font><br><br></td></tr>\n'),
-    (codata += "<tr><td align=right valign=top>Comment:</td>\n"),
-    (codata +=
-      '<td colspan=3><textarea autofocus id=comentario name=comentario style="z-index:99;height:180px;" cols=65 class="box" rows=9></textarea></td></tr>\n'),
-    (codata += "<tr><td align=center colspan=4><hr>Optional</td></tr>"),
-    (codata =
-      codata +
-      '<tr><td align=right>Callsign:</td><td><input type=text size=22 class="box" name=comcall id=comcall></td><td align=right>Locator:</td><td><input type=text size=22 class="box" name=comlocation id=comlocation value=\'' +
-      document.getElementById("loc").value +
-      "'></td></tr>\n"),
-    (codata +=
-      '<tr><td align=right>Name:</td><td><input type=text size=22 class="box" name=comname id=comname></td><td align=right>Email:</td><td><input type=text size=22 class="box" name=comemail id=comemail></td></tr>\n'),
-    (codata += "<tr><td align=center colspan=4><hr></td></tr>\n"),
-    (codata +=
-      '<tr><td align=left colspan=3><input type=button onclick="sendcomment()" style="width:150px;font-weight:bold;font-size:16px;z-index:99;" name=combutton id=combutton value="Send"></td><td align=right><font style="color:#000000;font-size:14px;"><em>Thanks, LU7ABF</em></font></td></tr>\n'),
-    (codata += "</table></form></center>"),
-    (codata =
-      codata +
-      '<div id=mapac style="position:absolute;top:0px;left:0px;width: 24px; height: 24px; background-image: url(' +
-      Image4.src +
-      '); z-index: -1; top:0; left:0;"></div>'),
-    (codata +=
-      "<div id='mouseinfo' style='position:absolute;left:180;top:369;color:#000000;font-family:Arial;font-size:18px;font-weight:normal;'></div>"),
-    (codata += "<\/body><\/html>"),
-    (preferences =
-      "toolbar=no,width=768px,height=408px,center,margintop=0,top=30,left=3,status=no,scrollbars=no,resizable=no,dependent=yes,z-lock=yes"),
-    null != popupwin && popupwin.close(),
-    (popupwi = window.open("", "win1", preferences)).document.write(codata),
-    popupwi.setTimeout("self.close()", 72e4);
+  satactivity += "Comment/";
+  
+  const scriptContent = `
+    var topy = ((-parseInt(opener.localat) + 90) * 1.5 * 1.5 - 34) + 'px';
+    var topx = ((parseInt(opener.localon) + 180) * 1.5 * 1.5 - 60) + 'px';
+    
+    setTimeout(function(){ carga(); }, 1000);
+    
+    function carga(){
+      document.getElementById("mapac").style.top = "" + topy + "";
+      document.getElementById("mapac").style.left = "" + topx + "";
+    }
+    
+    function latlon2loc(lat,lon){
+      base='ABCDEFGHIJKLMNOPQRSTUVWX';
+      c1=base.charAt(Math.floor(lat/10)+9);
+      lat-=Math.floor(lat/10)*10;
+      c3=Math.floor(lat);
+      lat-=Math.floor(lat);
+      c5=base.charAt(Math.floor(lat*24)).toLowerCase();
+      c0=base.charAt(Math.floor(lon/20)+9);
+      lon-=Math.floor(lon/20)*20;
+      c2=Math.floor(lon/2);
+      lon-=Math.floor(lon/2)*2;
+      c4=base.charAt(Math.floor(lon*12)).toLowerCase();
+      return c0+c1+c2+c3+c4+c5;
+    }
+    
+    function getAbsoluteOffset(htmlelement) {
+      var offset = {x: htmlelement.offsetLeft, y: htmlelement.offsetTop};
+      while(htmlelement = htmlelement.offsetParent) {
+        offset.x += htmlelement.offsetLeft;
+        offset.y += htmlelement.offsetTop;
+      }
+      return offset;
+    }
+    
+    function image_onmouseout(ev) {
+      document.getElementById('mouseinfo').innerHTML = '';
+    }
+    
+    function image_onmousemove(ev) {
+      var offset = getAbsoluteOffset(this);
+      posx = ev.clientX - offset.x;
+      posy = ev.clientY - offset.y;
+      var lat = (80 - posy * 180 / 405).toFixed(1);
+      var lon = (-158.8 + posx * 360 / 810).toFixed(1);
+      document.getElementById('mouseinfo').innerHTML = 
+        '&nbsp;&nbsp;At cursor:&nbsp;&nbsp;&nbsp;&nbsp;Lat:' + lat + '°' + 
+        '&nbsp;&nbsp;&nbsp;&nbsp;Lon:' + lon + '°' + 
+        '&nbsp;&nbsp;&nbsp;&nbsp;Locator:' + latlon2loc(lat,lon) + '&nbsp;&nbsp;';
+    }
+    
+    function sendcomment(){
+      if(navigator.onLine){
+        urlmatrix = (window.location.href).split('/');
+        urlfuncion = urlmatrix[urlmatrix.length-1]; 
+        urlsola = urlfuncion.split('?'); 
+        urlreal = urlmatrix[urlmatrix.length-2] + '/' + urlsola[0];
+        
+        if(opener.bip == true) {
+          biptext = 'Bipon';
+        } else {
+          biptext = 'Bipoff';
+        }
+        
+        var losMeses = 'EneFebMarAbrMayJunJulAgoSetOctNovDic';
+        var ultimahora = new Date();
+        var ultimoDiayMes = losMeses.substring(ultimahora.getMonth()*3, ultimahora.getMonth()*3+3) + 
+                           '-' + ('0' + ultimahora.getDate()).slice(-2) + ' ';
+        ultimahora = ('0' + new Date().getHours()).slice(-2);
+        ultimomin = ('0' + new Date().getMinutes()).slice(-2);
+        horafinal = 'Final:' + ultimoDiayMes + ultimahora + ':' + ultimomin;
+        
+        acti = 'Inicio:' + opener.horainicio + ' TZ:' + opener.huso + ' Con ' + urlreal + 
+               ' Loc:' + opener.document.getElementById('loc').value + 
+               ' Lat:' + (opener.localat*1).toFixed(4) + 
+               ' Lon:' + (opener.localon*1).toFixed(4) + 
+               ' Z' + opener.zoom + ' ' + biptext + ' ' + 
+               screen.width + 'x' + screen.height + ' ' + 
+               opener.satactivity.replace(/[/]/g, ' ') + ' ' + horafinal;
+        
+        var xhr = new XMLHttpRequest();
+        var comentariovalue = document.getElementById('comentario').value;
+        var urlpost = "http://lu7aa.org/satmsg.asp?comentario=" + encodeURIComponent(comentariovalue);
+        var params = "comentario=" + encodeURIComponent(document.getElementById('comentario').value) + 
+                    "&comcall=" + encodeURIComponent(document.getElementById('comcall').value) + 
+                    "&comlocation=" + encodeURIComponent(document.getElementById('comlocation').value) + 
+                    "&comname=" + encodeURIComponent(document.getElementById('comname').value) + 
+                    "&comemail=" + encodeURIComponent(document.getElementById('comemail').value) + 
+                    "&acti=" + encodeURIComponent(acti);
+        
+        xhr.open("POST", urlpost, true);
+        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhr.setRequestHeader("Content-length", params.length);
+        xhr.send(params);
+        alert("Comment Sent.. Thanks !");
+        self.close();
+      }
+    }
+  `;
+
+  const htmlContent = `
+    <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+    <html>
+    <head>
+      <title>Comment to author</title>
+      <meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1">
+      <style type="text/css">
+        .box {
+          font-family: Arial;
+          background-color: transparent;
+          font-size: 14px;
+          font-weight: bold;
+          color: #ffffff;
+          cursor: default;
+        }
+      </style>
+    </head>
+    <body bgcolor="#172447" 
+          onmouseout="image_onmouseout.call(this,event);" 
+          onmousemove="image_onmousemove.call(this,event);" 
+          style="background-position:-43px -18px;margin:0;padding:0;color:#FFFF59;cursor:default;background-repeat:no-repeat;background-image: url(${imageSrcUrl['world1.5']});">
+      <center>
+        <form name="formu" id="formu" action="pass.htm">
+          <table border="0" width="96%" cellpadding="2" cellspacing="2" 
+                 style="color:#FFFF59;font-family:Tahoma;font-size:16px;font-weight:900;">
+            <tr>
+              <td colspan="4" align="center">
+                <font style="background-color:#172447;">
+                  &nbsp;Please Send Comment, Question, Requirement or Suggestion for Pass&nbsp;
+                </font>
+                <br><br>
+              </td>
+            </tr>
+            <tr>
+              <td align="right" valign="top">Comment:</td>
+              <td colspan="3">
+                <textarea autofocus id="comentario" name="comentario" 
+                          style="z-index:99;height:180px;" cols="65" class="box" rows="9"></textarea>
+              </td>
+            </tr>
+            <tr>
+              <td align="center" colspan="4"><hr>Optional</td>
+            </tr>
+            <tr>
+              <td align="right">Callsign:</td>
+              <td><input type="text" size="22" class="box" name="comcall" id="comcall"></td>
+              <td align="right">Locator:</td>
+              <td><input type="text" size="22" class="box" name="comlocation" id="comlocation" 
+                         value="${document.getElementById("loc").value}"></td>
+            </tr>
+            <tr>
+              <td align="right">Name:</td>
+              <td><input type="text" size="22" class="box" name="comname" id="comname"></td>
+              <td align="right">Email:</td>
+              <td><input type="text" size="22" class="box" name="comemail" id="comemail"></td>
+            </tr>
+            <tr>
+              <td align="center" colspan="4"><hr></td>
+            </tr>
+            <tr>
+              <td align="left" colspan="3">
+                <input type="button" onclick="sendcomment()" 
+                       style="width:150px;font-weight:bold;font-size:16px;z-index:99;" 
+                       name="combutton" id="combutton" value="Send">
+              </td>
+              <td align="right">
+                <font style="color:#000000;font-size:14px;">
+                  <em>Thanks, LU7ABF</em>
+                </font>
+              </td>
+            </tr>
+          </table>
+        </form>
+      </center>
+      
+      <div id="mapac" style="position:absolute;top:0px;left:0px;width: 24px; height: 24px; 
+                             background-image: url(${imageSrcUrl['home']}); z-index: -1; top:0; left:0;"></div>
+      
+      <div id="mouseinfo" style="position:absolute;left:180;top:369;color:#000000;
+                                 font-family:Arial;font-size:18px;font-weight:normal;"></div>
+    </body>
+    </html>
+  `;
+
+  const preferences = "toolbar=no,width=768px,height=408px,center,margintop=0,top=30,left=3,status=no,scrollbars=no,resizable=no,dependent=yes,z-lock=yes";
+  
+  if (popupwin != null) {
+    popupwin.close();
+  }
+  
+  popupwin = window.open("", "win1", preferences);
+  popupwin.document.documentElement.innerHTML = htmlContent;
+  
+  popupwin.setTimeout(() => {
+    const script = popupwin.document.createElement('script');
+    script.text = scriptContent;
+    popupwin.document.head.appendChild(script);
+  }, 100);
+  
+  popupwin.setTimeout(() => {
+    popupwin.close();
+  }, 72000); 
 }
+
 function golocator() {
   null != ventana && ventana.close(),
     (satactivity += "LOCMAP/"),
