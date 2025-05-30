@@ -3088,28 +3088,28 @@ function showhelp() {
 }
 function birdimage() {
   birdsw
-    ? ((document.bimg.src = imageSrcUrl['birdoff']),
+    ? ((document.getElementById("bimg").src = imageSrcUrl['birdoff']),
       (birdsw = !1),
       (satactivity += "BIRDON/"))
-    : ((document.bimg.src = imageSrcUrl['birdon']),
+    : ((document.getElementById("bimg").src = imageSrcUrl['birdon']),
       (birdsw = !0),
       (satactivity += "BIRDOFF/"));
 }
 function rotorimage() {
   rotorsw
-    ? ((document.rimg.src = imageSrcUrl['rotoroff']),
+    ? ((document.getElementById("rimg").src = imageSrcUrl['rotoroff']),
       (rotorsw = !1),
       (satactivity += "ROTORON/"))
-    : ((document.rimg.src = imageSrcUrl['rotoron']),
+    : ((document.getElementById("rimg").src = imageSrcUrl['rotoron']),
       (rotorsw = !0),
       (satactivity += "ROTOROFF/"));
 }
 function speak() {
   bip
-    ? ((document.spk.src = imageSrcUrl['speakeroff']),
+    ? ((document.getElementById('spk').src = imageSrcUrl['speakeroff']),
       (bip = !1),
       (satactivity += "BIPON/"))
-    : ((document.spk.src = imageSrcUrl['speakeron']),
+    : ((document.getElementById('spk').src = imageSrcUrl['speakeron']),
       (bip = !0),
       (satactivity += "BIPOFF/"));
 }
@@ -3629,11 +3629,11 @@ function load() {
       ? (document.wwl.lon.value = localon)
       : (document.wwl.lon.value = "0"),
     bipset
-      ? ((bip = !0), (document.spk.src = imageSrcUrl['speakeron']))
-      : ((bip = !1), (document.spk.src = imageSrcUrl['speakeroff'])),
+      ? ((bip = !0), (document.getElementById('spk').src = imageSrcUrl['speakeron']))
+      : ((bip = !1), (document.getElementById('spk').src = imageSrcUrl['speakeroff'])),
     birdsw
-      ? (document.bimg.src = imageSrcUrl['birdon'])
-      : (document.bimg.src = imageSrcUrl['birdoff']),
+      ? (document.getElementById("bimg").src = imageSrcUrl['birdon'])
+      : (document.getElementById("bimg").src = imageSrcUrl['birdoff']),
     1 == selsat.length && (selsat = selsatsave.slice());
   var rightNow = new Date(),
     jan1 = new Date(rightNow.getFullYear(), 0, 1, 0, 0, 0, 0),
