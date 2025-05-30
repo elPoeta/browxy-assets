@@ -131,19 +131,19 @@ var satfreqpointer = 0,
   dateset = !1,
   yellowcount = 0,
   losMeses = "EneFebMarAbrMayJunJulAgoSetOctNovDic",
-  birdhelp = `<a href='#' title='Click for additional\nfrequency changes' onclick='if(vbasice){vbasice=false}else{vbasice=true}'>Zoom</a><br>
-    <a href=# onclick="changeorder(); return false;" title="- Change Order -&#13 0: By AGE asc.&#13 1: By NAME asc.&#13 2: By NAME desc&#13 3: By AGE desc" style="color:#00ffff;cursor:pointer;">Sort`;
+  birdhelp = `<a href='#' title='Click for additional\nfrequency changes' onclick='event.preventDefault();if(vbasice){vbasice=false}else{vbasice=true}'>Zoom</a><br>
+    <a href=# onclick="event.preventDefault();changeorder();" title="- Change Order -&#13 0: By AGE asc.&#13 1: By NAME asc.&#13 2: By NAME desc&#13 3: By AGE desc" style="color:#00ffff;cursor:pointer;">Sort`;
   help = `<center>
-    <a href="#english" onclick="event.preventDefault(); document.getElementById('lenguaje').innerHTML=english; return false;">English</a>&nbsp;&nbsp;
-    <a href="#espanol" onclick="document.getElementById('lenguaje').innerHTML=espanol; return false;">Espa&ntilde;ol</a>&nbsp;&nbsp;
-    <a href="#portugues" onclick="document.getElementById('lenguaje').innerHTML=portugues; return false;">Portugu&eacute;s</a>&nbsp;&nbsp;
-    <a href="#deutsche" onclick="document.getElementById('lenguaje').innerHTML=deutsche; return false;">Deutsch</a>&nbsp;&nbsp;
-    <a href="#italiano" onclick="document.getElementById('lenguaje').innerHTML=italiano; return false;">Italiano</a>&nbsp;&nbsp;
-    <a href="#frances" onclick="document.getElementById('lenguaje').innerHTML=frances; return false;">Fran&ccedil;ais</a>&nbsp;&nbsp;
-    <a href="#russian" onclick="document.getElementById('lenguaje').innerHTML=russian; return false;">Russian</a>&nbsp;&nbsp;
-    <a href="#turkish" onclick="document.getElementById('lenguaje').innerHTML=turkish; return false;">Turkish</a>&nbsp;&nbsp;
-    <a href="#chinesse" onclick="document.getElementById('lenguaje').innerHTML=chinesse; return false;">Chinese</a>&nbsp;&nbsp;
-    <a href="#japanese" onclick="document.getElementById('lenguaje').innerHTML=japanese; return false;">Japanese</a>
+    <a href="#english" onclick="event.preventDefault(); document.getElementById('lenguaje').innerHTML=english;">English</a>&nbsp;&nbsp;
+    <a href="#espanol" onclick="event.preventDefault(); document.getElementById('lenguaje').innerHTML=espanol;">Espa&ntilde;ol</a>&nbsp;&nbsp;
+    <a href="#portugues" onclick="event.preventDefault(); document.getElementById('lenguaje').innerHTML=portugues;">Portugu&eacute;s</a>&nbsp;&nbsp;
+    <a href="#deutsche" onclick="event.preventDefault(); document.getElementById('lenguaje').innerHTML=deutsche;">Deutsch</a>&nbsp;&nbsp;
+    <a href="#italiano" onclick="event.preventDefault(); document.getElementById('lenguaje').innerHTML=italiano;">Italiano</a>&nbsp;&nbsp;
+    <a href="#frances" onclick="event.preventDefault(); document.getElementById('lenguaje').innerHTML=frances;">Fran&ccedil;ais</a>&nbsp;&nbsp;
+    <a href="#russian" onclick="event.preventDefault(); document.getElementById('lenguaje').innerHTML=russian;">Russian</a>&nbsp;&nbsp;
+    <a href="#turkish" onclick="event.preventDefault(); document.getElementById('lenguaje').innerHTML=turkish;">Turkish</a>&nbsp;&nbsp;
+    <a href="#chinesse" onclick="event.preventDefault(); document.getElementById('lenguaje').innerHTML=chinesse;">Chinese</a>&nbsp;&nbsp;
+    <a href="#japanese" onclick="event.preventDefault(); document.getElementById('lenguaje').innerHTML=japanese;">Japanese</a>
    </center><br>\n`,
   window.name = "pass";
 //var enchat = "",
@@ -698,9 +698,9 @@ var Orb = {
             e +
             "' onmouseout = \"poneimg('')\" onmouseover = \"poneimg('" +
             PLib.tleData[e - 1][0].toLowerCase() +
-            "')\" onclick='sh(" +
+            "')\" onclick='event.preventDefault(); sh(" +
             e +
-            "); return false;'>" +
+            ");'>" +
             PLib.tleData[e - 1][0] +
             "</a><br>"),
           (sortm[e] =
@@ -1097,9 +1097,9 @@ var Orb = {
               dshow +
               "&nbsp;U&#x25B2;<a href='#' id='upsw' title='Uplink Doppler=" +
               DopplerchangeUplink +
-              "\n * Click to Change *' onclick=\"flipsw(this); return false;\" style='cursor:pointer;color:inherit;text-decoration:none;'>" +
+              "\n * Click to Change *' onclick=\"event.preventDefault();flipsw(this);\" style='cursor:pointer;color:inherit;text-decoration:none;'>" +
               showup +
-              '</a><a href=# onclick="enterfreq(\'UpLink\');return false;" style="color:inherit;" title="Adjust UPLink Freq." alt="Adjust UPLink Freq.">' +
+              '</a><a href=# onclick="event.preventDefault();enterfreq(\'UpLink\');" style="color:inherit;" title="Adjust UPLink Freq." alt="Adjust UPLink Freq.">' +
               setredinitial +
               ulink +
               setredfinal +
@@ -1127,9 +1127,9 @@ var Orb = {
               dshow +
               "&nbsp;<span id=dl onclick=\"changewisp('dl');\">D&#x25BC;</span><a href='#' id='dosw' title='Downlink Doppler=" +
               DopplerchangeDownlink +
-              "\n * Click to Change *' onclick=\"flipsw(this); return false;\" style='cursor:pointer;color:inherit;text-decoration:none;'>" +
+              "\n * Click to Change *' onclick=\"event.preventDefault();flipsw(this);\" style='cursor:pointer;color:inherit;text-decoration:none;'>" +
               showdo +
-              '</a><a href=# onclick="enterfreq(\'DownLink\');return false;" style="color:inherit" title="Adjust DownLink Freq." alt="Adjust DownLink Freq.">' +
+              '</a><a href=# onclick="event.preventDefault();enterfreq(\'DownLink\');" style="color:inherit" title="Adjust DownLink Freq." alt="Adjust DownLink Freq.">' +
               setredinitial +
               dlink +
               setredfinal +
@@ -1154,7 +1154,7 @@ var Orb = {
           beacon > 1 &&
             (dshow =
               dshow +
-              '&nbsp;<span style="white-space:nowrap;"><span id=bn onclick="changewisp(\'bn\');">B<span style="font-size:11px;font-weight:bold;vertical-align:20%;"> )))))</span></span>&nbsp;<a href=# onclick="enterfreq(\'Beacon\');return false;" style="color:inherit;" title="Adjust Beacon Freq." alt="Adjust Beacon Freq.">' +
+              '&nbsp;<span style="white-space:nowrap;"><span id=bn onclick="changewisp(\'bn\');">B<span style="font-size:11px;font-weight:bold;vertical-align:20%;"> )))))</span></span>&nbsp;<a href=# onclick="event.preventDefault();enterfreq(\'Beacon\');" style="color:inherit;" title="Adjust Beacon Freq." alt="Adjust Beacon Freq.">' +
               setredinitial +
               beacon +
               setredfinal +
@@ -1186,7 +1186,7 @@ var Orb = {
         maxsatfreq > 0 &&
           (dshow =
             dshow +
-            '<center><a href=# alt="See more options" title="See more options" onclick="gonext();return false;"><font style="color:#00ffff;font-size:16px;font-family:Arial;font-weight:bold;line-height:16px;"><u> Next Option </u></font></a>' +
+            '<center><a href=# alt="See more options" title="See more options" onclick="event.preventDefault();gonext();"><font style="color:#00ffff;font-size:16px;font-family:Arial;font-weight:bold;line-height:16px;"><u> Next Option </u></font></a>' +
             ene +
             "</center>"),
           refresh &&
@@ -1531,9 +1531,9 @@ function changeorder(e) {
         a +
         "' onmouseout = \"poneimg('')\" onmouseover = \"poneimg('" +
         PLib.tleData[a - 1][0].toLowerCase() +
-        "')\" onclick='sh(" +
+        "')\" onclick='event.preventDefault();sh(" +
         a +
-        "); return false;'>" +
+        ");'>" +
         PLib.tleData[a - 1][0] +
         "</a><br>"),
       (sortm[a] =
@@ -2603,7 +2603,7 @@ function versats(e) {
         fff += `
           <tr ${rowStyle}>
             <td align=center style="padding:4px 0px;font-weight:bold;font-size:14px;">
-              <a href='#' onclick="document.getElementById('kepa').innerHTML='SAT<br>KEPs<br>TLE';document.getElementById('kepi').innerHTML='${kepis}'">
+              <a href='#' onclick="event.preventDefault();document.getElementById('kepa').innerHTML='SAT<br>KEPs<br>TLE';document.getElementById('kepi').innerHTML='${kepis}';window.scrollTo(0,0);">
                 ${alljs[p][1].substring(2, 7)}
               </a>
             </td>
@@ -2662,8 +2662,8 @@ function versats(e) {
     const tableHeader = `
       <table border="0" cellpadding="0" cellspacing="0" style="font-family:'Arial Narrow',Tahoma, Arial, 'Times New Roman';font-size:11px;line-height:10px;align:center;width:auto;">
         <tr>
-          <td id=kepa></td>
-          <td colspan=12 id=kepi style="font-family:courier;font-size:12px;font-weight:bold;line-height:10px;"></td>
+          <td id=kepa style="padding:2px 0px;font-size:14px;line-height:14px;"></td>
+          <td colspan=12 id=kepi style="padding:2px 0px;font-family:courier;font-size:14px;font-weight:bold;line-height:14px;"></td>
         </tr>
         <tr style='font-weight:bold;color:#ffffff;background-color:#000000;height:12px;'>
           <td align=center style="font-size:14px;white-space:nowrap;cursor:pointer;padding:4px 0px;" title="*=Selected&#13& Catalog #"><b>I CAT#</b></td>
@@ -2741,7 +2741,7 @@ function versats(e) {
               .replace(/<br>/g, e == 6 ? "" : "&nbsp;")
               .replace(/&nbsp;&nbsp;/g, "&nbsp;");
             
-            cellContent = `&nbsp;<a href='#' onclick="document.getElementById('kepa').innerHTML='SAT<br>KEPs<br>TLE';document.getElementById('kepi').innerHTML='${kepis}'">${processedContent}</a>`;
+            cellContent = `&nbsp;<a href='#' onclick="event.preventDefault();document.getElementById('kepa').innerHTML='SAT<br>KEPs<br>TLE';document.getElementById('kepi').innerHTML='${kepis}';window.scrollTo(0,0);">${processedContent}</a>`;
           } else {
             // Other columns
             let processedContent = freq[i][j]
@@ -2823,8 +2823,8 @@ function versats(e) {
       `<center style="width:800px;">
         <table border=0 cellpadding=1 cellspacing=0 style="font-size:12px;font-family:Courier;line-height:10px;font-weight:bold;width:800px;">
           <tr>
-            <td id='kepa'></td>
-            <td colspan=12 id=kepi style="font-family:courier;font-size:12px;font-weight:bold;line-height:10px;"></td>
+            <td id='kepa' style="padding:2px 0px;font-size:14px;line-height:14px;"></td>
+            <td colspan=12 id=kepi style="padding:2px 0px;font-family:courier;font-size:14px;font-weight:bold;line-height:14px;"></td>
           </tr>
           ${encabe1}
           ${fff}
@@ -3283,202 +3283,6 @@ function kepsupdate(e) {
     popupwin.close(),
     loginsert.length > 4 && setTimeout("showkeps('gotokeps')", 500);
 }
-/*
-function showkeps(e) {
-  satactivity += "KEPS/";
-  for (var a, l = "", c = 0, u = 0; u < alljs.length; u++)
-    alljs[u][1].substr(18, 12) > l &&
-      "999" != alljs[u][1].substr(3, 3) &&
-      "5" > alljs[u][1].substr(18, 1) &&
-      ((l = alljs[u][1].substr(18, 12)), (c = u));
-  fech =
-    (fecha = new Date(
-      "20" + alljs[c][1].substr(18, 2),
-      0,
-      1 * alljs[c][1].substr(20, 3),
-    )) + " ";
-  var g = "";
-  (d =
-    "dated: " +
-    fech.substring(4, 7) +
-    "-" +
-    fech.substring(8, 10) +
-    " 20" +
-    alljs[c][1].substr(18, 2) +
-    " " +
-    ("0" + parseInt(24 * alljs[c][1].substr(23, 3))).slice(-2) +
-    " hs."),
-    (g += '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">\n'),
-    (g += "<html><head><title>Keps Add/Del/Insert</title>\n"),
-    (g += '<style type="text/css">\n'),
-    screen.availWidth < 801
-      ? ((g +=
-          ".tdtit {font-family: 'Courier New'; line-height:15px; font-size:12px; font-weight:bold; white-space: nowrap;}\n"),
-        (g +=
-          ".tddet {font-family: 'Courier New'; white-space: nowrap; font-size:12px; line-height:10px;cursor:pointer;font-weight:bold;}table{border-collapse: collapse;}tr {border:none;}td{border-right: solid 1px #000000;}\n"),
-        (g +=
-          ".tdch {font-family: monospace; white-space: nowrap; font-size:11px; line-height:9px;cursor:pointer;font-weight:bold;}</style>\n"))
-      : ((g +=
-          ".tdtit {font-family: 'Courier New'; line-height:17px; font-size:15px; font-weight:bold; white-space: nowrap;}\n"),
-        (g +=
-          ".tddet {font-family: 'Courier New'; white-space: nowrap; font-size:15px; line-height:10px;cursor:pointer;font-weight:bold;}table{border-collapse: collapse;}tr {border:none;}td{border-right: solid 1px #000000;}\n"),
-        (g +=
-          ".tdch {font-family: 'Courier New'; white-space: nowrap; font-size:13px; line-height:10px;cursor:pointer;font-weight:bold;}</style>\n")),
-    (g +=
-      '<meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1">\n'),
-    (g += '<script language="javascript" type="text/javascript">\n'),
-    (g += "function clearall(){\n"),
-    (g += "document.getElementById('del').value='';\n"),
-    (g += "document.getElementById('add').value='';\n"),
-    (g += 'var table = document.getElementById("satelites");\n'),
-    (g += 'var rows = table.getElementsByTagName("td");\n'),
-    (g += "for(k = 5; k < rows.length-4; k++){\n"),
-    (g +=
-      "if (rows[k].style.backgroundColor==='rgb(187, 255, 170)'||rows[k].style.backgroundColor==='#bbffaa')\n{rows[k].style.backgroundColor=\"\";document.getElementById('del').value=document.getElementById('del').value+rows[k].innerHTML.substring(0,5)+',';}\n"),
-    (g += "}\n"),
-    (g += "}\n"),
-    (g += "function markall()\n{"),
-    (g += "document.getElementById('del').value='';\n"),
-    (g += "document.getElementById('add').value='';\n"),
-    (g += 'var table = document.getElementById("satelites");\n'),
-    (g += 'var rows = table.getElementsByTagName("td");\n'),
-    (g += "for(k = 5; k < rows.length-4; k++){\n"),
-    (g +=
-      "if (rows[k].style.backgroundColor==''){rows[k].style.backgroundColor='#bbffaa';document.getElementById('add').value=document.getElementById('add').value+rows[k].innerHTML.substring(0,5)+',';}\n"),
-    (g += "}"),
-    (g += "}\n"),
-    (g += "function collect()\n{"),
-    (g += 'var table = document.getElementById("satelites");\n'),
-    (g += 'var rows = table.getElementsByTagName("td");\n'),
-    (g += 'defaults = "00000,";\n'),
-    (g +=
-      "for(k = 5; k < rows.length-4; k++){if (rows[k].style.backgroundColor!=''){defaults=defaults+rows[k].innerHTML.substring(0,5)+',';}}\n"),
-    (g +=
-      'defaultm = defaults.split(",");defaultm.sort();defaults="";for (h=1;h<defaultm.length;h++){defaults=defaults+defaultm[h]+",";}opener.defaults=defaults;}\n'),
-    (g += "function cambio(what,catalog){\n"),
-    (g += "if (what.style.backgroundColor=='')\n"),
-    (g +=
-      "{what.style.backgroundColor=\"#bbffaa\";document.getElementById('add').value=document.getElementById('add').value+catalog+',';tochange=catalog+',';document.getElementById('del').value = document.getElementById('del').value.replace(tochange,\"\");}else{what.style.backgroundColor='';document.getElementById('del').value=document.getElementById('del').value+catalog+',';tochange=catalog+',';document.getElementById('add').value = document.getElementById('add').value.replace(tochange,\"\");}\n"),
-    (g += "}\n"),
-    (g += "function buscar(){\n"),
-    (g += "if (busco.value.length>0)\n"),
-    (g += "{buscando=busco.value.toLowerCase();\n"),
-    (g += "opener.satactivity=opener.satactivity+\"S:\"+buscando+'/';\n"),
-    (g += "var tds = document.getElementsByTagName('td');\n"),
-    (g += "for (j=4;j<tds.length;j++){\n"),
-    (g += "if (tds[j].innerHTML.toLowerCase().indexOf(buscando)>-1)\n"),
-    (g += "{tds[j].style.color='ff2200';}\n"),
-    (g += "else{tds[j].style.color='000000';}\n"),
-    (g += "}}}\n"),
-    (g += "<\/script>\n"),
-    (g +=
-      '</head><body style="margin-top:0;margin-bottom:0;margin-left:1px;margin-right:0px;">'),
-    (g += "\n"),
-    (g += '<center id="adddel" style="white-space: nowrap;">\n');
-  var b,
-    $ = window.parent.add;
-  (g +=
-    "<font style=\"font-family: 'Courier New'; line-height:14px; font-size:14px; font-weight:bold; white-space: nowrap;\">\n"),
-    (g +=
-      '<input type=text name="busco" id="busco" maxlength="15" size="5" onchange="buscar();" oninput="buscar();" style="height:18px;text-transform:uppercase;"><input type=button name=buscobutton id=buscobutton value="Search" onclick="buscar()" style="font-size:13px;font-weight:normal;line-height:13px;height:20px;">\n'),
-    (g += "&nbsp;Click Sats to Add/Del from predictions and click \n"),
-    (g +=
-      '<input type="button" style="font-weight:bold;line-height:14px;height:20px;" onclick="opener.kepschange(document.getElementById(\'add\').value,document.getElementById(\'del\').value);self.close();" name="Submit" value="Submit">'),
-    (g +=
-      '&nbsp;or&nbsp;<a href="javascript:self.close();">Go Back</a></font>\n'),
-    (g =
-      (g =
-        g +
-        '<input style="visibility:hidden;" name="del" id="del" type=text maxlength=1420 size=1 value=\'' +
-        window.parent.del +
-        "'>\n") +
-      '<input style="visibility:hidden;" name="add" id="add" type=text maxlength=1420 size=1 value=\'' +
-      $ +
-      "'>\n"),
-    (g +=
-      '<form target="pass" name="changes" id="changes" action="pass.htm" onsubmit="self.close();" style="margin-bottom:0;margin-top:0;margin-left:0px;margin-right:0px;">\n'),
-    (g +=
-      "<table border=0 id='satelites' cellpadding=0 cellspacing=0 style=\"font-family: 'Courier New'; font-size:12px; font-weight:bold; line-height:13px;width:98%;\"><tr>"),
-    (g += "\n"),
-    (g += '<td class="tdtit"><u>CATNO</u> <u>Satellite Name</u></td>'),
-    (g += "\n"),
-    (g += '<td class="tdtit"><u>CATNO</u> <u>Satellite Name</u></td>'),
-    (g += "\n"),
-    (g += '<td class="tdtit"><u>CATNO</u> <u>Satellite Name</u></td>'),
-    (g += "\n"),
-    (g += '<td class="tdtit"><u>CATNO</u> <u>Satellite Name</u></td>'),
-    (g += "\n");
-  var y = 0;
-  for (u = 0; u < Math.floor(alljs.length / 4 + 1); u++)
-    for (
-      g += "</tr><tr>", j = u;
-      j < alljs.length;
-      j += Math.floor(alljs.length / 4 + 1)
-    ) {
-      for (k = 0, color = ""; k < PLib.tleData.length; k++)
-        alljs[j][1].substr(2, 5) == PLib.tleData[k][1].substr(2, 5) &&
-          ((color = "background-color:#bbffaa;"), y++);
-      (g =
-        g +
-        ("<td onclick=\"cambio(this,'" +
-          (catalog = alljs[j][1].substr(2, 5)) +
-          '\');" class="tddet" style="' +
-          color +
-          '">' +
-          alljs[j][1].substr(2, 5) +
-          " ") +
-        replacesatname(alljs[j][0]) +
-        "</td>"),
-        (g += "\n");
-    }
-  (g =
-    g +
-    ('<td align=center style="background-color:#fff380;border-right: solid 0px;">' +
-      alljs.length +
-      " Sats, ") +
-    y +
-    " Selected</td>"),
-    (g += "</tr><tr>"),
-    (g +=
-      '<td align=right valign=top style="border-right: solid 0px;">Paste here + Keps to add:&nbsp;<br>Formated as 2 lines (TLE)&nbsp;<br><input type=button onclick="opener.kepsupdate(document.getElementById(\'kepsnew\').value);self.close();" name=nkeps style="font-weight:bold;" id=nkeps value="  Send New Keps  ">&nbsp;&nbsp;</td>\n'),
-    (g +=
-      '<td colspan=2 align=left style="border-right: solid 0px;"><textarea name="kepsnew" id="kepsnew" cols="70" rows="3" style="font-size:9px;line-height:9px;font-weight:bold;"></textarea></td><td align=center style="border-right: solid 0px;"><input type=button value=\'Clear All\' style=\'font-weight:bold;\' onclick=\'clearall();\'>&nbsp;<input type=button value=\'Mark All\' style=\'font-weight:bold;\' onclick=\'markall();\'>\n'),
-    (g +=
-      "<br><font style=\"font-family:Arial;font-size:15px;font-weight:bold;vertical-align:15%;\">Save</font><input style=\"font-weight:bold;\" type=button value=\"This\" onclick=\"collect();opener.satactivity=opener.satactivity+'This/';opener.kepschange(document.getElementById('add').value,document.getElementById('del').value);opener.saveMapState('yes');self.close();\">\n"),
-    (g +=
-      "<input style=\"font-weight:bold;\" type=button value=\"Original\" onclick=\"opener.defaults='';opener.satactivity=opener.satactivity+'Orig/';opener.selsat=opener.selsatsave.slice();opener.loadTLE();opener.kepschange('','');self.close();\">\n"),
-    (g += "</td></tr></table></form></center>"),
-    (g +=
-      '<div style="white-space: nowrap;"><font style="font-family: Courier; font-size:15px; line-height:12px; font-weight:bold;">'),
-    (g += "&nbsp;"),
-    (g += "\n"),
-    (g = g + "Last Keplerian Data used in Nasa Format&nbsp;" + d),
-    (g += "\n"),
-    (g +=
-      '&nbsp;&nbsp;&nbsp;<a href="javascript:self.close();">Go Back</a><br>'),
-    (g += "\n"),
-    (g +=
-      '<div class="tdch">&nbsp;These Keps at <a href="http://amsat.org.ar/keps.txt" target="_blank">http://amsat.org.ar/keps.txt</a>&nbsp;or&nbsp;<a href="http:\/\/lu7abf.com.ar:8080\/amsat.org.ar\/keps.txt\" target="_blank">http://lu7abf.com.ar/keps.txt</a></div><br>'),
-    (g += "\n");
-  for (var u = 0; u < PLib.tleData.length; u++)
-    (g += PLib.tleData[u][0] + "<br>"),
-      (g += PLib.tleData[u][1].replace(/ /g, "&nbsp;") + "<br>"),
-      (g += "\n"),
-      (g += PLib.tleData[u][2].replace(/ /g, "&nbsp;") + "<br>"),
-      (g += "\n");
-  (g += "<\/font><\/div>"),
-    (g += "<br><\/body><\/html>"),
-    (preferences =
-      "toolbar=no,width=" +
-      (screen.availWidth - 14) +
-      "px,height=" +
-      (screen.availHeight - 30) +
-      "px,center,margintop=0,top=0,left=10,status=no,scrollbars=yes,resizable=no,dependent=yes,z-lock=yes"),
-    null != popupwin && popupwin.close(),
-    (popupwin = window.open("", "win", preferences)).document.write(g),
-    popupwin.setTimeout("self.close()", 12e4);
-}
-    */
  
 function showkeps(e) {
   satactivity += "KEPS/";
