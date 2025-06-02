@@ -133,20 +133,9 @@ var satfreqpointer = 0,
   losMeses = "EneFebMarAbrMayJunJulAgoSetOctNovDic",
   birdhelp = `<a href='#' title='Click for additional\nfrequency changes' onclick='event.preventDefault();if(vbasice){vbasice=false}else{vbasice=true}'>Zoom</a><br>
     <a href=# onclick="event.preventDefault();changeorder();" title="- Change Order -&#13 0: By AGE asc.&#13 1: By NAME asc.&#13 2: By NAME desc&#13 3: By AGE desc" style="color:#00ffff;cursor:pointer;">Sort`;
-  help = `<center>
-    <a href="#english" onclick="event.preventDefault(); document.getElementById('lenguaje').innerHTML=english;">English</a>&nbsp;&nbsp;
-    <a href="#espanol" onclick="event.preventDefault(); document.getElementById('lenguaje').innerHTML=espanol;">Espa&ntilde;ol</a>&nbsp;&nbsp;
-    <a href="#portugues" onclick="event.preventDefault(); document.getElementById('lenguaje').innerHTML=portugues;">Portugu&eacute;s</a>&nbsp;&nbsp;
-    <a href="#deutsche" onclick="event.preventDefault(); document.getElementById('lenguaje').innerHTML=deutsche;">Deutsch</a>&nbsp;&nbsp;
-    <a href="#italiano" onclick="event.preventDefault(); document.getElementById('lenguaje').innerHTML=italiano;">Italiano</a>&nbsp;&nbsp;
-    <a href="#frances" onclick="event.preventDefault(); document.getElementById('lenguaje').innerHTML=frances;">Fran&ccedil;ais</a>&nbsp;&nbsp;
-    <a href="#russian" onclick="event.preventDefault(); document.getElementById('lenguaje').innerHTML=russian;">Russian</a>&nbsp;&nbsp;
-    <a href="#turkish" onclick="event.preventDefault(); document.getElementById('lenguaje').innerHTML=turkish;">Turkish</a>&nbsp;&nbsp;
-    <a href="#chinesse" onclick="event.preventDefault(); document.getElementById('lenguaje').innerHTML=chinesse;">Chinese</a>&nbsp;&nbsp;
-    <a href="#japanese" onclick="event.preventDefault(); document.getElementById('lenguaje').innerHTML=japanese;">Japanese</a>
-   </center><br>\n`,
   window.name = "pass";
 //var enchat = "",
+
 var  rando = ("00" + Math.floor(100 * Math.random())).slice(-2),
   iconos = [
     imageSrcUrl['saticon5'],
@@ -734,38 +723,38 @@ var Orb = {
     var satInfo,
       segs = new Date().getSeconds();
 
-    if (
-      (0 == segs || 15 == segs || 30 == segs || 45 == segs) &&
-      navigator.onLine
-    ) {
-      if (
-        (xmlHttp.open("GET", "chat/luser.php"),
-        xmlHttp.send(null),
-        xmlHttp.open("GET", "chat/users.html?rnd=" + Math.random(1e3)),
-        xmlHttp.send(null),
-        nasabare.length > 3)
-      ) {
-        var toolt =
-          "At Chat\n" +
-          (nasabare = nasabare.replace(/<br>/g, "")).substring(
-            0,
-            nasabare.length - 2,
-          );
-        "t.gif" == (urlright = document.getElementById("chat").src.slice(-5)) &&
-          !0 == bip &&
-          jBeep("Beep.wav"),
-          (document.getElementById("chat").alt = toolt),
-          (document.getElementById("chat").title = toolt),
-          (document.getElementById("chat").src = imageSrcUrl['chati']),
-          (nasabare = "");
-      } else
-        "i.gif" == (urlright = document.getElementById("chat").src.slice(-5)) &&
-          !0 == bip &&
-          jBeep("bell1.wav"),
-          (document.getElementById("chat").alt = "Chat"),
-          (document.getElementById("chat").title = "Chat"),
-          (document.getElementById("chat").src = imageSrcUrl['chat']);
-    }
+    // if (
+    //   (0 == segs || 15 == segs || 30 == segs || 45 == segs) &&
+    //   navigator.onLine
+    // ) {
+    //   if (
+    //     (xmlHttp.open("GET", "chat/luser.php"),
+    //     xmlHttp.send(null),
+    //     xmlHttp.open("GET", "chat/users.html?rnd=" + Math.random(1e3)),
+    //     xmlHttp.send(null),
+    //     nasabare.length > 3)
+    //   ) {
+    //     var toolt =
+    //       "At Chat\n" +
+    //       (nasabare = nasabare.replace(/<br>/g, "")).substring(
+    //         0,
+    //         nasabare.length - 2,
+    //       );
+    //     "t.gif" == (urlright = document.getElementById("chat").src.slice(-5)) &&
+    //       !0 == bip &&
+    //       jBeep("Beep.wav"),
+    //       (document.getElementById("chat").alt = toolt),
+    //       (document.getElementById("chat").title = toolt),
+    //       (document.getElementById("chat").src = imageSrcUrl['chati']),
+    //       (nasabare = "");
+    //   } else
+    //     "i.gif" == (urlright = document.getElementById("chat").src.slice(-5)) &&
+    //       !0 == bip &&
+    //       jBeep("bell1.wav"),
+    //       (document.getElementById("chat").alt = "Chat"),
+    //       (document.getElementById("chat").title = "Chat"),
+    //       (document.getElementById("chat").src = imageSrcUrl['chat']);
+    // }
 
     if (localtime) var zulu = "&nbsp;";
     else var zulu = "z";
@@ -2523,7 +2512,6 @@ function detectIE() {
 }
 
 function versats(e) {
-
   const omito = !!(5 != tiposel && (isIE() || detectIE()));
   const IE7 = !!(
     "Microsoft Internet Explorer" == navigator.appName && IEVersion() > 0
@@ -2534,7 +2522,8 @@ function versats(e) {
   if (isOpera) shouldOmit = true;
   if (shouldOmit) e = tiposel;
   
-  if (popupwin != null) popupwin.close();
+  // Close existing overlay if open
+  closeOverlay();
   
   satactivity = satactivity + "SATS" + e + "/";
   
@@ -2603,7 +2592,7 @@ function versats(e) {
         fff += `
           <tr ${rowStyle}>
             <td align=center style="padding:4px 0px;font-weight:bold;font-size:14px;">
-              <a href='#' onclick="event.preventDefault();document.getElementById('kepa').innerHTML='SAT<br>KEPs<br>TLE';document.getElementById('kepi').innerHTML='${kepis}';window.scrollTo(0,0);">
+              <a href='#' onclick="event.preventDefault();updateKepDisplay('${kepis.replace(/'/g, "\\'")}');" style="color:blue;">
                 ${alljs[p][1].substring(2, 7)}
               </a>
             </td>
@@ -2620,28 +2609,28 @@ function versats(e) {
   }
   
   const navigationButtons = shouldOmit ? '' : `
-    <a href=# class='botonch' style="background-color:#9fef86;padding: 8px 4px;font-size: 14px;" onclick='opener.versats(0)'>
+    <a href='#' class='botonch' style="color:#000000;background-color:#9fef86;padding: 8px 4px;font-size: 14px;" onclick='versats(0)'>
       &nbsp;SSB Linear&nbsp;
     </a>&nbsp;&nbsp;&nbsp;
-    <a href=# class='botonch' style="padding: 8px 4px;font-size: 14px;background-color:#ffff62;" onclick='opener.versats(7)'>
+    <a href='#' class='botonch' style="color:#000000;padding: 8px 4px;font-size: 14px;background-color:#ffff62;" onclick='versats(7)'>
       &nbsp;SSB + FM&nbsp;
     </a>&nbsp;&nbsp;&nbsp;
-    <a href=# class='botonch' style="padding: 8px 4px;font-size: 14px;background-color:#ff6af7;" onclick="opener.versats(1);">
+    <a href='#' class='botonch' style="color:#000000;padding: 8px 4px;font-size: 14px;background-color:#ff6af7;" onclick="versats(1);">
       &nbsp;FM Voice&nbsp;
     </a>&nbsp;&nbsp;&nbsp;
-    <a href=# class='botonch' style="padding: 8px 4px;font-size: 14px;background-color:#ffb084;" onclick='opener.versats(2)'>
+    <a href='#' class='botonch' style="color:#000000;padding: 8px 4px;font-size: 14px;background-color:#ffb084;" onclick='versats(2)'>
       &nbsp;FM Digital&nbsp;
     </a>&nbsp;&nbsp;&nbsp;
-    <a href=# class='botonch' style="padding: 8px 4px;font-size: 14px;background-color:#9ae1ff;" onclick='opener.versats(3)'>
+    <a href='#' class='botonch' style="color:#000000;padding: 8px 4px;font-size: 14px;background-color:#9ae1ff;" onclick='versats(3)'>
       &nbsp;XMT Only&nbsp;
     </a>&nbsp;&nbsp;&nbsp;
-    <a href=# class='botonch' style="padding: 8px 4px;font-size: 14px;background-color:#61c761;" onclick='opener.versats(4)'>
+    <a href='#' class='botonch' style="color:#000000;padding: 8px 4px;font-size: 14px;background-color:#61c761;" onclick='versats(4)'>
       &nbsp;Weather&nbsp;
     </a>&nbsp;&nbsp;&nbsp;
-    <a href=# class='botonch' style="padding: 8px 4px;font-size: 14px;background-color:#e2e2e2;" onclick='opener.versats(6)'>
+    <a href='#' class='botonch' style="color:#000000;padding: 8px 4px;font-size: 14px;background-color:#e2e2e2;" onclick='versats(6)'>
       &nbsp;ALL Sats&nbsp;
     </a>&nbsp;&nbsp;&nbsp;
-    <a href=# class='botonch' style="padding: 8px 4px;font-size: 14px;background-color:#222222;color:#ffffff;" onclick='opener.versats(9)'>
+    <a href='#' class='botonch' style="color:#ffffff;padding: 8px 4px;font-size: 14px;background-color:#222222;" onclick='versats(9)'>
       &nbsp;UnClasif&nbsp;&nbsp;
     </a>&nbsp;&nbsp;&nbsp;`;
   
@@ -2662,8 +2651,8 @@ function versats(e) {
     const tableHeader = `
       <table border="0" cellpadding="0" cellspacing="0" style="font-family:'Arial Narrow',Tahoma, Arial, 'Times New Roman';font-size:11px;line-height:10px;align:center;width:auto;">
         <tr>
-          <td id=kepa style="padding:2px 0px;font-size:14px;line-height:14px;"></td>
-          <td colspan=12 id=kepi style="padding:2px 0px;font-family:courier;font-size:14px;font-weight:bold;line-height:14px;"></td>
+          <td id='kepa' style="padding:2px 0px;font-size:14px;line-height:14px;"></td>
+          <td colspan=12 id='kepi' style="padding:2px 0px;font-family:courier;font-size:14px;font-weight:bold;line-height:14px;"></td>
         </tr>
         <tr style='font-weight:bold;color:#ffffff;background-color:#000000;height:12px;'>
           <td align=center style="font-size:14px;white-space:nowrap;cursor:pointer;padding:4px 0px;" title="*=Selected&#13& Catalog #"><b>I CAT#</b></td>
@@ -2741,7 +2730,7 @@ function versats(e) {
               .replace(/<br>/g, e == 6 ? "" : "&nbsp;")
               .replace(/&nbsp;&nbsp;/g, "&nbsp;");
             
-            cellContent = `&nbsp;<a href='#' onclick="event.preventDefault();document.getElementById('kepa').innerHTML='SAT<br>KEPs<br>TLE';document.getElementById('kepi').innerHTML='${kepis}';window.scrollTo(0,0);">${processedContent}</a>`;
+            cellContent = `&nbsp;<a href='#' onclick="event.preventDefault();updateKepDisplay('${kepis.replace(/'/g, "\\'")}');" style="color:blue;">${processedContent}</a>`;
           } else {
             // Other columns
             let processedContent = freq[i][j]
@@ -2789,17 +2778,78 @@ function versats(e) {
     frequencyTable = tableHeader + rows + tableFooter;
   }
   
-  // Build HTML content
-  const htmlContent = `<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html>
-<head>
-  <meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1">
-  <title>Sats List</title>
-  <style>
+  // Build content for overlay
+  const overlayContent = `
+    <div style="text-align: center; padding: 20px;">
+      ${navigationButtons}
+      <button onclick="closeOverlay();" style="font-family:Tahoma,Arial;font-size:14px;font-weight:bold;padding:8px 16px;margin-left:10px;">Close</button><br>
+      <p id='tit' style='font-size:22px;font-weight:bold;font-family:Tahoma;color:#555555;'>${title}</p>
+      ${e == 9 ? 
+        `<div style="width:800px; margin: 0 auto;">
+          <table border=0 cellpadding=1 cellspacing=0 style="font-size:12px;font-family:Courier;line-height:10px;font-weight:bold;width:800px;">
+            <tr>
+              <td id='kepa' style="padding:2px 0px;font-size:14px;line-height:14px;"></td>
+              <td colspan=12 id='kepi' style="padding:2px 0px;font-family:courier;font-size:14px;font-weight:bold;line-height:14px;"></td>
+            </tr>
+            ${encabe1}
+            ${fff}
+            ${encabe1}
+          </table>
+        </div>` : 
+        frequencyTable
+      }
+    </div>`;
+  
+  // Create and show overlay
+  showOverlay(overlayContent);
+  
+  // Set auto-close timer (3 minutes)
+  // setTimeout(() => {
+  //   closeOverlay();
+  // }, 180000);
+}
+
+// Helper functions for overlay management
+function showOverlay(content) {
+  // Remove existing overlay if any
+  closeOverlay();
+  
+  // Create overlay backdrop
+  const overlay = document.createElement('div');
+  overlay.id = 'satsOverlay';
+  overlay.style.cssText = `
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow-y: auto;
+  `;
+  
+  // Create content container
+  const contentDiv = document.createElement('div');
+  contentDiv.style.cssText = `
+    background-color: #f0e8dc;
+    border-radius: 8px;
+    max-width: 95%;
+    max-height: 90%;
+    overflow-y: auto;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    position: relative;
+  `;
+  
+  // Add styles for buttons
+  const style = document.createElement('style');
+  style.textContent = `
     .botonch {
       text-decoration: none;
       border: outset;
-      border-radius: 9px 9px 9px 9px;
+      border-radius: 9px;
       border-width: 2px;
       background-color: lightblue;
       color: #000000;
@@ -2808,55 +2858,69 @@ function versats(e) {
       font-weight: bold;
       line-height: 18px;
       white-space: nowrap;
+      cursor: pointer;
+      display: inline-block;
     }
-    a:hover {
+    .botonch:hover, button:hover {
       background-color: yellow;
     }
-  </style>
-</head>
-<body bgcolor='#f0e8dc' style="margin-top:20px;margin-left:0px;margin-right:0px;overflow-x:hidden;">
-  <center>
-    ${navigationButtons}
-    <a href='#' onclick="self.close();" style="font-family:Tahoma,Arial;font-size:14px;font-weight:bold;">Go Back</a><br>
-    <p id=tit style='font-size:22px;font-weight:bold;font-family:Tahoma;color:#555555;'>${title}</p>
-    ${e == 9 ? 
-      `<center style="width:800px;">
-        <table border=0 cellpadding=1 cellspacing=0 style="font-size:12px;font-family:Courier;line-height:10px;font-weight:bold;width:800px;">
-          <tr>
-            <td id='kepa' style="padding:2px 0px;font-size:14px;line-height:14px;"></td>
-            <td colspan=12 id=kepi style="padding:2px 0px;font-family:courier;font-size:14px;font-weight:bold;line-height:14px;"></td>
-          </tr>
-          ${encabe1}
-          ${fff}
-          ${encabe1}
-        </table>
-      </center>` : 
-      frequencyTable
+     td a:hover {
+      background-color: yellow;
+     }  
+  `;
+  document.head.appendChild(style);
+  
+  contentDiv.innerHTML = content;
+  overlay.appendChild(contentDiv);
+  document.body.appendChild(overlay);
+  
+  // Close on backdrop click
+  overlay.addEventListener('click', function(e) {
+    if (e.target === overlay) {
+      closeOverlay();
     }
-  </body>
-</html>`;
+  });
   
-  // Create popup window and set content
-  const preferences = "toolbar=no,width=1024px,height=540px,center,margintop=0,top=75,left=65,status=no,scrollbars=yes,resizable=no,dependent=yes,z-lock=yes";
-  popupwin = window.open("", "win", preferences);
-  
-  popupwin.document.documentElement.innerHTML = htmlContent;
-  
-  // popupwin.setTimeout(() => {
-  //   popupwin.close();
-  // }, 180000); // 3 minutes (18e4 milliseconds)
+  // Close on Escape key
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      closeOverlay();
+    }
+  });
 }
-function showhelp() {
+
+function closeOverlay() {
+  const overlay = document.getElementById('satsOverlay');
+  if (overlay) {
+    overlay.remove();
+  }
+}
+
+function updateKepDisplay(kepis) {
+  const kepaEl = document.getElementById('kepa');
+  const kepiEl = document.getElementById('kepi');
   
+  if (kepaEl && kepiEl) {
+    kepaEl.innerHTML = 'SAT<br>KEPs<br>TLE';
+    kepiEl.innerHTML = kepis;
+    
+    // Scroll to top of overlay content
+    const overlay = document.getElementById('satsOverlay');
+    if (overlay) {
+      const contentDiv = overlay.firstChild;
+      contentDiv.scrollTop = 0;
+    }
+  }
+}
+
+function showhelp() {
   satactivity += "HELP/";
   
-  const preferences = "toolbar=no,width=718px,height=583px,center,margintop=0,top=120,left=10,status=no,scrollbars=yes,resizable=no,dependent=yes,z-lock=yes";
-  
-  if (popupwin != null) {
-    popupwin.close();
+  // Remove existing overlay if it exists
+  const existingOverlay = document.getElementById('help-overlay');
+  if (existingOverlay) {
+    existingOverlay.remove();
   }
-  
-  popupwin = window.open("", "win", preferences);
   
   const languages = {
     english: `<center><b>* This application predicts and tracks amateur satellites in real time (local or GMT)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b></center>
@@ -2872,8 +2936,6 @@ function showhelp() {
         <li>Keps are updated daily (no need to update), most active Satellites are provided.</li>
         <li>Additional satellites can be added or deleted by clicking on '<u>+Sats</u>' label on top.</li>
         <li>Application could be used in the field, runs even without Internet on any device.</li>
-        <li>If <a href='pass.exe' Title='Download or Execute pass.exe program' target=_blank style='color:#facc2e;'>PASS.EXE</a> runs concurrently with <a href='wispdde.exe' Title='Download or Execute wispDDE Driver' target=_blank style='color:#facc2e;'>wispDDE</a> will control rotor and rig dopplers.</li>
-        <li>If need <a href='MSCOMM32.OCX' Title='Download MSCOMM32.OCX' target=_blank style='color:#facc2e;'>MSCOMM32.OCX</a> or <a href='mscomctl.OCX' Title='Download mscomctl.OCX' target=_blank style='color:#facc2e;'>mscomctl.OCX</a>. Use admin regsvr32 on syswow64.</li>
         <li>If your locator not taken, start adding to url ?localat=xx.xxxx&localon=yy.yyyy .</li>
         <li>If using iPad or IOS and locator not taken, start adding to url ?locator=XXXXXX .</li>
         <li>To select a group add to url ?type= and any FM, SSB, SSBFM, NOAA, XMT, digital.</li>
@@ -2896,8 +2958,6 @@ function showhelp() {
         <li>Los Keplerianos se actualizan solos, se muestran los usuales Satélites activos.</li>
         <li>Dando click en '<u>+Sats</u>' arriba en la pantalla, podés agregar o quitar Satélites.</li>
         <li>Pass puede usarse en el campo, corre aún sin Internet en cualquier dispositivo.</li>
-        <li>Si utilizás el <a href='pass.exe' Title='Bajar o Ejecutar el programa pass.exe' target=_blank style='color:#facc2e;'>PASS.EXE</a> junto con el <a href='wispdde.exe' Title='Bajar o Ejecutar el Driver wispDDE' target=_blank style='color:#facc2e;'>wispDDE</a> , podés controlar rotores y equipos.</li>
-        <li>Si necesita <a href='MSCOMM32.OCX' Title='Download MSCOMM32.OCX' target=_blank style='color:#facc2e;'>MSCOMM32.OCX</a> o <a href='mscomctl.OCX' Title='Download mscomctl.OCX' target=_blank style='color:#facc2e;'>mscomctl.OCX</a>. Use admin regsvr32 en syswow64.</li>
         <li>Si no toma tu locator, arranca agregando a la url ?localat=xx.xxxx&localon=yy.yyyy .</li>
         <li>Si usas iPad o IOS y no toma tu locator, arranca agregando a la url ?locator=XXXXXX .</li>
         <li>Selecc. un grupo: agregar a url ?type= y cualquier FM, SSB, SSBFM, NOAA, XMT, digital.</li>
@@ -2921,8 +2981,6 @@ function showhelp() {
           <li>Keplers são atualizados sozinho, os satélites ativos usuais são mostrados.</li>
           <li>Clicando em <b><u>'+Sats'</u></b> acima na tela, você pode adicionar ou remover satélites.</li>
           <li>PASS pode ser usada no campo, até mesmo sem Internet. Opera em qualquer dispositivo.</li>
-          <li>Se você usar o <a href='pass.exe' Title='Bajar o Ejecutar el programa pass.exe' target=_blank style='color:#facc2e;'>PASS.EXE</a> com o <a href='wispdde.exe' Title='Bajar o Ejecutar el Driver wispDDE' target=_blank style='color:#facc2e;'>wispDDE</a>, você pode controlar seus rotores e equipamentos.</li>
-          <li>Se você precisa <a href='MSCOMM32.OCX' Title='Download MSCOMM32.OCX' target=_blank style='color:#facc2e;'>MSCOMM32.OCX</a> o <a href='mscomctl.OCX' Title='Download mscomctl.OCX' target=_blank style='color:#facc2e;'>mscomctl.OCX</a>. Use admin regsvr32 en syswow64.</li>
           <li>Si localizador nao e tomado proba acrescentando a url com ?localat=xx.xxxx&localon=yy.yyyy .</li>
           <li>Para um gruppo, adicionar ao url ?type= e qualquer FM, SSB, SSBFM, NOAA, XMT, digital.</li>
           <li>Se você quer começar com um satelite especifico, adicionar ao url ?sat=YYYYY .</li>
@@ -2944,10 +3002,10 @@ function showhelp() {
           <li>Durch Anklicken der Zahlen oben rechts können verschiedene Kartenmaßstäbe ausgewählt werden.</li>
           <li>Wenn der Ton aktiviert ist (rotes X), werden Pieptöne für jeden Satelliten ausgegeben, der in Reichweite kommt oder diese verlässt.</li>
           <li>Die Kepler-Daten werden täglich aktualisiert (keine manuelle Aktualisierung notwendig) - die meisten aktiven Satelliten sind bereits eingetragen.</li>
-          <li>Weitere Satelliten können durch klicken auf das <u>'+Sats'</u>-Symbol hinzugefügt oder gelöscht werden (oben auf der Seite).&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Wenn du mit einem bestimmten Satelliten anfangen willst, fugst du zu url ?sat=XXXXX</li>
+          <li>Weitere Satelliten können durch klicken auf das <u>'+Sats'</u>-Symbol hinzugefügt oder gelöscht werden (oben auf der Seite).</li>
+          <liWenn du mit einem bestimmten Satelliten anfangen willst, fugst du zu url ?sat=XXXXX</li>
           <li>Die Anwendung kann auch im Feld eingesetzt werden, sie läuft auch ohne Internet auf jedem Gerät.</li>
           <li>Wenn Sie nicht Ihre Locator nehmen, starten Sie auf die URL hinzuzufugen ?localat=xx.xxxx&localon=yy.yyyy .</li>
-          <li>Wenn <a href='pass.exe' Title='Download or Execute pass.exe program' target=_blank style='color:#facc2e;'><b>PASS.EXE</b></a> zusammen mit <a href='wispdde.exe' Title='Download or Execute wispDDE Driver' target=_blank style='color:#facc2e;'><b>wispDDE</b></a> ausgeführt wird, wird der Rotor und die Dopplerverschiebung des Funkgeräts eingestellt.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i>Vielen Dank für die deutsche Übersetzung, Hauke, DH4CK</i></li>
           <li>Um einen einzelnen Satelliten zu sehen, doppelklicken Sie auf einen Satelliten. Um wieder alle Satelliten zu sehen, doppelklicken wieder.</li>
         </ul><br>
         <center><i>Viel Spass!!! Beste 73 von LU7ABF, Pedro Converso, lu7abf at amsat.org.ar</i></center><br>
@@ -2968,7 +3026,6 @@ function showhelp() {
           <li>L'aggiornamento dei dati Kepleriani avviene in automatico, vengono mostrati il satelliti attivi.</li>
           <li>Cliccando su <u>'+Sats'</u> sullo schermo, è possibile aggiungere o rimuovere i satelliti.</li>
           <li>Pass può essere utilizzato anche senza collegamento a Internet su qualsiasi dispositivo.</li>
-          <li>Se si utilizza insieme <a href='wispdde.exe' Title='Download or Execute wispDDE Driver' target=_blank style='color:#facc2e;'>wispDDE</a> e <a href='pass.exe' Title='Download or Execute pass.exe program' target=_blank style='color:#facc2e;'>PASS.EXE</a>, è possibile controllare rotori e ricetrasmettitore.</li>
           <li>Se non si prendono il vostro locator, aggiungere alla url ?localat=xx.xxxx&localon=yy.yyyy .</li>
           <li>Se si vuole iniziare con un satellite specifica, aggiungere alla URL ?sat=XXXXX .</li>
           <li>Se si vuole iniziare con solo un satelite, aggiungere alla URL ?satx=YYYYY .</li>
@@ -3013,7 +3070,6 @@ function showhelp() {
           <li>Aktif olarak kullanılan uyduların keps verileri (ayrıca güncellemenize gerek kalmaksızın) her gün otomatik olarak güncellenir.</li>
           <li>Yukarıdaki <u><b>'+Sats'</b></u> linkine tıklayıp tabloya uydu ekleyebilir veya çıkartabilirsiniz.</li>
           <li>Uygulama herhangi bir cihazda, internet olmasa bile çalışabilir.</li>
-          <li>Eğer <a href='pass.exe' Title='Indirmek veya Yürütme pass.exe program' target=_blank style='color:#facc2e;'>PASS.EXE</a> uygulamasını <a href='wispdde.exe' Title='Indirmek veya Yürütme wispDDE Driver' target=_blank style='color:#facc2e;'>wispDDE</a> ile birlikte kullanırsanız, rotor ve cihaz/doppler kontrolü yapabilirsiniz.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i>Teşekkürler !!! Türk Çeviri için Fuat Volkan YALÇINER, TA1IFV</li>
         </ul><br>
         <center>Keyifli kullanımlar. 73 de LU7ABF, Pedro Converso, lu7abf{at}amsat.org.ar</i></center>
       </font><br>`,
@@ -3022,69 +3078,187 @@ function showhelp() {
     
       japanese: `<img alt='russian.gif' src='${imageSrcUrl['japan']}' /></br></br>`,
 
+      graphicHelp: `<img alt='.gif' src='${imageSrcUrl['passhelp']}' /></br></br>`
     
   };
+
+  // Create overlay container
+  const overlay = document.createElement('div');
+  overlay.id = 'help-overlay';
+  overlay.style.cssText = `
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 10000;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 50px;
+    overflow-y: auto;
+  `;
   
-  const htmlHeader = `<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-    <html>
-      <head>
-        <meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1">
-        <style type="text/css">
-          li { list-style-position: outside; margin-left: 1em; }
-          a:link { color: #ffffff; background-color: transparent; }
-          a:visited { color: #ffffff; background-color: transparent; }
-          a:hover { color: #ffffff; background-color: red; }
-          a:active { color: #ffffff; background-color: #ff0000; }
-          a:focus { color: #ffffff; background-color: #ff0000; }
-        </style>`;
+  // Create modal content container
+  const modal = document.createElement('div');
+  modal.style.cssText = `
+    background-color: #172447;
+    min-width: 718px;
+    max-width: 90vw;
+    mix-height: 40vh;
+    max-height: 80vh;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    position: relative;
+    overflow-y: auto;
+    margin: 20px;
+  `;
   
-    const scriptContent =  Object.entries(languages)
-      .map(([key, value]) => `var ${key} = ${JSON.stringify(value)};`)
-      .join('\n          ');
+  // Create close button
+  const closeBtn = document.createElement('button');
+  closeBtn.innerHTML = '×';
+  closeBtn.style.cssText = `
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: #ffffff;
+    cursor: pointer;
+    z-index: 1;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  `;
+  closeBtn.addEventListener('mouseover', () => {
+    closeBtn.style.backgroundColor = 'rgba(255, 255, 255, 0.2)';
+  });
+  closeBtn.addEventListener('mouseout', () => {
+    closeBtn.style.backgroundColor = 'transparent';
+  });
   
-    const htmlContent = `${htmlHeader}
-        <title>Pass Help</title>
-      </head>
-      <body style="margin-top:0px;margin-left:0px;margin-right:0;" bgcolor="#172447">
-        <center>
-          <table border=0 cellpadding=0 cellspacing=0 style="font-family:Tahoma, Arial;font-size:14px;line-height:22px;color:#ffffff;font-weight:bold;">
-          <tbody>  
-          <tr>
-              <td style="font-family:Tahoma, Arial;font-size:14px;line-height:18px;font-weight:bold;width:700px;">
-                ${help}
-                <div id="lenguaje">
-                  ${languages.english}
-                </div>
-                <center>
-                  <input type=button style="font-weight:bold;" value="Exit Help" onclick="self.close()">
-                  &nbsp;&nbsp;
-                  <input type=button style="font-weight:bold;" value="Users Locations" onclick="opener.satactivity=opener.satactivity+'LOCUSER/';document.location.href='http://lu7aa.org/passlog.asp'">
-                  &nbsp;&nbsp;
-                  <input type="button" onclick="document.location.href='http://lu7aa.org/satloglist.asp'" style="font-weight:bold;" value="Users Usage" target='_self'>
-                  &nbsp;&nbsp;
-                  <input type="button" onclick="document.location.href='http://lu7aa.org/decay.asp'" style="font-weight:bold;" value="Decay" target='_self'>
-                  &nbsp;&nbsp;
-                  <input type=button style="font-weight:bold;" value="Graphic Help" onclick="opener.graphichelp();">
-                  &nbsp;&nbsp;
-                  <input type=button style="font-weight:bold;" value="Comment & Grid Map" onclick="opener.comment();">
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                </center>
-              </td>
-            </tr>
-            </tbody>
-          </table>
-        </center>
-      </body>
-    </html>`;
-    //popupwin.document.write(htmlContent),
-    //popupwin.setTimeout("self.close()", 12e4);  
-   popupwin.document.documentElement.innerHTML = htmlContent; 
-   popupwin.setTimeout(() => {
-      const script = popupwin.document.createElement('script');
-      script.text = scriptContent;
-      popupwin.document.head.appendChild(script);
-   }, 100);
-   popupwin.setTimeout(() => popupwin.close(), 120000);
+  // Create content area
+  const content = document.createElement('div');
+  content.style.cssText = `
+    padding: 20px;
+    font-family: Tahoma, Arial;
+    font-size: 14px;
+    line-height: 22px;
+    color: #ffffff;
+    font-weight: bold;
+  `;
+  
+   const menuLang = document.createElement('div');
+   menuLang.innerHTML =`<div style="padding: 8px 4px;margin-top: 5px;">
+    <a href="#english" onclick="event.preventDefault();switchHelpLanguage('english');">English</a>&nbsp;&nbsp;
+    <a href="#espanol" onclick="event.preventDefault();switchHelpLanguage('espanol');">Espa&ntilde;ol</a>&nbsp;&nbsp;
+    <a href="#portugues" onclick="event.preventDefault(); switchHelpLanguage('portugues');">Portugu&eacute;s</a>&nbsp;&nbsp;
+    <a href="#deutsche" onclick="event.preventDefault();switchHelpLanguage('deutsche');">Deutsch</a>&nbsp;&nbsp;
+    <a href="#italiano" onclick="event.preventDefault();switchHelpLanguage('italiano');">Italiano</a>&nbsp;&nbsp;
+    <a href="#frances" onclick="event.preventDefault();switchHelpLanguage('frances');">Fran&ccedil;ais</a>&nbsp;&nbsp;
+    <a href="#russian" onclick="event.preventDefault();switchHelpLanguage('russian');">Russian</a>&nbsp;&nbsp;
+    <a href="#turkish" onclick="event.preventDefault();switchHelpLanguage('turkish');">Turkish</a>&nbsp;&nbsp;
+    <a href="#chinesse" onclick="event.preventDefault();switchHelpLanguage('chinesse');">Chinese</a>&nbsp;&nbsp;
+    <a href="#japanese" onclick="event.preventDefault();switchHelpLanguage('japanese');">Japanese</a>
+   </div>`;
+
+  // Create language content area
+  const languageDiv = document.createElement('div');
+  languageDiv.id = 'lenguaje';
+  languageDiv.innerHTML = languages.english;
+  
+  // Create buttons container
+  const buttonsContainer = document.createElement('div');
+  buttonsContainer.style.cssText = `
+    text-align: center;
+    margin-top: 20px;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  `;
+  
+  // Create buttons
+  const buttons = [
+    { text: 'Exit Help', action: () => closeOverlay() },
+    { text: 'Graphic Help', action: () => switchHelpLanguage('graphicHelp') }
+  ];
+  
+  buttons.forEach((btn, index) => {
+    const button = document.createElement('input');
+    button.type = 'button';
+    button.value = btn.text;
+    button.style.cssText = `
+      font-weight: bold;
+      margin: 2px 5px;
+      padding: 5px 10px;
+      cursor: pointer;
+      background-color: #4a5568;
+      color: white;
+      border: 1px solid #666;
+      border-radius: 4px;
+    `;
+    button.addEventListener('click', btn.action);
+    button.addEventListener('mouseover', () => {
+      button.style.backgroundColor = '#2d3748';
+    });
+    button.addEventListener('mouseout', () => {
+      button.style.backgroundColor = '#4a5568';
+    });
+    buttonsContainer.appendChild(button);
+    
+   
+    if ((index + 1) % 3 === 0 && index < buttons.length - 1) {
+      buttonsContainer.appendChild(document.createElement('br'));
+    }
+  });
+  
+  function closeOverlay() {
+    if (overlay && overlay.parentNode) {
+      overlay.parentNode.removeChild(overlay);
+    }
+  }
+  
+  closeBtn.addEventListener('click', closeOverlay);
+  
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay) {
+      closeOverlay();
+    }
+  });
+
+  document.addEventListener('keydown', function escHandler(e) {
+    if (e.key === 'Escape') {
+      closeOverlay();
+      document.removeEventListener('keydown', escHandler);
+    }
+  });
+  
+  content.appendChild(menuLang);
+  content.appendChild(languageDiv);
+  content.appendChild(buttonsContainer);
+  modal.appendChild(closeBtn);
+  modal.appendChild(content);
+  overlay.appendChild(modal);
+  
+
+  document.body.appendChild(overlay);
+  
+  // Auto-close after 2 minutes
+  setTimeout(closeOverlay, 120000);
+  
+  // Store language switching functions globally for potential use
+  //window.helpLanguages = languages;
+  window.switchHelpLanguage = function(lang) {
+    if (languages[lang]) {
+      languageDiv.innerHTML = languages[lang];
+    }
+  };
 }
 function birdimage() {
   birdsw
@@ -3283,7 +3457,7 @@ function kepsupdate(e) {
     popupwin.close(),
     loginsert.length > 4 && setTimeout("showkeps('gotokeps')", 500);
 }
- 
+
 function showkeps(e) {
   satactivity += "KEPS/";
   
@@ -3330,7 +3504,7 @@ function showkeps(e) {
       }
       
       const catalog = alljs[j][1].substr(2, 5);
-      tableRows += `<td onclick="cambio(this,'${catalog}');" class="tddet" style="${color}">${catalog} ${replacesatname(alljs[j][0])}</td>\n`;
+      tableRows += `<td onclick="kepsOverlayFunctions.cambio(this,'${catalog}');" class="tddet" style="${color}">${catalog} ${replacesatname(alljs[j][0])}</td>\n`;
     }
   }
   
@@ -3344,204 +3518,290 @@ function showkeps(e) {
   
   // CSS styles based on screen size
   const styles = isMobile ? `
-    .tdtit {font-family: 'Courier New'; line-height:15px; font-size:12px; font-weight:bold; white-space: nowrap;}
-    .tddet {font-family: 'Courier New'; white-space: nowrap; font-size:12px; line-height:10px;cursor:pointer;font-weight:bold;padding:4px 0;}
-    table{border-collapse: collapse;}
-    tr {border:none;}
-    td{border-right: solid 1px #000000;}
-    .tdch {font-family: monospace; white-space: nowrap; font-size:11px; line-height:9px;cursor:pointer;font-weight:bold;}
+    .keps-overlay .tdtit {font-family: 'Courier New'; line-height:15px; font-size:12px; font-weight:bold; white-space: nowrap;}
+    .keps-overlay .tddet {font-family: 'Courier New'; white-space: nowrap; font-size:12px; line-height:10px;cursor:pointer;font-weight:bold;padding:4px 0;}
+    .keps-overlay table{border-collapse: collapse;}
+    .keps-overlay tr {border:none;}
+    .keps-overlay td{border-right: solid 1px #000000;}
+    .keps-overlay .tdch {font-family: monospace; white-space: nowrap; font-size:11px; line-height:9px;cursor:pointer;font-weight:bold;}
   ` : `
-    .tdtit {font-family: 'Courier New'; line-height:18px; font-size:16px; font-weight:bold; white-space: nowrap;}
-    .tddet {font-family: 'Courier New'; white-space: nowrap; font-size:16px; line-height:10px;cursor:pointer;font-weight:bold;padding:4px 0;}
-    table{border-collapse: collapse;}
-    tr {border:none;}
-    td{border-right: solid 1px #000000;}
-    .tdch {font-family: 'Courier New'; white-space: nowrap; font-size:13px; line-height:10px;cursor:pointer;font-weight:bold;}
+    .keps-overlay .tdtit {font-family: 'Courier New'; line-height:18px; font-size:16px; font-weight:bold; white-space: nowrap;}
+    .keps-overlay .tddet {font-family: 'Courier New'; white-space: nowrap; font-size:16px; line-height:10px;cursor:pointer;font-weight:bold;padding:4px 0;}
+    .keps-overlay table{border-collapse: collapse;}
+    .keps-overlay tr {border:none;}
+    .keps-overlay td{border-right: solid 1px #000000;}
+    .keps-overlay .tdch {font-family: 'Courier New'; white-space: nowrap; font-size:13px; line-height:10px;cursor:pointer;font-weight:bold;}
   `;
   
-  // HTML content using template literals
-  const htmlContent = `<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html>
-<head>
-  <title>Keps Add/Del/Insert</title>
-  <style type="text/css">
-    ${styles}
-  </style>
-  <meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1">
-</head>
-<body style="margin-top:0;margin-bottom:0;margin-left:1px;margin-right:0px;">
-  <center id="adddel" style="white-space: nowrap;">
-    <font style="font-family: 'Courier New'; line-height:14px; font-size:14px; font-weight:bold; white-space: nowrap;">
-      <input type="text" name="busco" id="busco" maxlength="15" size="5" onchange="buscar();" oninput="buscar();" style="height:18px;text-transform:uppercase;">
-      <input type="button" name="buscobutton" id="buscobutton" value="Search" onclick="buscar()" style="font-size:13px;font-weight:normal;line-height:13px;height:20px;">
-      &nbsp;Click Sats to Add/Del from predictions and click 
-      <input type="button" style="font-weight:bold;line-height:14px;height:20px;" onclick="opener.kepschange(document.getElementById('add').value,document.getElementById('del').value);self.close();" name="Submit" value="Submit">
-      &nbsp;or&nbsp;<a href="javascript:self.close();">Go Back</a>
-    </font>
-    <input style="visibility:hidden;" name="del" id="del" type="text" maxlength="1420" size="1" value="${window.parent.del}">
-    <input style="visibility:hidden;" name="add" id="add" type="text" maxlength="1420" size="1" value="${window.parent.add}">
-    
-    <form target="pass" name="changes" id="changes" action="pass.htm" onsubmit="self.close();" style="margin-bottom:0;margin-top:0;margin-left:0px;margin-right:0px;">
-      <table border="0" id="satelites" cellpadding="0" cellspacing="0" style="font-family: 'Courier New'; font-size:12px; font-weight:bold; line-height:13px;width:98%;">
-        <tr>
-          <td class="tdtit"><u>CATNO</u> <u>Satellite Name</u></td>
-          <td class="tdtit"><u>CATNO</u> <u>Satellite Name</u></td>
-          <td class="tdtit"><u>CATNO</u> <u>Satellite Name</u></td>
-          <td class="tdtit"><u>CATNO</u> <u>Satellite Name</u></td>
-        </tr>
-        ${tableRows}
-        <tr>
-          <td align="center" style="background-color:#fff380;border-right: solid 0px; font-size:14px;">
-            ${alljs.length} Sats, ${selectedCount} Selected
-          </td>
-        </tr>
-        <tr>
-          <td align="right" valign="top" style="border-right: solid 0px;font-size:14px;">
-            Paste here + Keps to add:&nbsp;<br>
-            Formated as 2 lines (TLE)&nbsp;<br>
-            <input type="button" onclick="opener.kepsupdate(document.getElementById('kepsnew').value);self.close();" name="nkeps" style="font-weight:bold;" id="nkeps" value="  Send New Keps  ">&nbsp;&nbsp;
-          </td>
-          <td colspan="2" align="left" style="border-right: solid 0px;">
-            <textarea name="kepsnew" id="kepsnew" cols="70" rows="5" style="font-size:9px;line-height:9px;font-weight:bold;"></textarea>
-          </td>
-          <td align="center" style="border-right: solid 0px;">
-            <input type="button" value="Clear All" style="font-weight:bold;" onclick="clearall();">&nbsp;
-            <input type="button" value="Mark All" style="font-weight:bold;" onclick="markall();">
-            <br>
-            <font style="font-family:Arial;font-size:15px;font-weight:bold;vertical-align:15%;">Save</font>
-            <input style="font-weight:bold;" type="button" value="This" onclick="collect();opener.satactivity=opener.satactivity+'This/';opener.kepschange(document.getElementById('add').value,document.getElementById('del').value);opener.saveMapState('yes');self.close();">
-            <input style="font-weight:bold;" type="button" value="Original" onclick="opener.defaults='';opener.satactivity=opener.satactivity+'Orig/';opener.selsat=opener.selsatsave.slice();opener.loadTLE();opener.kepschange('','');self.close();">
-          </td>
-        </tr>
-      </table>
-    </form>
-  </center>
-  
-  <div style="white-space: nowrap;">
-    <font style="font-family: Courier; font-size:15px; line-height:12px; font-weight:bold;">
-      &nbsp;<br>
-      Last Keplerian Data used in Nasa Format&nbsp;${dateFormatted}<br>
-      &nbsp;&nbsp;&nbsp;<a href="javascript:self.close();">Go Back</a><br>
-      <div class="tdch">
-        &nbsp;These Keps at <a href="http://amsat.org.ar/keps.txt" target="_blank">http://amsat.org.ar/keps.txt</a>&nbsp;or&nbsp;<a href="http://lu7abf.com.ar:8080/amsat.org.ar/keps.txt" target="_blank">http://lu7abf.com.ar/keps.txt</a>
-      </div>
-      <br>
-      <div style="font-size: 17px;line-height: 18px;padding: 4px 8px;">${tleDisplay}</div>
-    </font>
-  </div>
-  <br>
-</body>
-</html>`;
-
-  // JavaScript content for the popup
-  const scriptContent = `
-    function clearall() {
-      document.getElementById('del').value = '';
-      document.getElementById('add').value = '';
-      const table = document.getElementById("satelites");
-      const rows = table.getElementsByTagName("td");
-      
-      for (let k = 5; k < rows.length - 4; k++) {
-        if (rows[k].style.backgroundColor === 'rgb(187, 255, 170)' || rows[k].style.backgroundColor === '#bbffaa') {
-          rows[k].style.backgroundColor = "";
-          document.getElementById('del').value = document.getElementById('del').value + rows[k].innerHTML.substring(0, 5) + ',';
-        }
-      }
-    }
-
-    function markall() {
-      document.getElementById('del').value = '';
-      document.getElementById('add').value = '';
-      const table = document.getElementById("satelites");
-      const rows = table.getElementsByTagName("td");
-      
-      for (let k = 5; k < rows.length - 4; k++) {
-        if (rows[k].style.backgroundColor === '') {
-          rows[k].style.backgroundColor = '#bbffaa';
-          document.getElementById('add').value = document.getElementById('add').value + rows[k].innerHTML.substring(0, 5) + ',';
-        }
-      }
-    }
-
-    function collect() {
-      const table = document.getElementById("satelites");
-      const rows = table.getElementsByTagName("td");
-      let defaults = "00000,";
-      
-      for (let k = 5; k < rows.length - 4; k++) {
-        if (rows[k].style.backgroundColor !== '') {
-          defaults = defaults + rows[k].innerHTML.substring(0, 5) + ',';
-        }
-      }
-      
-      const defaultm = defaults.split(",");
-      defaultm.sort();
-      defaults = "";
-      
-      for (let h = 1; h < defaultm.length; h++) {
-        defaults = defaults + defaultm[h] + ",";
-      }
-      
-      opener.defaults = defaults;
-    }
-
-    function cambio(what, catalog) {
-      const toChange = catalog + ',';
-      
-      if (what.style.backgroundColor === '') {
-        what.style.backgroundColor = "#bbffaa";
-        document.getElementById('add').value = document.getElementById('add').value + catalog + ',';
-        document.getElementById('del').value = document.getElementById('del').value.replace(toChange, "");
-      } else {
-        what.style.backgroundColor = '';
-        document.getElementById('del').value = document.getElementById('del').value + catalog + ',';
-        document.getElementById('add').value = document.getElementById('add').value.replace(toChange, "");
-      }
-    }
-
-    function buscar() {
-
-      const busco = document.getElementById('busco');
-      
-      if (busco.value.length > 0) {
-        const buscando = busco.value.toLowerCase();
-        opener.satactivity = opener.satactivity + "S:" + buscando + '/';
-        const tds = document.getElementsByTagName('td');
+  // Create overlay HTML content
+  const overlayHTML = `
+    <div id="keps-overlay" class="keps-overlay" style="
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      z-index: 10000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    ">
+      <div style="
+        background: white;
+        border-radius: 8px;
+        width: 95%;
+        max-height: 95%;
+        overflow: auto;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        position: relative;
+      ">
+        <style>${styles}</style>
         
-        for (let j = 4; j < tds.length; j++) {
-          if (tds[j].innerHTML.toLowerCase().indexOf(buscando) > -1) {
-            tds[j].style.color = '#ff2200';
-          } else {
-            tds[j].style.color = '#000000';
+        <!-- Close button -->
+        <button onclick="kepsOverlayFunctions.closeOverlay()" style="
+          position: absolute;
+          top: 10px;
+          right: 15px;
+          background: #ff4444;
+          color: white;
+          border: none;
+          border-radius: 50%;
+          width: 30px;
+          height: 30px;
+          font-size: 18px;
+          cursor: pointer;
+          z-index: 10001;
+        ">×</button>
+        
+        <div style="padding: 40px 20px 20px; margin-top:0; margin-bottom:0; margin-left:1px; margin-right:0px;">
+          <center id="adddel" style="white-space: nowrap;">
+            <font style="font-family: 'Courier New'; line-height:14px; font-size:14px; font-weight:bold; white-space: nowrap;">
+              <input type="text" name="busco" id="keps-busco" maxlength="15" size="5" onchange="kepsOverlayFunctions.buscar();" oninput="kepsOverlayFunctions.buscar();" style="height:18px;text-transform:uppercase;">
+              <input type="button" name="buscobutton" id="keps-buscobutton" value="Search" onclick="kepsOverlayFunctions.buscar()" style="font-size:13px;font-weight:normal;line-height:13px;height:20px;">
+              &nbsp;Click Sats to Add/Del from predictions and click 
+              <input type="button" style="font-weight:bold;line-height:14px;height:20px;" onclick="kepsOverlayFunctions.submit()" name="Submit" value="Submit">
+              &nbsp;or&nbsp;<a href="javascript:kepsOverlayFunctions.closeOverlay();">Go Back</a>
+            </font>
+            <input style="visibility:hidden;" name="del" id="keps-del" type="text" maxlength="1420" size="1" value="${window.del || ''}">
+            <input style="visibility:hidden;" name="add" id="keps-add" type="text" maxlength="1420" size="1" value="${window.add || ''}">
+            
+            <form target="pass" name="changes" id="keps-changes" style="margin-bottom:0;margin-top:0;margin-left:0px;margin-right:0px;">
+              <table border="0" id="keps-satelites" cellpadding="0" cellspacing="0" style="font-family: 'Courier New'; font-size:12px; font-weight:bold; line-height:13px;width:98%;">
+                <tr>
+                  <td class="tdtit"><u>CATNO</u> <u>Satellite Name</u></td>
+                  <td class="tdtit"><u>CATNO</u> <u>Satellite Name</u></td>
+                  <td class="tdtit"><u>CATNO</u> <u>Satellite Name</u></td>
+                  <td class="tdtit"><u>CATNO</u> <u>Satellite Name</u></td>
+                </tr>
+                ${tableRows}
+                <tr>
+                  <td align="center" style="background-color:#fff380;border-right: solid 0px; font-size:14px;">
+                    ${alljs.length} Sats, ${selectedCount} Selected
+                  </td>
+                </tr>
+                <tr>
+                  <td align="right" valign="top" style="border-right: solid 0px;font-size:14px;">
+                    Paste here + Keps to add:&nbsp;<br>
+                    Formated as 2 lines (TLE)&nbsp;<br>
+                    <input type="button" onclick="kepsOverlayFunctions.sendNewKeps()" name="nkeps" style="font-weight:bold;" id="keps-nkeps" value="  Send New Keps  ">&nbsp;&nbsp;
+                  </td>
+                  <td colspan="2" align="left" style="border-right: solid 0px;">
+                    <textarea name="kepsnew" id="keps-kepsnew" cols="70" rows="5" style="font-size:9px;line-height:9px;font-weight:bold;"></textarea>
+                  </td>
+                  <td align="center" style="border-right: solid 0px;">
+                    <input type="button" value="Clear All" style="font-weight:bold;" onclick="kepsOverlayFunctions.clearall();">&nbsp;
+                    <input type="button" value="Mark All" style="font-weight:bold;" onclick="kepsOverlayFunctions.markall();">
+                    <br>
+                    <font style="font-family:Arial;font-size:15px;font-weight:bold;vertical-align:15%;">Save</font>
+                    <input style="font-weight:bold;" type="button" value="This" onclick="kepsOverlayFunctions.saveThis();">
+                    <input style="font-weight:bold;" type="button" value="Original" onclick="kepsOverlayFunctions.saveOriginal();">
+                  </td>
+                </tr>
+              </table>
+            </form>
+          </center>
+          
+          <div style="white-space: nowrap;">
+            <font style="font-family: Courier; font-size:15px; line-height:12px; font-weight:bold;">
+              &nbsp;<br>
+              Last Keplerian Data used in Nasa Format&nbsp;${dateFormatted}<br>
+              &nbsp;&nbsp;&nbsp;<a href="javascript:kepsOverlayFunctions.closeOverlay();">Go Back</a><br>
+              <div class="tdch">
+                &nbsp;These Keps at <a href="http://amsat.org.ar/keps.txt" target="_blank">http://amsat.org.ar/keps.txt</a>&nbsp;or&nbsp;<a href="http://lu7abf.com.ar:8080/amsat.org.ar/keps.txt" target="_blank">http://lu7abf.com.ar/keps.txt</a>
+              </div>
+              <br>
+              <div style="font-size: 17px;line-height: 18px;padding: 4px 8px;">${tleDisplay}</div>
+            </font>
+          </div>
+          <br>
+        </div>
+      </div>
+    </div>
+  `;
+
+  // Remove existing overlay if present
+  const existingOverlay = document.getElementById('keps-overlay');
+  if (existingOverlay) {
+    existingOverlay.remove();
+  }
+
+  // Add overlay to body
+  document.body.insertAdjacentHTML('beforeend', overlayHTML);
+
+  // Create overlay functions object if it doesn't exist
+  if (!window.kepsOverlayFunctions) {
+    window.kepsOverlayFunctions = {
+      closeOverlay: function() {
+        const overlay = document.getElementById('keps-overlay');
+        if (overlay) {
+          overlay.remove();
+        }
+      },
+
+      clearall: function() {
+        document.getElementById('keps-del').value = '';
+        document.getElementById('keps-add').value = '';
+        const table = document.getElementById("keps-satelites");
+        const rows = table.getElementsByTagName("td");
+        
+        for (let k = 5; k < rows.length - 4; k++) {
+          if (rows[k].style.backgroundColor === 'rgb(187, 255, 170)' || rows[k].style.backgroundColor === '#bbffaa') {
+            rows[k].style.backgroundColor = "";
+            document.getElementById('keps-del').value = document.getElementById('keps-del').value + rows[k].innerHTML.substring(0, 5) + ',';
           }
         }
-      }
-    }
-  `;
+      },
 
-  // Window preferences
-  const preferences = `toolbar=no,width=${screen.availWidth - 14}px,height=${screen.availHeight - 30}px,center,margintop=0,top=0,left=10,status=no,scrollbars=yes,resizable=no,dependent=yes,z-lock=yes`;
-  
-  // Close existing popup if open
-  if (popupwin != null) {
-    popupwin.close();
+      markall: function() {
+        document.getElementById('keps-del').value = '';
+        document.getElementById('keps-add').value = '';
+        const table = document.getElementById("keps-satelites");
+        const rows = table.getElementsByTagName("td");
+        
+        for (let k = 5; k < rows.length - 4; k++) {
+          if (rows[k].style.backgroundColor === '') {
+            rows[k].style.backgroundColor = '#bbffaa';
+            document.getElementById('keps-add').value = document.getElementById('keps-add').value + rows[k].innerHTML.substring(0, 5) + ',';
+          }
+        }
+      },
+
+      collect: function() {
+        const table = document.getElementById("keps-satelites");
+        const rows = table.getElementsByTagName("td");
+        let defaults = "00000,";
+        
+        for (let k = 5; k < rows.length - 4; k++) {
+          if (rows[k].style.backgroundColor !== '') {
+            defaults = defaults + rows[k].innerHTML.substring(0, 5) + ',';
+          }
+        }
+        
+        const defaultm = defaults.split(",");
+        defaultm.sort();
+        defaults = "";
+        
+        for (let h = 1; h < defaultm.length; h++) {
+          defaults = defaults + defaultm[h] + ",";
+        }
+        
+        window.defaults = defaults;
+      },
+
+      cambio: function(what, catalog) {
+        const toChange = catalog + ',';
+        
+        if (what.style.backgroundColor === '') {
+          what.style.backgroundColor = "#bbffaa";
+          document.getElementById('keps-add').value = document.getElementById('keps-add').value + catalog + ',';
+          document.getElementById('keps-del').value = document.getElementById('keps-del').value.replace(toChange, "");
+        } else {
+          what.style.backgroundColor = '';
+          document.getElementById('keps-del').value = document.getElementById('keps-del').value + catalog + ',';
+          document.getElementById('keps-add').value = document.getElementById('keps-add').value.replace(toChange, "");
+        }
+      },
+
+      buscar: function() {
+        const busco = document.getElementById('keps-busco');
+        
+        if (busco.value.length > 0) {
+          const buscando = busco.value.toLowerCase();
+          satactivity = satactivity + "S:" + buscando + '/';
+          const tds = document.getElementById('keps-overlay').getElementsByTagName('td');
+          
+          for (let j = 4; j < tds.length; j++) {
+            if (tds[j].innerHTML.toLowerCase().indexOf(buscando) > -1) {
+              tds[j].style.color = '#ff2200';
+            } else {
+              tds[j].style.color = '#000000';
+            }
+          }
+        }
+      },
+
+      submit: function() {
+        if (typeof kepschange === 'function') {
+          kepschange(document.getElementById('keps-add').value, document.getElementById('keps-del').value);
+        }
+        this.closeOverlay();
+      },
+
+      sendNewKeps: function() {
+        if (typeof kepsupdate === 'function') {
+          kepsupdate(document.getElementById('keps-kepsnew').value);
+        }
+        this.closeOverlay();
+      },
+
+      saveThis: function() {
+        this.collect();
+        satactivity = satactivity + 'This/';
+        if (typeof kepschange === 'function') {
+          kepschange(document.getElementById('keps-add').value, document.getElementById('keps-del').value);
+        }
+        if (typeof saveMapState === 'function') {
+          saveMapState('yes');
+        }
+        this.closeOverlay();
+      },
+
+      saveOriginal: function() {
+        window.defaults = '';
+        satactivity = satactivity + 'Orig/';
+        if (typeof selsatsave !== 'undefined') {
+          window.selsat = selsatsave.slice();
+        }
+        if (typeof loadTLE === 'function') {
+          loadTLE();
+        }
+        if (typeof kepschange === 'function') {
+          kepschange('', '');
+        }
+        this.closeOverlay();
+      }
+    };
   }
-  
-  // Create new popup and set content
-  popupwin = window.open("", "win", preferences);
-  popupwin.document.documentElement.innerHTML = htmlContent;
-  
-  // Add script after DOM is loaded
-  popupwin.setTimeout(() => {
-    const script = popupwin.document.createElement('script');
-    script.text = scriptContent;
-    popupwin.document.head.appendChild(script);
-  }, 100);
-  
+
   // Auto-close after 2 minutes
-  // popupwin.setTimeout(() => {
-  //   popupwin.close();
+  // setTimeout(() => {
+  //   window.kepsOverlayFunctions.closeOverlay();
   // }, 120000);
+
+  // Close overlay when clicking outside the content area
+  document.getElementById('keps-overlay').addEventListener('click', function(e) {
+    if (e.target === this) {
+      window.kepsOverlayFunctions.closeOverlay();
+    }
+  });
+
+  // Close overlay with Escape key
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      window.kepsOverlayFunctions.closeOverlay();
+    }
+  });
 }
 
 function screensize() {
@@ -4293,223 +4553,7 @@ function locator(e, a) {
         document.wwl.loc.value +
         "\n To change\nClick Locator"));
 }
-function graphichelp() {
-  (satactivity += "GHELP/"),
-    (preferences =
-      "toolbar=no,width=795px,height=634px,center,margintop=0,top=30,left=3,status=no,scrollbars=no,resizable=no,dependent=yes,z-lock=yes"),
-    null != popupwin && popupwin.close(),
-    (popupwi = window.open(imageSrcUrl['passhelp'], "win1", preferences)).setTimeout(
-      "self.close()",
-      72e4,
-    );
-    
-}
-function comment() {
-  satactivity += "Comment/";
-  
-  const scriptContent = `
-    var topy = ((-parseInt(opener.localat) + 90) * 1.5 * 1.5 - 34) + 'px';
-    var topx = ((parseInt(opener.localon) + 180) * 1.5 * 1.5 - 60) + 'px';
-    
-    setTimeout(function(){ carga(); }, 1000);
-    
-    function carga(){
-      document.getElementById("mapac").style.top = "" + topy + "";
-      document.getElementById("mapac").style.left = "" + topx + "";
-    }
-    
-    function latlon2loc(lat,lon){
-      base='ABCDEFGHIJKLMNOPQRSTUVWX';
-      c1=base.charAt(Math.floor(lat/10)+9);
-      lat-=Math.floor(lat/10)*10;
-      c3=Math.floor(lat);
-      lat-=Math.floor(lat);
-      c5=base.charAt(Math.floor(lat*24)).toLowerCase();
-      c0=base.charAt(Math.floor(lon/20)+9);
-      lon-=Math.floor(lon/20)*20;
-      c2=Math.floor(lon/2);
-      lon-=Math.floor(lon/2)*2;
-      c4=base.charAt(Math.floor(lon*12)).toLowerCase();
-      return c0+c1+c2+c3+c4+c5;
-    }
-    
-    function getAbsoluteOffset(htmlelement) {
-      var offset = {x: htmlelement.offsetLeft, y: htmlelement.offsetTop};
-      while(htmlelement = htmlelement.offsetParent) {
-        offset.x += htmlelement.offsetLeft;
-        offset.y += htmlelement.offsetTop;
-      }
-      return offset;
-    }
-    
-    function image_onmouseout(ev) {
-      document.getElementById('mouseinfo').innerHTML = '';
-    }
-    
-    function image_onmousemove(ev) {
-      var offset = getAbsoluteOffset(this);
-      posx = ev.clientX - offset.x;
-      posy = ev.clientY - offset.y;
-      var lat = (80 - posy * 180 / 405).toFixed(1);
-      var lon = (-158.8 + posx * 360 / 810).toFixed(1);
-      document.getElementById('mouseinfo').innerHTML = 
-        '&nbsp;&nbsp;At cursor:&nbsp;&nbsp;&nbsp;&nbsp;Lat:' + lat + '°' + 
-        '&nbsp;&nbsp;&nbsp;&nbsp;Lon:' + lon + '°' + 
-        '&nbsp;&nbsp;&nbsp;&nbsp;Locator:' + latlon2loc(lat,lon) + '&nbsp;&nbsp;';
-    }
-    
-    function sendcomment(){
-      if(navigator.onLine){
-        urlmatrix = (window.location.href).split('/');
-        urlfuncion = urlmatrix[urlmatrix.length-1]; 
-        urlsola = urlfuncion.split('?'); 
-        urlreal = urlmatrix[urlmatrix.length-2] + '/' + urlsola[0];
-        
-        if(opener.bip == true) {
-          biptext = 'Bipon';
-        } else {
-          biptext = 'Bipoff';
-        }
-        
-        var losMeses = 'EneFebMarAbrMayJunJulAgoSetOctNovDic';
-        var ultimahora = new Date();
-        var ultimoDiayMes = losMeses.substring(ultimahora.getMonth()*3, ultimahora.getMonth()*3+3) + 
-                           '-' + ('0' + ultimahora.getDate()).slice(-2) + ' ';
-        ultimahora = ('0' + new Date().getHours()).slice(-2);
-        ultimomin = ('0' + new Date().getMinutes()).slice(-2);
-        horafinal = 'Final:' + ultimoDiayMes + ultimahora + ':' + ultimomin;
-        
-        acti = 'Inicio:' + opener.horainicio + ' TZ:' + opener.huso + ' Con ' + urlreal + 
-               ' Loc:' + opener.document.getElementById('loc').value + 
-               ' Lat:' + (opener.localat*1).toFixed(4) + 
-               ' Lon:' + (opener.localon*1).toFixed(4) + 
-               ' Z' + opener.zoom + ' ' + biptext + ' ' + 
-               screen.width + 'x' + screen.height + ' ' + 
-               opener.satactivity.replace(/[/]/g, ' ') + ' ' + horafinal;
-        
-        var xhr = new XMLHttpRequest();
-        var comentariovalue = document.getElementById('comentario').value;
-        var urlpost = "http://lu7aa.org/satmsg.asp?comentario=" + encodeURIComponent(comentariovalue);
-        var params = "comentario=" + encodeURIComponent(document.getElementById('comentario').value) + 
-                    "&comcall=" + encodeURIComponent(document.getElementById('comcall').value) + 
-                    "&comlocation=" + encodeURIComponent(document.getElementById('comlocation').value) + 
-                    "&comname=" + encodeURIComponent(document.getElementById('comname').value) + 
-                    "&comemail=" + encodeURIComponent(document.getElementById('comemail').value) + 
-                    "&acti=" + encodeURIComponent(acti);
-        
-        xhr.open("POST", urlpost, true);
-        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        xhr.setRequestHeader("Content-length", params.length);
-        xhr.send(params);
-        alert("Comment Sent.. Thanks !");
-        self.close();
-      }
-    }
-  `;
 
-  const htmlContent = `
-    <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-    <html>
-    <head>
-      <title>Comment to author</title>
-      <meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1">
-      <style type="text/css">
-        .box {
-          font-family: Arial;
-          background-color: transparent;
-          font-size: 14px;
-          font-weight: bold;
-          color: #ffffff;
-          cursor: default;
-        }
-      </style>
-    </head>
-    <body bgcolor="#172447" 
-          onmouseout="image_onmouseout.call(this,event);" 
-          onmousemove="image_onmousemove.call(this,event);" 
-          style="background-position:-43px -18px;margin:0;padding:0;color:#FFFF59;cursor:default;background-repeat:no-repeat;background-image: url(${imageSrcUrl['world1.5']});">
-      <center>
-        <form name="formu" id="formu" action="pass.htm">
-          <table border="0" width="96%" cellpadding="2" cellspacing="2" 
-                 style="color:#FFFF59;font-family:Tahoma;font-size:16px;font-weight:900;">
-            <tr>
-              <td colspan="4" align="center">
-                <font style="background-color:#172447;">
-                  &nbsp;Please Send Comment, Question, Requirement or Suggestion for Pass&nbsp;
-                </font>
-                <br><br>
-              </td>
-            </tr>
-            <tr>
-              <td align="right" valign="top">Comment:</td>
-              <td colspan="3">
-                <textarea autofocus id="comentario" name="comentario" 
-                          style="z-index:99;height:180px;" cols="65" class="box" rows="9"></textarea>
-              </td>
-            </tr>
-            <tr>
-              <td align="center" colspan="4"><hr>Optional</td>
-            </tr>
-            <tr>
-              <td align="right">Callsign:</td>
-              <td><input type="text" size="22" class="box" name="comcall" id="comcall"></td>
-              <td align="right">Locator:</td>
-              <td><input type="text" size="22" class="box" name="comlocation" id="comlocation" 
-                         value="${document.getElementById("loc").value}"></td>
-            </tr>
-            <tr>
-              <td align="right">Name:</td>
-              <td><input type="text" size="22" class="box" name="comname" id="comname"></td>
-              <td align="right">Email:</td>
-              <td><input type="text" size="22" class="box" name="comemail" id="comemail"></td>
-            </tr>
-            <tr>
-              <td align="center" colspan="4"><hr></td>
-            </tr>
-            <tr>
-              <td align="left" colspan="3">
-                <input type="button" onclick="sendcomment()" 
-                       style="width:150px;font-weight:bold;font-size:16px;z-index:99;" 
-                       name="combutton" id="combutton" value="Send">
-              </td>
-              <td align="right">
-                <font style="color:#000000;font-size:14px;">
-                  <em>Thanks, LU7ABF</em>
-                </font>
-              </td>
-            </tr>
-          </table>
-        </form>
-      </center>
-      
-      <div id="mapac" style="position:absolute;top:0px;left:0px;width: 24px; height: 24px; 
-                             background-image: url(${imageSrcUrl['home']}); z-index: -1; top:0; left:0;"></div>
-      
-      <div id="mouseinfo" style="position:absolute;left:180;top:369;color:#000000;
-                                 font-family:Arial;font-size:18px;font-weight:normal;"></div>
-    </body>
-    </html>
-  `;
-
-  const preferences = "toolbar=no,width=768px,height=408px,center,margintop=0,top=30,left=3,status=no,scrollbars=no,resizable=no,dependent=yes,z-lock=yes";
-  
-  if (popupwin != null) {
-    popupwin.close();
-  }
-  
-  popupwin = window.open("", "win1", preferences);
-  popupwin.document.documentElement.innerHTML = htmlContent;
-  
-  popupwin.setTimeout(() => {
-    const script = popupwin.document.createElement('script');
-    script.text = scriptContent;
-    popupwin.document.head.appendChild(script);
-  }, 100);
-  
-  popupwin.setTimeout(() => {
-    popupwin.close();
-  }, 72000); 
-}
 
 function golocator() {
   null != ventana && ventana.close(),
@@ -4577,14 +4621,14 @@ function donate() {
   (satactivity += "DONATE/"),
     window.open("https://www.paypal.me/AMSATARGENTINA/", "_blank");
 }
-(xmlHttp.onreadystatechange = function () {
-  4 == xmlHttp.readyState &&
-    setTimeout(function () {
-      nasabare = xmlHttp.responseText;
-    }, 1e3);
-}),
-  xmlHttp.open("GET", "chat/luser.php"),
-  xmlHttp.send(null),
+// (xmlHttp.onreadystatechange = function () {
+//   4 == xmlHttp.readyState &&
+//     setTimeout(function () {
+//       nasabare = xmlHttp.responseText;
+//     }, 1e3);
+// }),
+  //xmlHttp.open("GET", "chat/luser.php"),
+  //xmlHttp.send(null),
   (function (e, a) {
     "undefined" != typeof module
       ? (module.exports = a())
