@@ -44,6 +44,8 @@ var lastdatetime,
   bip = !0,
   birdsw = !0;
 rotorsw = !0;
+var alljs = [[]];
+
 for (
   var localtime = !0,
     tiposel = 5,
@@ -3623,14 +3625,10 @@ function showkeps(e) {
           </center>
           
           <div style="white-space: nowrap;">
-            <font style="font-family: Courier; font-size:15px; line-height:12px; font-weight:bold;">
+            <font style="font-family: Courier; font-size:15px; line-height:12px; font-weight:bold; color:#000000;">
               &nbsp;<br>
               Last Keplerian Data used in Nasa Format&nbsp;${dateFormatted}<br>
-              &nbsp;&nbsp;&nbsp;<a href="javascript:kepsOverlayFunctions.closeOverlay();">Go Back</a><br>
-              <div class="tdch">
-                &nbsp;These Keps at <a href="http://amsat.org.ar/keps.txt" target="_blank">http://amsat.org.ar/keps.txt</a>&nbsp;or&nbsp;<a href="http://lu7abf.com.ar:8080/amsat.org.ar/keps.txt" target="_blank">http://lu7abf.com.ar/keps.txt</a>
-              </div>
-              <br>
+              &nbsp;&nbsp;&nbsp;<a href="javascript:kepsOverlayFunctions.closeOverlay();" style="color:#000000;">Go Back</a><br>
               <div style="font-size: 17px;line-height: 18px;padding: 4px 8px;">${tleDisplay}</div>
             </font>
           </div>
@@ -3847,7 +3845,11 @@ function formatTLEMatrix(matrix) {
     })
     .filter((entry) => entry[1] && entry[2]);
 }
-function load() {
+
+async function load() {
+
+  alljs = await loadAlljson();
+
   1 == aumento && document.getElementById("sz")
     ? (document.getElementById("sz").innerHTML = "&#9651;")
     : (document.getElementById("sz").innerHTML = "&#9661;"),
@@ -3855,11 +3857,7 @@ function load() {
     navigator.userAgent.indexOf("Firefox") > 0 &&
       ((document.body.style.MozTransform = "scale(" + aumento + ")"),
       (document.body.style.MozTransformOrigin = "0 0")),
-    // 0 > document.location.href.toLowerCase().indexOf("amsat") &&
-    //   alert(
-    //     " Please use http://amsat.org.ar/pass\nInstead of " +
-    //       document.location.href,
-    //   ),
+
     gqs("locator") &&
       ((localocator = (localocalm = gqs("locator").split("#"))[0]),
       (document.getElementById("loc").value = localocator)),
@@ -4141,6 +4139,8 @@ function load() {
       document.getElementById("ty6") &&
         (document.getElementById("ty6").innerText = cuentaf.replace(/ /g, ""));
   }
+
+  document.querySelector('#spinner-overlay').style.display = 'none';
 }
 function onlysat(e) {
   for (k = 1; k < PLib.tleData.length; k++)
