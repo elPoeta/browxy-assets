@@ -2497,28 +2497,28 @@ function versats(e) {
   }
   
   const navigationButtons = shouldOmit ? '' : `
-    <a href='#' class='botonch' style="color:#000000;background-color:#9fef86;padding: 8px 4px;font-size: 14px;" onclick='versats(0)'>
+    <a href='#' class='botonch' style="color:#000000;background-color:#9fef86;padding: 8px 4px;font-size: 14px;" onclick='event.preventDefault();versats(0);'>
       &nbsp;SSB Linear&nbsp;
     </a>&nbsp;&nbsp;&nbsp;
-    <a href='#' class='botonch' style="color:#000000;padding: 8px 4px;font-size: 14px;background-color:#ffff62;" onclick='versats(7)'>
+    <a href='#' class='botonch' style="color:#000000;padding: 8px 4px;font-size: 14px;background-color:#ffff62;" onclick='event.preventDefault();versats(7);'>
       &nbsp;SSB + FM&nbsp;
     </a>&nbsp;&nbsp;&nbsp;
-    <a href='#' class='botonch' style="color:#000000;padding: 8px 4px;font-size: 14px;background-color:#ff6af7;" onclick="versats(1);">
+    <a href='#' class='botonch' style="color:#000000;padding: 8px 4px;font-size: 14px;background-color:#ff6af7;" onclick="event.preventDefault();versats(1);;">
       &nbsp;FM Voice&nbsp;
     </a>&nbsp;&nbsp;&nbsp;
-    <a href='#' class='botonch' style="color:#000000;padding: 8px 4px;font-size: 14px;background-color:#ffb084;" onclick='versats(2)'>
+    <a href='#' class='botonch' style="color:#000000;padding: 8px 4px;font-size: 14px;background-color:#ffb084;" onclick='event.preventDefault();versats(2);'>
       &nbsp;FM Digital&nbsp;
     </a>&nbsp;&nbsp;&nbsp;
-    <a href='#' class='botonch' style="color:#000000;padding: 8px 4px;font-size: 14px;background-color:#9ae1ff;" onclick='versats(3)'>
+    <a href='#' class='botonch' style="color:#000000;padding: 8px 4px;font-size: 14px;background-color:#9ae1ff;" onclick='event.preventDefault();versats(3);'>
       &nbsp;XMT Only&nbsp;
     </a>&nbsp;&nbsp;&nbsp;
-    <a href='#' class='botonch' style="color:#000000;padding: 8px 4px;font-size: 14px;background-color:#61c761;" onclick='versats(4)'>
+    <a href='#' class='botonch' style="color:#000000;padding: 8px 4px;font-size: 14px;background-color:#61c761;" onclick='event.preventDefault();versats(4);'>
       &nbsp;Weather&nbsp;
     </a>&nbsp;&nbsp;&nbsp;
-    <a href='#' class='botonch' style="color:#000000;padding: 8px 4px;font-size: 14px;background-color:#e2e2e2;" onclick='versats(6)'>
+    <a href='#' class='botonch' style="color:#000000;padding: 8px 4px;font-size: 14px;background-color:#e2e2e2;" onclick='event.preventDefault();versats(6);'>
       &nbsp;ALL Sats&nbsp;
     </a>&nbsp;&nbsp;&nbsp;
-    <a href='#' class='botonch' style="color:#ffffff;padding: 8px 4px;font-size: 14px;background-color:#222222;" onclick='versats(9)'>
+    <a href='#' class='botonch' style="color:#ffffff;padding: 8px 4px;font-size: 14px;background-color:#222222;" onclick='event.preventDefault();versats(9);'>
       &nbsp;UnClasif&nbsp;&nbsp;
     </a>&nbsp;&nbsp;&nbsp;`;
   
@@ -2671,7 +2671,7 @@ function versats(e) {
     <div style="text-align: center; padding: 20px;">
       ${navigationButtons}
       <button onclick="closeOverlay();" style="font-family:Tahoma,Arial;font-size:14px;font-weight:bold;padding:8px 16px;margin-left:10px;">Close</button><br>
-      <p id='tit' style='font-size:22px;font-weight:bold;font-family:Tahoma;color:#555555;'>${title}</p>
+      <p id='tit' style='font-size:22px;font-weight:bold;font-family:Tahoma;color:#555555;padding:10px 0px;text-align:center;'>${title}</p>
       ${e == 9 ? 
         `<div style="width:800px; margin: 0 auto;">
           <table border=0 cellpadding=1 cellspacing=0 style="font-size:12px;font-family:Courier;line-height:10px;font-weight:bold;width:800px;">
@@ -2728,7 +2728,9 @@ function showOverlay(content) {
     max-height: 90%;
     overflow-y: auto;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-    position: relative;
+    display: flex;
+    position: absolute;
+    top: 40px;
   `;
   
   // Add styles for buttons
@@ -2764,6 +2766,7 @@ function showOverlay(content) {
   
   // Close on backdrop click
   overlay.addEventListener('click', function(e) {
+    e.preventDefault();
     if (e.target === overlay) {
       closeOverlay();
     }
