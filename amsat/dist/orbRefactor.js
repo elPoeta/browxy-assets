@@ -1,11 +1,9 @@
 var lastdatetime,
-  //tiposat,
   defaults,
   maxsatfreq,
   saveaoslosid,
   sunlon,
   sunlat,
-  //adjust,
   zx1,
   zy1,
   zl1,
@@ -19,8 +17,6 @@ var lastdatetime,
   zy4,
   zl4,
   satelitename,
-  //satazimuth,
-  //satelevation,
   dlink,
   ulink,
   beacon,
@@ -30,16 +26,13 @@ var lastdatetime,
   doppler_factor,
   satselected,
   recoversat,
-  //sattochange,
   popup,
-  //tt,
   add,
   del,
   newcycle,
   popupwin,
   popupwi,
   flash,
-  xmlHttp,
   ventana,
   bip = !0,
   birdsw = !0;
@@ -81,15 +74,9 @@ var satfreqpointer = 0,
   firstclick = !0,
   autoclick = !1,
   aumento = 1,
-  //errorMsg = "",
-  //lineNumber = "",
-  //url = "",
   leyen = "",
   tablelasttime = new Date(),
   zoom = 1,
-  //timespan = 864e5 / 2.3,
-  //shorttimespan = 3456e4,
-  //longtimespan = 3456e5,
   wispmode = "bn",
   wispazimuth = 0,
   wispelevation = 0,
@@ -126,7 +113,6 @@ var satfreqpointer = 0,
   warntoken = 0,
   vbasice = !1,
   elevationset = 0,
-  //eleva = 0,
   azisw = "&nbsp;N&nbsp;",
   progsw = "&nbsp;N&nbsp;",
   wispextra = "",
@@ -136,7 +122,6 @@ var satfreqpointer = 0,
   birdhelp = `<a href='#' title='Click for additional\nfrequency changes' onclick='event.preventDefault();if(vbasice){vbasice=false}else{vbasice=true}'>Zoom</a><br>
     <a href=# onclick="event.preventDefault();changeorder();" title="- Change Order -&#13 0: By AGE asc.&#13 1: By NAME asc.&#13 2: By NAME desc&#13 3: By AGE desc" style="color:#00ffff;cursor:pointer;">Sort`;
   window.name = "pass";
-//var enchat = "",
 
 var  rando = ("00" + Math.floor(100 * Math.random())).slice(-2),
   iconos = [
@@ -722,41 +707,7 @@ var Orb = {
   },
   updateSatellites: function () {
     (yellowcount = 0), (wispextra = "");
-    var satInfo,
-      segs = new Date().getSeconds();
-
-    // if (
-    //   (0 == segs || 15 == segs || 30 == segs || 45 == segs) &&
-    //   navigator.onLine
-    // ) {
-    //   if (
-    //     (xmlHttp.open("GET", "chat/luser.php"),
-    //     xmlHttp.send(null),
-    //     xmlHttp.open("GET", "chat/users.html?rnd=" + Math.random(1e3)),
-    //     xmlHttp.send(null),
-    //     nasabare.length > 3)
-    //   ) {
-    //     var toolt =
-    //       "At Chat\n" +
-    //       (nasabare = nasabare.replace(/<br>/g, "")).substring(
-    //         0,
-    //         nasabare.length - 2,
-    //       );
-    //     "t.gif" == (urlright = document.getElementById("chat").src.slice(-5)) &&
-    //       !0 == bip &&
-    //       jBeep("Beep.wav"),
-    //       (document.getElementById("chat").alt = toolt),
-    //       (document.getElementById("chat").title = toolt),
-    //       (document.getElementById("chat").src = imageSrcUrl['chati']),
-    //       (nasabare = "");
-    //   } else
-    //     "i.gif" == (urlright = document.getElementById("chat").src.slice(-5)) &&
-    //       !0 == bip &&
-    //       jBeep("bell1.wav"),
-    //       (document.getElementById("chat").alt = "Chat"),
-    //       (document.getElementById("chat").title = "Chat"),
-    //       (document.getElementById("chat").src = imageSrcUrl['chat']);
-    // }
+    var satInfo;
 
     if (localtime) var zulu = "&nbsp;";
     else var zulu = "z";
@@ -1029,26 +980,27 @@ var Orb = {
               "SN" == WispData.substring(0, 2) &&
               "&nbsp;P&nbsp;" == progsw)
           ) {
-            var xhr = new XMLHttpRequest(),
-              urlpost =
-                "http://lu7aa.org/track.asp?filename=" +
-                rando +
-                "&data=" +
-                WispData +
-                wispextra,
-              params = "filename=" + rando + "&data=" + WispData + wispextra;
-            xhr.open("POST", urlpost, !0),
-              xhr.send(params),
-              (document.getElementById("lu7aaurl").innerHTML =
-                "<br>Following data at: <a href=http://lu7aa.org/" +
-                rando +
-                ".txt target=tracking>http://lu7aa.org/" +
-                rando +
-                ".txt</a><br><br>" +
-                WispData +
-                wispextra),
-              (document.getElementById("lu7aaurl").style.visibility =
-                "visible");
+             console.log(WispData);
+            // var xhr = new XMLHttpRequest(),
+            //   urlpost =
+            //     "http://lu7aa.org/track.asp?filename=" +
+            //     rando +
+            //     "&data=" +
+            //     WispData +
+            //     wispextra,
+            //   params = "filename=" + rando + "&data=" + WispData + wispextra;
+            // xhr.open("POST", urlpost, !0),
+            //   xhr.send(params),
+            //   (document.getElementById("lu7aaurl").innerHTML =
+            //     "<br>Following data at: <a href=http://lu7aa.org/" +
+            //     rando +
+            //     ".txt target=tracking>http://lu7aa.org/" +
+            //     rando +
+            //     ".txt</a><br><br>" +
+            //     WispData +
+            //     wispextra),
+            //   (document.getElementById("lu7aaurl").style.visibility =
+            //     "visible");
           } else
             document.getElementById("lu7aaurl").style.visibility = "hidden";
         } else
@@ -2130,42 +2082,6 @@ function saveMapState(e) {
     activity =
       activity.slice(0, l) + "/Autos/" + activity.slice(c + 6, activity.length);
   }
-  if ("Microsoft Internet Explorer" == navigator.appName)
-    navigator.onLine &&
-      "yes" == e &&
-      "Microsoft Internet Explorer" != navigator.appName &&
-      (document.location.href =
-        "http://lu7aa.org/satlog.asp?datos=" +
-        encodeURIComponent(activity) +
-        "&hi=" +
-        encodeURIComponent(horainicio) +
-        "&TZ=TZ:" +
-        huso);
-  else if (
-    navigator.onLine &&
-    "yes" == e &&
-    "Microsoft Internet Explorer" != navigator.appName
-  ) {
-    var u = new XMLHttpRequest(),
-      g =
-        "http://lu7aa.org/satlog.asp?datos=" +
-        encodeURIComponent(activity) +
-        "&hi=" +
-        encodeURIComponent(horainicio) +
-        "&TZ=TZ:" +
-        huso,
-      b =
-        "datos=" +
-        encodeURIComponent(activity) +
-        "&hi=" +
-        encodeURIComponent(horainicio) +
-        "&TZ=TZ:" +
-        huso;
-    u.open("GET", g, !0),
-      u.setRequestHeader("Content-type", "application/x-www-form-urlencoded"),
-      u.setRequestHeader("Content-length", b.length),
-      u.send(b);
-  }
   setCookie("passCookie", a, 30), sleep(2e3);
 }
 function logactivity() {
@@ -2207,36 +2123,6 @@ function logactivity() {
         activity.slice(0, e) +
         "/Autos/" +
         activity.slice(a + 6, activity.length);
-    }
-    if (
-      (dateset &&
-        (MockDate.reset(),
-        Orb.generateTable(document.getElementById("passes")),
-        (tablelasttime = new Date()),
-        (dateset = !1),
-        (document.getElementById("changedate").style.left = "211px"),
-        (document.getElementById("cal").style.width = "16px"),
-        (satactivity += "CALERESET/")),
-      !vbasic)
-    ) {
-      var l = new XMLHttpRequest(),
-        c =
-          "http://lu7aa.org/satlog.asp?datos=" +
-          encodeURIComponent(activity) +
-          encodeURIComponent(horainicio) +
-          "&TZ=TZ:" +
-          huso,
-        u =
-          "datos=" +
-          encodeURIComponent(activity) +
-          "&hi=" +
-          encodeURIComponent(horainicio) +
-          "&TZ=TZ:" +
-          huso;
-      l.open("POST", c, !0),
-        l.setRequestHeader("Content-type", "application/x-www-form-urlencoded"),
-        l.setRequestHeader("Content-length", u.length),
-        l.send(u);
     }
   }
 }
@@ -3252,7 +3138,7 @@ function showhelp() {
   document.body.appendChild(overlay);
   
   // Auto-close after 2 minutes
-  setTimeout(closeOverlay, 120000);
+  //setTimeout(closeOverlay, 120000);
   
   // Store language switching functions globally for potential use
   //window.helpLanguages = languages;
@@ -3921,18 +3807,7 @@ async function load() {
       ((dstinfo = "D"), !0 == indst ? (dstinfo += "T") : (dstinfo += "F")),
     "" != dstinfo && (satactivity = "DT:" + dstinfo + "/"),
     navigator.cookieEnabled || (satactivity += "Cookie:D/"),
-    (document.getElementById("Logging").innerHTML =
-      "http://www.lu7aa.org/satlog.asp?hi=" +
-      horainicio +
-      "&TZ=TZ:" +
-      huso +
-      "&datos=Con%20Pass.exe%20Loc:" +
-      document.getElementById("loc").value +
-      "%20Lat:" +
-      localat +
-      "%20Lon:" +
-      localon +
-      "%20"),
+
     setInterval("logactivity()", 36e5),
     (vbasic || vbasice) &&
       ((document.getElementById("cal").style.visibility = "hidden"),
@@ -4693,61 +4568,39 @@ function donate() {
     );
   });
 
-async function jBeep(a) {
-  if (!a) a = "Beep.wav"; 
-  //"jBeep/jBeep.wav";
-  var b, c, d;
-  d = true;
-  try {
-    if (typeof document.createElement("audio").play == "undefined") d = false;
-  } catch (e) {
-    d = false;
-  }
-  c = document.getElementsByTagName("body")[0];
-  if (!c) c = document.getElementsByTagName("html")[0];
-  b = document.getElementById("jBeep");
-  if (b) c.removeChild(b);
-  
-  var srcAudio = audioSrcUrl[`${a.slice(0, -4)}`];
 
-  if (d) {
+async function jBeep(a = "Beep.wav") {
+    const c = document.body || document.documentElement;
+    const existing = document.getElementById("jBeep");
+    if (existing) existing.remove();
 
-    b = document.createElement("audio");
-    b.setAttribute("id", "jBeep");
-    b.setAttribute("src", srcAudio);
-    b.setAttribute("autoplay", "true");
-
-    document.body.appendChild(b);
-
-    await b.play().catch(err => {
-          console.error("Playback failed:", err);
-      });
-
-  } else if (navigator.userAgent.toLowerCase().indexOf("msie") > -1) {
-    b = document.createElement("bgsound");
-    b.setAttribute("id", "jBeep");
-    b.setAttribute("loop", 1);
-    b.setAttribute("src", srcAudio);
-    c.appendChild(b);
-  } else {
-    var f;
-    b = document.createElement("object");
-    b.setAttribute("id", "jBeep");
-    b.setAttribute("type", "audio/wav");
-    b.setAttribute("style", "display:none;");
-    b.setAttribute("data", srcAudio);
-    f = document.createElement("param");
-    f.setAttribute("name", "autostart");
-    f.setAttribute("value", "false");
-    b.appendChild(f);
-    c.appendChild(b);
-    try {
-      b.Play();
-    } catch (e) {
-      b.object.Play();
+    const srcAudio = audioSrcUrl[a.slice(0, -4)];
+    if (!srcAudio) {
+        console.warn(`Audio source not found for key: ${a}`);
+        return;
     }
-  }
+
+    const audioSupport = typeof Audio !== "undefined" && typeof Audio.prototype.play === "function";
+    if (!audioSupport) {
+        console.warn("Audio playback is not supported in this browser.");
+        return;
+    }
+
+    const b = document.createElement("audio");
+    b.id = "jBeep";
+    b.src = srcAudio;
+    b.autoplay = true;
+    b.style.display = "none";
+
+    c.appendChild(b);
+
+    try {
+        await b.play();
+    } catch (err) {
+        console.error("Playback failed:", err);
+    }
 }
+
 function jsDraw2DX() {}
 jsDraw2DX._RefID = 0;
 jsDraw2DX._isVML = false;
